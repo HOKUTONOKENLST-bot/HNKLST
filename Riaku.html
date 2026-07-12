@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIAKU DEL MARE - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --riaku-blue: #0077c2; /* Colore tema per il mare di Riaku */
+            --riaku-aqua: #00c2cb; /* Colore acquatico per la sua fluidità */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #0a140f 0%, #050505 100%);
+            border: 4px solid var(--riaku-blue); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(0, 119, 194, 0.3);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--riaku-blue);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--riaku-blue), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: white;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--riaku-blue);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ccc;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border: 1px solid #444;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #222; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--riaku-blue), var(--riaku-aqua));
+            height: 100%;
+            box-shadow: 0 0 15px var(--riaku-blue);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: #eee;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--riaku-blue); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+<img src="IMG/Riaku1.png" alt="Shuren">
+            <!-- Sostituisci "IMG/Shuren1.png" con il percorso reale dell'immagine di Shuren -->
+            <!-- Assicurati che l'immagine sia ad alta risoluzione e si adatti bene a un orientamento verticale -->
+
+            
+        </div>
+
+        <div class="profile-info">
+            <h1>RIAKU</h1>
+            <div class="rank">Il Demone del Mare</div>
+            
+            <p class="bio">
+                Un maestro dell'arte marziale "Nanto Goshasei", temuto per la sua incredibile agilità e la sua capacità di muoversi come l'acqua. Riaku del Mare è un avversario astuto e spietato, capace di prevedere i movimenti nemici e di colpire con la precisione di un dardo marino. Il suo spirito combattivo è indomito e la sua fedeltà incrollabile.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>VELOCITÀ</span> <span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>FORZA FISICA</span> <span>75%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 75%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>TECNICA MARZIALE</span> <span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

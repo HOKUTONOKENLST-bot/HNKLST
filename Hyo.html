@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYO - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hyo-purple: #4b0082;   /* Viola regale e oscuro */
+            --hyo-blood: #a50000;    /* Rosso cremisi per l'aura dei demoni */
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #180020 0%, #050505 100%);
+            border: 4px solid var(--hyo-purple); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(75, 0, 130, 0.4);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--hyo-purple);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: saturate(1.2) contrast(1.1);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(75, 0, 130, 0.8));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--hyo-purple), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: #d1b3ff;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--hyo-blood);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(30, 0, 40, 0.6);
+            padding: 25px;
+            border: 1px solid #444;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #111; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--hyo-purple), var(--hyo-blood));
+            height: 100%;
+            box-shadow: 0 0 15px var(--hyo-blood);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: #fff;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hyo-blood);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--hyo-purple); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Hyo1.png" alt="Hyo">
+        </div>
+
+        <div class="profile-info">
+            <h1>HYO</h1>
+            <div class="rank">Il Generale dei Demoni</div>
+            
+            <p class="bio">
+                Diviso tra il retaggio di un legame fraterno perduto e la malvagità che ha infettato il suo spirito, Hyo combatte con la consapevolezza di chi è destinato alla tragedia. Maestro di tecniche letali, la sua presenza sul campo di battaglia è un presagio di sventura. Sotto la sua corazza batte il cuore di un guerriero che attende solo di trovare, finalmente, la pace.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>POTERE DEMONIACO</span> <span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>ABILITÀ TECNICA</span> <span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>EQUILIBRIO EMOTIVO</span> <span>40%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 40%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Mosse Personaggi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at top center, #2a0000 0%, #050505 80%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        .container { 
+            position: relative; 
+            z-index: 10; 
+            text-align: center; 
+            padding: 40px 20px 80px 20px; 
+            width: 100%; 
+            max-width: 1350px; 
+        }
+
+        h1 { 
+            font-size: clamp(2.5rem, 8vw, 4.5rem); 
+            margin: 20px 0; 
+            color: white; 
+            text-shadow: 0 0 20px var(--hokuto-blue); 
+            letter-spacing: 5px; 
+            animation: shake 0.5s infinite alternate; 
+        }
+
+        .btn-back {
+            display: inline-flex;
+            text-decoration: none;
+            color: white;
+            background: #111;
+            border: 2px solid white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            margin-bottom: 30px;
+        }
+        .btn-back:hover {
+            background: white;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* --- STILE ACCORDION --- */
+        .character-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .accordion {
+            background-color: #111;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 2rem;
+            font-family: 'Bangers', cursive;
+            transition: 0.4s;
+            clip-path: polygon(1% 0, 100% 0, 99% 100%, 0 100%);
+            border-left: 5px solid var(--hokuto-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+
+        .accordion:hover, .accordion.active {
+            background-color: var(--hokuto-red);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .accordion.nanto { border-left-color: var(--hokuto-gold); }
+        .accordion.nanto:hover, .accordion.nanto.active { background-color: var(--hokuto-gold); color: black; text-shadow: none; }
+
+        .accordion::after { content: '\002B'; font-size: 2rem; color: white; margin-left: 5px; }
+        .accordion.active::after { content: "\2212"; }
+        .accordion.nanto:hover::after, .accordion.nanto.active::after { color: black; }
+
+        .panel {
+            padding: 0;
+            background-color: transparent;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out;
+            margin-top: -10px;
+        }
+
+        .panel.show {
+            max-height: 2000px;
+        }
+
+        .move-sheet-container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 20px auto;
+            background-color: #000;
+            border: 3px solid var(--hokuto-red);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1280 / 768; 
+        }
+
+        .nanto + .panel .move-sheet-container {
+            border-color: var(--hokuto-gold);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+        }
+
+        .move-sheet-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: filter 0.3s;
+        }
+
+        .move-sheet-container img:hover {
+            filter: brightness(1.15);
+        }
+
+        .placeholder-text {
+            color: #555;
+            font-family: sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        @keyframes shake { 0% { transform: skewX(-1deg); } 100% { transform: skewX(1deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MOSSE DEI PERSONAGGI</h1>
+        
+        <a href="gioco.html" class="btn-back">&#9664; TORNA INDIETRO</a>
+
+        <div class="character-list">
+            
+            <!-- KENSHIRO -->
+            <button class="accordion">KENSHIRO (PRIMA SERIE)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/kenshiro1mosse.png" alt="Mosse Kenshiro1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Kenshiro)</span>
+                </div>
+            </div>
+
+            <!-- TOKI -->
+            <button class="accordion">TOKI (MAESTRO DI HOKUTO)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Tokimosse.png" alt="Mosse Toki" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Toki)</span>
+                </div>
+            </div>
+
+            <!-- RAUL -->
+            <button class="accordion">RAUL (Re di Hokuto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Raulredihokuto.png" alt="Mosse Raul" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Raul Re di Hokuto)</span>
+                </div>
+            </div>
+
+            <!-- JAGGER -->
+            <button class="accordion">JAGGER (Hokuto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Jaggermosse.png" alt="Mosse Jagger" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Jagger)</span>
+                </div>
+            </div>
+
+            <!-- SHIN -->
+            <button class="accordion nanto">SHIN (Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Shinmosse.png" alt="Mosse Shin" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Shin)</span>                
+                </div>
+            </div>
+<!-- REI -->
+            <button class="accordion nanto">REI (Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Reimosse.png" alt="Mosse Rei" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Rei)</span>                
+                </div>
+
+                    </div>
+<!--YUDA -->
+            <button class="accordion nanto">YUDA (Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Yudamosse.png" alt="Mosse Yuda" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Yuda)</span>                
+                </div>
+
+                    </div>
+<!--SOUTHER -->
+            <button class="accordion nanto">SOUTHER (Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Southermosse.png" alt="Mosse Souther" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Souther)</span>                
+                </div>
+
+                    </div>
+<!--RYUKEN -->
+            <button class="accordion hokuto">RYUKEN (Maestro di Hokuto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Ryukenmosse.png" alt="Mosse Ryuken" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Ryuken)</span>                
+                </div>
+
+                    </div>
+<!--KORYU -->
+            <button class="accordion hokuto">KORYU (Hokuto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Koryumosse.png" alt="Mosse Koryu" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Koryu)</span>                
+                </div>
+
+                    </div>
+<!--OGAI -->
+            <button class="accordion nanto">OGAI (Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Ogaimosse.png" alt="Mosse Ogai" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Ogai)</span>                
+                </div>
+
+                    </div>
+
+<!--GARENKI -->
+            <button class="accordion nanto">GARENKI (Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Garenkimosse.png" alt="Garenki" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Garenki)</span>                
+                </div>
+
+                    </div>
+<!--ZETA -->
+            <button class="accordion">ZETA ()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Zetamosse.png" alt="Mosse Zeta" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Zeta)</span>                
+                </div>
+
+                    </div>
+<!--PADRE COBRA -->
+            <button class="accordion">Padre Cobra ()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/PadreCobramosse.png" alt="Mosse Padre Cobra" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Padre Cobra)</span>                
+                </div>
+
+                    </div>
+<!--MADARA -->
+            <button class="accordion nanto">MADARA ()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Madaramosse.png" alt="Mosse Madara" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Madara)</span>                
+                </div>
+
+                    </div>
+<!--WIGGLE -->
+            <button class="accordion nanto">WIGGLE ()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Wigglemosse.png" alt="Mosse Wiggle" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Wiggle)</span>                
+                </div>
+
+                    </div> 
+<!--LAIGA & FUGA -->
+            <button class="accordion">LAIGA E FUGA ()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/LaigaFugamosse.png" alt="Mosse Laiga E Fuga" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Laiga E Fuga)</span>                
+                </div>
+                    </div>   
+<!--SORYA -->
+            <button class="accordion cento">SORYA (Cento)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Soryamosse.png" alt="Mosse Sorya" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Sorya)</span>                
+                </div>
+
+                    </div>
+<!--JUKEY -->
+            <button class="accordion cento">JUKEY (Arte Demoniaca)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Jukeymosse.png" alt="Mosse Jukey" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Jueky)</span>                
+                </div>
+
+                    </div>
+<!--JUKEY DEMONE -->
+            <button class="accordion cento">JUKEY DEMONE(Arte Demoniaca)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Jukeydemonemosse.png" alt="Mosse Jukey Demone" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Jueky Demone)</span>                
+                </div>
+
+                    </div>
+<!--YASHA -->
+            <button class="accordion cento">YASHA(Arte Demoniaca)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Yashamosse.png" alt="Mosse Yasha" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Yasha)</span>                
+                </div>
+
+                    </div>
+<!--RYUGA -->
+            <button class="accordion">RYUGA()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Ryugamosse.png" alt="Mosse Ryuga" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Ryuga)</span>                
+                </div>
+
+                    </div>
+<!--JUZA DELLE NUVOLE -->
+            <button class="accordion nanto">JUZA DELLE NUVOLE(5 Forze di Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Juzamosse.png" alt="Mosse Juza delle nuvole" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Juza)</span>                
+                </div>
+
+                    </div>
+<!--WEIN -->
+            <button class="accordion nanto">WEIN(5 Forze di Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Weinmosse.png" alt="Mosse Wein" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Wein)</span>                
+                </div>
+
+                    </div>
+<!--SHUREN -->
+            <button class="accordion nanto">SHUREN(5 Forze di Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Shurenmosse.png" alt="Mosse Shuren" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Shuren)</span>                
+                </div>
+
+                    </div>
+<!--RIAKU -->
+            <button class="accordion nanto">RIAKU(5 Forze di Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Riakumosse.png" alt="Mosse Ryaku" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Riaku)</span>                
+                </div>
+
+                    </div>
+<!--FUDO -->
+            <button class="accordion nanto">FUDO(5 Forze di Nanto)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Fudomosse.png" alt="Mosse Fudo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Fudo)</span>                
+                </div>
+
+                    </div>
+<!--KOGURE -->
+            <button class="accordion">KOGURE()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Koguremosse.png" alt="Mosse Ryaku" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Kogure)</span>                
+                </div>
+
+                    </div>
+<!--BELLA -->
+            <button class="accordion">BELLA(Montagna Rossa)</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Bellamosse.png" alt="Mosse Bella" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Bella)</span>                
+                </div>
+
+                    </div>
+<!--BALKOM -->
+            <button class="accordion">BALMOK()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Balkommosse.png" alt="Mosse Balkom" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Balkom)</span>                
+                </div>
+
+                    </div>
+<!--SEIJI -->
+            <button class="accordion">SEIJI()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Seijimosse.png" alt="Mosse Seiji" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Seiji)</span>                
+                </div>
+
+                    </div>
+<!--BARRAN -->
+            <button class="accordion">BARRAN()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Barranmosse.png" alt="Mosse Barran" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Barran)</span>                
+                </div>
+
+                    </div>
+<!--BORGE -->
+            <button class="accordion">BORGE()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Borgemosse.png" alt="Mosse Borge" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Borge)</span>                
+                </div>
+
+                    </div>
+<!--BELLA -->
+            <button class="accordion">COLONNELLO()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Colonnellomosse.png" alt="Mosse Colonnello" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Colonnello)</span>                
+                </div>
+
+                    </div>
+<!--DEVIL -->
+            <button class="accordion">DEVIL()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Devilmosse.png" alt="Mosse Devil" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Devil)</span>                
+                </div>
+
+                    </div>
+<!--MAMYIA -->
+            <button class="accordion">MAMYIA()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Mamyiamosse.png" alt="Mosse Mamyia" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Mamyia)</span>                
+                </div>
+
+                    </div>
+<!--GLENN -->
+            <button class="accordion">GLENN()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Glennmosse.png" alt="Mosse Glenn" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Glenn)</span>                
+                </div>
+
+                    </div>
+<!--AMIBA-->
+            <button class="accordion">AMIBA()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Amibamosse.png" alt="Mosse Amiba" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Amiba)</span>                
+                </div>
+
+                    </div>
+<!--JOLLY -->
+            <button class="accordion">JOLLY()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Jollymosse.png" alt="Mosse Jolly" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Jolly)</span>                
+                </div>
+
+                    </div>
+<!--SUNAGUMO -->
+            <button class="accordion">SUNAGUMO()</button>
+            <div class="panel">
+                <div class="move-sheet-container">
+                    <img src="IMG/Sunagumomosse.png" alt="Mosse Sunagumo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="placeholder-text" style="display:none;">IMMAGINE 1280x768 DA INSERIRE<br>(Sunagumo)</span>                
+                </div>
+
+                    </div>
+</div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                panel.classList.toggle("show");
+            });
+        }
+    </script>
+</body>
+</html>

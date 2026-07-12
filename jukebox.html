@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Hokuto - Jukebox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #1c0505 0%, #050505 100%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .jukebox-header {
+            background: linear-gradient(90deg, #b38f00, #ffcc00);
+            color: black;
+            padding: 10px;
+            font-size: 1.4rem;
+            text-align: center;
+            border-radius: 5px;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+        }
+
+        .now-playing {
+            padding: 15px 10px;
+            text-align: center;
+            border-bottom: 1px dashed var(--hokuto-gold);
+        }
+
+        .now-playing p {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            color: #aaa;
+            text-transform: none;
+        }
+
+        .now-playing h3 {
+            margin: 5px 0 10px 0;
+            color: var(--hokuto-gold);
+            font-size: 1.4rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+        }
+
+        /* --- MINI EQUALIZZATORE GRAFICO --- */
+        .visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            height: 35px;
+            margin-top: 5px;
+        }
+        .bar {
+            width: 5px;
+            background: var(--hokuto-gold);
+            border-radius: 3px;
+            animation: bounce 1.2s ease-in-out infinite alternate;
+            height: 8px;
+        }
+        .bar:nth-child(2) { animation-delay: 0.2s; background: var(--hokuto-red); }
+        .bar:nth-child(3) { animation-delay: 0.4s; }
+        .bar:nth-child(4) { animation-delay: 0.1s; background: var(--hokuto-red); }
+        .bar:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes bounce {
+            0% { height: 6px; }
+            100% { height: 30px; }
+        }
+        .paused .bar {
+            animation-play-state: paused;
+        }
+
+        /* --- CONTROLLI --- */
+        .juke-controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            padding: 10px;
+        }
+
+        .juke-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .juke-btn:hover {
+            color: var(--hokuto-red);
+            transform: scale(1.15);
+        }
+
+        /* --- PLAYLIST --- */
+        .playlist-container-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid #222;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .playlist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            text-transform: none;
+        }
+
+        .playlist li {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #111;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playlist li:hover {
+            background: rgba(255, 0, 0, 0.15);
+        }
+
+        .playlist li.active-track {
+            color: var(--hokuto-gold);
+            font-weight: bold;
+            background: rgba(255, 204, 0, 0.08);
+            border-left: 4px solid var(--hokuto-gold);
+        }
+    </style>
+</head>
+<body class="paused" id="body-player">
+
+    <audio id="bgMusic"></audio>
+
+    <div class="jukebox-header">
+        RADIO HOKUTO
+    </div>
+    
+    <div class="now-playing">
+        <p>In riproduzione:</p>
+        <h3 id="track-title">Seleziona una traccia</h3>
+        
+        <!-- Equalizzatore grafico -->
+        <div class="visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="juke-controls">
+        <button class="juke-btn" onclick="prevTrack()">⏮</button>
+        <button class="juke-btn" id="play-pause-btn" onclick="togglePlayPause()">▶</button>
+        <button class="juke-btn" onclick="nextTrack()">⏭</button>
+    </div>
+
+    <div class="playlist-container-box">
+        <ul class="playlist" id="playlist-container">
+            <!-- Autogenerata via JS -->
+        </ul>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById("bgMusic");
+        const trackTitleDisplay = document.getElementById("track-title");
+        const playPauseBtn = document.getElementById("play-pause-btn");
+        const playlistContainer = document.getElementById("playlist-container");
+        const bodyPlayer = document.getElementById("body-player");
+
+        const tracks = [
+            { title: "Hokuto LST - Main Theme", src: "media/soundtrack.mp3" },
+            { title: "Tough Boy", src: "media/Tough Boy.mp3" },
+            { title: "Love Song ", src: "media/Love Song.mp3" },
+            { title: "Kill The Fight ", src: "media/Kill The Fight.mp3" },
+            { title: "Wind & Rain ", src: "media/Wind & Rain.mp3" },
+            { title: "Silent Survivor ", src: "media/Silent Survivor.mp3" },
+            { title: "Dry your Tears ", src: "media/Dry your Tears.mp3" },
+            { title: "Heart of Madness ", src: "media/Heart of Madness.mp3" },
+            { title: "Purple Eyes ", src: "media/Purple Eyes.mp3" },
+            { title: "Ken hokutosei ", src: "media/Ken hokutosei.mp3" },
+            { title: "Purple Eyes ITA ", src: "media/Purple Eyes (GREEN NOIZE) ITA.mp3" },
+            { title: "YURIA EIEN NI ITA ", src: "media/YURIA EIEN NI ITA (JOE MANETTA).mp3" }
+        ];
+
+        let currentTrackIndex = 0;
+
+        function loadPlaylist() {
+            playlistContainer.innerHTML = "";
+            tracks.forEach((track, index) => {
+                let li = document.createElement("li");
+                li.innerText = track.title;
+                li.onclick = () => playTrack(index);
+                if (index === currentTrackIndex) li.classList.add("active-track");
+                playlistContainer.appendChild(li);
+            });
+        }
+
+        function playTrack(index) {
+            currentTrackIndex = index;
+            audioPlayer.src = tracks[currentTrackIndex].src;
+            audioPlayer.play().then(() => {
+                bodyPlayer.classList.remove("paused");
+                playPauseBtn.innerText = "⏸";
+            }).catch(e => console.log("Errore riproduzione:", e));
+            
+            trackTitleDisplay.innerText = tracks[currentTrackIndex].title;
+            
+            document.querySelectorAll(".playlist li").forEach((li, i) => {
+                if (i === index) li.classList.add("active-track");
+                else li.classList.remove("active-track");
+            });
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                if(!audioPlayer.src) {
+                    playTrack(currentTrackIndex);
+                } else {
+                    audioPlayer.play();
+                }
+                bodyPlayer.classList.remove("paused");
+                playPauseBtn.innerText = "⏸";
+            } else {
+                audioPlayer.pause();
+                bodyPlayer.classList.add("paused");
+                playPauseBtn.innerText = "▶";
+            }
+        }
+
+        function nextTrack() {
+            let nextIndex = (currentTrackIndex + 1) % tracks.length;
+            playTrack(nextIndex);
+        }
+
+        function prevTrack() {
+            let prevIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            playTrack(prevIndex);
+        }
+
+        audioPlayer.addEventListener("ended", nextTrack);
+
+        // All'avvio della finestrella pop-up parte in automatico la prima traccia
+        loadPlaylist();
+        playTrack(0);
+    </script>
+</body>
+</html>

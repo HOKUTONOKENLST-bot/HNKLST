@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROSTER LST - Personaggi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 20px 0;
+            text-shadow: 0 0 20px var(--hokuto-red);
+            animation: title-glow 2s infinite alternate;
+            text-align: center;
+        }
+
+        @keyframes title-glow {
+            from { text-shadow: 0 0 15px var(--hokuto-red); transform: scale(1); }
+            to { text-shadow: 0 0 35px var(--hokuto-red), 0 0 10px white; transform: scale(1.02); }
+        }
+
+        /* GRIGLIA CONTENITORE */
+        .char-grid {
+            display: grid;
+            /* La larghezza base è 200px. Il 1fr permette alla griglia di adattarsi agli schermi grandi */
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 25px;
+            width: 95%;
+            max-width: 1200px;
+            padding: 25px;
+            background: rgba(15, 15, 15, 0.9);
+            border: 4px solid #222;
+            box-shadow: inset 0 0 50px #000;
+        }
+
+        /* Reset link per non disturbare il layout della griglia */
+        .char-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .char-card {
+            /* MODIFICATO: ora imposta la proporzione rettangolare esatta di 200 larghezza per 240 altezza */
+            aspect-ratio: 200 / 240; 
+            background: #1a1a1a;
+            border: 3px solid #333;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .char-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* object-position: top; */ /* Scommenta questa riga se le teste vengono tagliate in alto */
+            filter: grayscale(40%);
+            transition: 0.4s;
+        }
+
+        .char-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(255, 0, 0, 0.9), rgba(255, 0, 0, 0.6));
+            color: white;
+            font-size: 1.6rem;
+            padding: 8px 0;
+            text-align: center;
+            transform: translateY(100%);
+            transition: 0.3s ease-in-out;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        /* Effetti Hover */
+        .char-card:hover {
+            border-color: var(--hokuto-gold);
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 0 30px var(--hokuto-red);
+        }
+
+        .char-card:hover img {
+            filter: grayscale(0%) brightness(1.1);
+        }
+
+        .char-card:hover .char-name {
+            transform: translateY(0);
+        }
+
+        .back-btn {
+            margin: 40px 0;
+            text-decoration: none;
+            color: black;
+            background: var(--hokuto-gold);
+            padding: 12px 50px;
+            font-size: 1.8rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: white;
+            transform: scale(1.1) skewX(-5deg);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="page-title">PERSONAGGI</h1>
+
+    <div class="char-grid">
+        <a href="kenshiro.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/kenshiro1.png" alt="Kenshiro">
+                <div class="char-name">KENSHIRO</div>
+            </div>
+        </a>
+
+        <a href="Toki.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Toki1.png" alt="Toki">
+                <div class="char-name">TOKI</div>
+            </div>
+        </a>
+
+        <!-- Corretto il nome in basso da TOKI a RAUL -->
+        <a href="Raul.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Raul1.png" alt="Raul">
+                <div class="char-name">RAUL</div> 
+            </div>
+        </a>
+
+        <a href="Jagger.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Jagger1.png" alt="Jagger">
+                <div class="char-name">JAGGER</div>
+            </div>
+        </a>
+
+        <a href="Shin.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Shin1.png" alt="Shin">
+                <div class="char-name">SHIN</div>
+            </div>
+        </a>
+
+        <!-- Aggiunto link anche a Rei -->
+        <a href="Rey.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Rey.png" alt="Rei">
+                <div class="char-name">REI</div>
+            </div>
+        </a>
+
+        <!-- Aggiunto link anche a Yuda -->
+        <a href="Yuda.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Yuda.png" alt="Souther">
+                <div class="char-name">YUDA</div>
+            </div>
+        </a>
+
+        <!-- Aggiunto link anche a Shu -->
+        <a href="Shu.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Shu.png" alt="Shu">
+                <div class="char-name">SHU</div>
+            </div>
+        </a>
+    
+               <!-- Aggiunto link anche a Souther -->
+        <a href="Souther.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Souther.png" alt="Souther">
+                <div class="char-name">SOUTHER</div>
+            </div>
+        </a>
+    
+        <!-- Aggiunto link anche a Ryuken -->
+        <a href="Ryuken.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Ryuken.png" alt="Ryuken">
+                <div class="char-name">RYUKEN</div>
+            </div>
+        </a>
+
+ <!-- Aggiunto link anche a Koryu -->
+        <a href="Koryu.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Koryu.png" alt="Koryu">
+                <div class="char-name">KORYU</div>
+            </div>
+        </a>
+
+<!-- Aggiunto link anche a Ogai -->
+        <a href="Ogai.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Ogai.png" alt="Ogai">
+                <div class="char-name">OGAI</div>
+            </div>
+        </a>
+
+<!-- Aggiunto link anche a Jukei -->
+        <a href="Jukei.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Jukei.png" alt="Ogai">
+                <div class="char-name">JUKEI</div>
+            </div>
+        </a>
+
+<!-- Aggiunto link anche a Zeta -->
+        <a href="Garenki.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Garenki.png" alt="Ogai">
+                <div class="char-name">GARENKI</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a Zeta -->
+        <a href="Zeta.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Zeta.png" alt="Ogai">
+                <div class="char-name">ZETA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a PadreCobra -->
+        <a href="PadreCobra.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/PadreCobra.png" alt="Ogai">
+                <div class="char-name">PADRE COBRA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a Madara -->
+        <a href="Madara.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Madara.png" alt="Ogai">
+                <div class="char-name">MADARA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a Wiggle -->
+        <a href="Wiggle.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Wiggle.png" alt="Ogai">
+                <div class="char-name">WIGGLE</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a LaigaEFuga -->
+        <a href="Laigaefuga.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/LaigaEFuga.png" alt="Ogai">
+                <div class="char-name">LAIGA E FUGA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a FALCO -->
+        <a href="Falco.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Falco.png" alt="Ogai">
+                <div class="char-name">FALCO</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SORYA -->
+        <a href="Sorya.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Sorya.png" alt="Sorya">
+                <div class="char-name">SORYA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a GLENN -->
+        <a href="Glenn.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Glenn.png" alt="Glenn">
+                <div class="char-name">GLENN</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SCIACALLO&DEVIL -->
+        <a href="Sciacallo&Devil.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Sciacallo&devil.png" alt="Sciacallo&Devil">
+                <div class="char-name">SCIACALLO&DEVIL</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a MAMYIA -->
+        <a href="Mamyia.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Mamyia.png" alt="Mamyia">
+                <div class="char-name">MAMIYA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a AMIBA -->
+        <a href="Amiba.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Amiba.png" alt="Amiba">
+                <div class="char-name">AMIBA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a IL COLONNELLO -->
+        <a href="Colonnello.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Colonnello.png" alt="Colonnello">
+                <div class="char-name">IL COLONNELLO</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a JOLLY -->
+        <a href="Jolly.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Jolly.png" alt="Colonnello">
+                <div class="char-name">JOLLY</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SUNAGUMO -->
+        <a href="Sunagumo.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Sunagumo.png" alt="Sunagumo">
+                <div class="char-name">SUNAGUMO</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a YASHA -->
+        <a href="Yasha.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Yasha.png" alt="Yasha">
+                <div class="char-name">YASHA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a RYUGA -->
+        <a href="Ryuga.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Ryuga.png" alt="Ryuga">
+                <div class="char-name">RYUGA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a JUZA DELLE NUVOLE -->
+        <a href="Juza.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Juza.png" alt="Juza">
+                <div class="char-name">JUZA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a WEIN -->
+        <a href="Wein.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Wein.png" alt="Wein">
+                <div class="char-name">WEIN</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SHUREN -->
+        <a href="SHUREN.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Shuren.png" alt="Shuren">
+                <div class="char-name">SHUREN</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SHUREN -->
+        <a href="RIAKU.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Riaku.png" alt="Riaku">
+                <div class="char-name">RIAKU</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SHUREN -->
+        <a href="Fudo.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Fudo.png" alt="Fudo">
+                <div class="char-name">FUDO</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a BELLA -->
+        <a href="Bella.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Bella.png" alt="Bella">
+                <div class="char-name">BELLA</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a BALKOM -->
+        <a href="Balkom.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Balkom.png" alt="Balkom">
+                <div class="char-name">BALKOM</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a SEIJI -->
+        <a href="Seiji.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Seiji.png" alt="Seiji">
+                <div class="char-name">SEIJI</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a BARRAN -->
+        <a href="Barran.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Barran.png" alt="Barran">
+                <div class="char-name">BARRAN</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a BORGE -->
+        <a href="Borge.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Borge.png" alt="Borge">
+                <div class="char-name">BORGE</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a RONN -->
+        <a href="Ronn.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Ronn.png" alt="Ronn">
+                <div class="char-name">RONN</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a HYO -->
+        <a href="Hyo.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Hyo.png" alt="Hyo">
+                <div class="char-name">Hyo</div>
+            </div>
+        </a>
+<!-- Aggiunto link anche a KAIO -->
+        <a href="Kaio.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Kaio.png" alt="Kaioh">
+                <div class="char-name">Kaio</div>
+            </div>
+        </a>
+
+<!-- Aggiunto link anche a Ain -->
+        <a href="Ain.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/Ain.png" alt="Ain">
+                <div class="char-name">Ain</div>
+            </div>
+        </a>
+
+<!-- Aggiunto link anche a Ain -->
+        <a href="PirataRosso.html" class="char-link">
+            <div class="char-card">
+                <img src="IMG/PirataRosso.png" alt="Ain">
+                <div class="char-name">Ain</div>
+            </div>
+        </a>
+
+</div> 
+
+
+</div>
+
+    <a href="gioco.html" class="back-btn">TORNA ALLA INFO</a>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+[autorun]
+label=HOKUTO NO KEN LST
+shellexecute=AVVIA_HOKUTO.vbs
+icon=icona.ico

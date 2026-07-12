@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* --- BACKGROUND & STARS --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            z-index: -1;
+        }
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 8px white; opacity: 0.5; }
+        .hokuto-star { background: var(--hokuto-red); box-shadow: 0 0 15px var(--hokuto-red); animation: twinkle 2s infinite alternate; }
+
+        /* --- LOGO --- */
+        .team-logo {
+            position: absolute;
+            top: 20px; left: 20px;
+            width: clamp(80px, 10vw, 120px);
+            z-index: 100;
+            filter: drop-shadow(0 0 10px var(--hokuto-red));
+            animation: pulse-logo 3s infinite ease-in-out;
+        }
+
+        /* --- CONTATORE VISITE --- */
+        .counter-container {
+            margin-top: 40px; margin-bottom: 20px; font-size: 1.5rem; color: var(--hokuto-gold);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); background: rgba(20, 0, 0, 0.8);
+            padding: 10px 20px; border: 2px solid var(--hokuto-red); border-radius: 5px;
+            display: inline-block; box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        #visite-count { color: white; font-family: monospace; font-size: 1.8rem; text-shadow: 0 0 15px var(--hokuto-red), 0 0 30px var(--hokuto-red); letter-spacing: 3px; }
+
+        /* --- MAIN CONTAINER --- */
+        .container { position: relative; z-index: 10; text-align: center; padding: 40px 20px 80px 20px; width: 100%; max-width: 900px; }
+        h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 20px 0; color: white; text-shadow: 0 0 20px var(--hokuto-red); letter-spacing: 5px; animation: shake 0.5s infinite alternate; }
+
+        /* --- SLIDESHOW --- */
+        .glow-wrapper { position: relative; width: 100%; max-width: 600px; aspect-ratio: 16 / 9; margin: 0 auto 30px auto; padding: 6px; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.8); overflow: hidden; border-radius: 8px; }
+        .glow-wrapper::before { content: ''; position: absolute; width: 200%; height: 200%; background: conic-gradient(transparent, var(--hokuto-red), var(--hokuto-gold), transparent, transparent, var(--hokuto-red), transparent); animation: rotateGlow 4s linear infinite; }
+        .slideshow-container { position: relative; width: 100%; height: 100%; background: #000; z-index: 2; overflow: hidden; border-radius: 4px; }
+        .mySlides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; }
+        .mySlides.active { opacity: 1; }
+
+        /* --- GRID BOTTONI --- */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 600px; margin: 0 auto; }
+        .btn { text-decoration: none; color: white; transition: 0.3s; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 1.4rem; }
+        .btn-play { grid-column: span 2; font-size: 2.2rem; background: linear-gradient(45deg, #800000, #ff4500); border: 2px solid var(--hokuto-gold); box-shadow: 0 0 15px rgba(255, 69, 0, 0.5); }
+        .btn-install { background: #111; border: 2px solid var(--hokuto-red); }
+        .btn-update { background: #111; border: 2px solid var(--hokuto-blue); }
+        .btn-quiz { background: #111; border: 2px solid var(--hokuto-gold); }
+        .btn-announcer { background: #111; border: 2px solid var(--hokuto-purple); }
+        .btn:hover { transform: scale(1.05); filter: brightness(1.3); }
+        .btn-play:hover { background: var(--hokuto-gold); color: black; }
+
+        /* --- SEZIONE VIDEO (DIRETTI SENZA YOUTUBE) --- */
+        .video-section {
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(10, 0, 0, 0.85);
+            border: 2px solid var(--hokuto-red);
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+        .video-section h2 {
+            color: var(--hokuto-gold);
+            text-shadow: 0 0 10px var(--hokuto-red);
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+        .video-wrapper {
+            border-radius: 6px;
+            border: 2px solid #222;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            background: #000;
+            line-height: 0;
+        }
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .video-item {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            box-sizing: border-box;
+        }
+        .video-item h3 {
+            font-size: 1.3rem;
+            color: var(--hokuto-gold);
+            margin: 5px 0;
+        }
+        .video-item p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin: 0;
+            text-transform: none;
+            font-family: sans-serif;
+            line-height: 1.3;
+        }
+
+        .footer-links { margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .btn-sub { color: #888; text-decoration: none; transition: 0.3s; font-size: 1.1rem; }
+        .btn-sub:hover { color: white; text-shadow: 0 0 10px white; }
+
+        /* --- PULSANTE PAYPAL PERSONALIZZATO --- */
+        .btn-paypal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #00457c, #0079c1);
+            color: white;
+            text-decoration: none;
+            font-family: 'Bangers', cursive, sans-serif;
+            font-size: 1.3rem;
+            padding: 10px 30px;
+            border: 2px solid var(--hokuto-gold);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(0, 121, 193, 0.4);
+            letter-spacing: 1px;
+        }
+        .btn-paypal:hover {
+            transform: scale(1.05);
+            background: var(--hokuto-gold);
+            color: black;
+            box-shadow: 0 0 20px var(--hokuto-gold);
+            border-color: white;
+        }
+        .paypal-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* --- MARQUEE --- */
+        .marquee-container { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(139, 0, 0, 0.4); border-top: 2px solid var(--hokuto-red); padding: 10px 0; overflow: hidden; z-index: 100; }
+        .marquee-text { display: inline-block; white-space: nowrap; font-size: 1.5rem; color: var(--hokuto-gold); animation: scroll-text 25s linear infinite; }
+
+        /* =========================================
+           STILE CHAT FLUTTUANTE (DESTRA)
+           ========================================= */
+        #chat-toggle-btn { position: fixed; bottom: 65px; right: 20px; background: var(--hokuto-red); color: white; padding: 15px 20px; border: 2px solid var(--hokuto-gold); border-radius: 30px; font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 0 15px var(--hokuto-red); transition: 0.3s; }
+        #chat-toggle-btn:hover { transform: scale(1.1); background: var(--hokuto-gold); color: black; }
+        #chat-box-container { position: fixed; bottom: 125px; right: 20px; width: 350px; height: 500px; background: rgba(0, 0, 0, 0.95); border: 2px solid var(--hokuto-red); border-radius: 10px; z-index: 999; display: none; flex-direction: column; box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); overflow: hidden; }
+        .chat-header { background: linear-gradient(90deg, #800000, #ff0000); padding: 10px; font-size: 1.2rem; text-align: center; border-bottom: 2px solid var(--hokuto-gold); display: flex; justify-content: space-between; align-items: center; }
+        .close-chat { cursor: pointer; font-size: 1rem; }
+
+        /* =========================================
+           STILE JUKEBOX FLUTTUANTE (SINISTRA)
+           ========================================= */
+        #jukebox-toggle-btn { position: fixed; bottom: 65px; left: 20px; background: #111; color: var(--hokuto-gold); padding: 15px 20px; border: 2px solid var(--hokuto-gold); border-radius: 30px; font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 0 15px rgba(255, 204, 0, 0.5); transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        #jukebox-toggle-btn:hover { transform: scale(1.1); background: var(--hokuto-gold); color: black; }
+
+        /* Animazioni */
+        @keyframes scroll-text { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse-logo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes shake { 0% { transform: skewX(-1deg); } 100% { transform: skewX(1deg); } }
+        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .btn-play { grid-column: span 1; }
+            .team-logo { position: relative; left: 0; margin-bottom: 20px; }
+            
+            #chat-box-container { width: 90%; right: 5%; bottom: 130px; height: 350px; }
+            #chat-toggle-btn { bottom: 65px; right: 10px; padding: 10px; font-size: 1rem; }
+            #jukebox-toggle-btn { bottom: 65px; left: 10px; padding: 10px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="media/logo_team.png" alt="LST Team Logo" class="team-logo">
+
+    <div class="stars-container" id="starsBox"></div>
+
+    <div class="container">
+        <h1>HOKUTO NO KEN LST</h1>
+        
+        <div class="glow-wrapper">
+            <div class="slideshow-container">
+                <img src="media/Img1.png" class="mySlides active">
+                <img src="media/Img2.png" class="mySlides">
+                <img src="media/Img3.png" class="mySlides">
+                <img src="media/Img4.png" class="mySlides">
+                <img src="media/Img5.png" class="mySlides">
+                <img src="media/Img6.png" class="mySlides">
+                <img src="media/Img7.png" class="mySlides">
+                <img src="media/Img8.png" class="mySlides">
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <a href="gioco.html" class="btn btn-play">IL NOSTRO GIOCO</a>
+            <a href="setup/install.exe" class="btn btn-install">DOWNLOAD GIOCO</a>
+            <a href="aggiornamento.html" class="btn btn-update">AGGIORNA</a>
+            <a href="quiz.html" class="btn btn-quiz">QUIZ DI HOKUTO</a>
+            <a href="news.html" class="btn btn-announcer">NOVITÀ</a>
+        </div>
+
+        <!-- SEZIONE VIDEO CON PLAYER LOCALE DIRETTO -->
+        <div class="video-section" id="video-section">
+            <h2>I NOSTRI TRAILER E VIDEO</h2>
+            
+            <!-- VIDEO PRINCIPALE -->
+            <div class="video-wrapper" style="margin-bottom: 30px;">
+                <video controls autoplay muted playsinline poster="media/Schermata_Iniziale.mp4">
+                    <source src="media/Schermata_Iniziale.mp4" type="video/mp4">
+                    Il tuo browser non supporta il tag video.
+                </video>
+            </div>
+
+            <div class="video-grid">
+                <!-- VIDEO 1 DELLA GRIGLIA -->
+                <div class="video-item">
+                    <div class="video-wrapper" style="margin-bottom: 12px;">
+                        <video controls autoplay muted playsinline poster="media/RaulVsShuren.mp4">
+                            <source src="media/RaulVsShuren.mp4" type="video/mp4">
+                            Il tuo browser non supporta il tag video.
+                        </video>
+                    </div>
+                    <h3>GAMEPLAY</h3>
+                    <p></p>
+                </div>
+
+                <!-- VIDEO 2 DELLA GRIGLIA -->
+                <div class="video-item">
+                    <div class="video-wrapper" style="margin-bottom: 12px;">
+                        <video controls autoplay muted playsinline poster="media/video2.mp4">
+                            <source src="media/video2.mp4" type="video/mp4">
+                            Il tuo browser non supporta il tag video.
+                        </video>
+                    </div>
+                    <h3>GAMEPLAY</h3>
+                    <p></p>
+                </div>
+
+                <!-- VIDEO 3 DELLA GRIGLIA -->
+                <div class="video-item">
+                    <div class="video-wrapper" style="margin-bottom: 12px;">
+                        <video controls autoplay muted playsinline poster="media/screen4.jpg">
+                            <source src="media/trailer_3.mp4" type="video/mp4">
+                            Il tuo browser non supporta il tag video.
+                        </video>
+                    </div>
+                    <h3>Developer Diary</h3>
+                    <p>Uno sguardo dietro le quinte della creazione.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="manuale.html" class="btn-sub">MANUALE</a>
+            <a href="https://www.facebook.com/Mikehaggar43/" target="_blank" class="btn-sub">COMMUNITY</a>
+            <a href="community.html" class="btn-sub">SOCIAL</a>
+            <a href="crediti.html" class="btn-sub">CREDITI</a>
+            <a href="mailto:hokutonokenlst@outlook.it?subject=Contatto%20dal%20sito%20Hokuto%20LST" class="btn-sub">CONTATTACI</a>
+        </div>
+
+        <!-- SEZIONE DONAZIONE PAYPAL CON INDIRIZZO REALE -->
+        <div>
+            <a href="https://www.paypal.com" target="_blank" class="btn-paypal">
+                <svg class="paypal-icon" viewBox="0 0 24 24">
+                    <path d="M20.08 7.3c-.32-1.63-1.37-2.92-3.13-3.83C15.2 2.54 13 .04 10.32.04H4.35a.8.8 0 0 0-.79.68L1.13 18.9a.4.4 0 0 0 .39.46h4.5a.8.8 0 0 0 .79-.68l1.08-6.84a.8.8 0 0 1 .79-.68h2.32c3.55 0 6.33-1.44 7.15-5.5.38-1.92.19-3.41-.07-4.36zM13.6 8.35c-.47 2.37-2.4 2.37-4.4 2.37H7.75l1-6.32c0-.1.08-.18.18-.18h1.23c1.3 0 2.35.1 3 .65.55.45.67 1.25.44 2.41a4.34 4.34 0 0 1-.4 1.07zm7.65-2.22c-.1-.13-.23-.23-.37-.3a8.88 8.88 0 0 0-2.45-.63c.2.8.23 1.63.1 2.4-.82 4.06-3.6 5.5-7.15 5.5H9.11a.8.8 0 0 0-.79.68l-1 6.32c0 .1-.08.18-.18.18H2.76a.4.4 0 0 0-.39.46l1.24 7.84a.8.8 0 0 0 .79.68h4.5a.8.8 0 0 0 .79-.68l1.08-6.84a.8.8 0 0 1 .79-.68h1.4c3.55 0 6.33-1.44 7.15-5.5.42-2.13.2-3.82-.12-4.93z"/>
+                </svg>
+                DONA CON PAYPAL
+            </a>
+        </div>
+
+        <div class="counter-container">
+            VISITATORI SOPRAVVISSUTI: <span id="visite-count">...</span>
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         JUKEBOX HTML (PULSANTE ESTERNO)
+         ========================================= -->
+    <div id="jukebox-toggle-btn" onclick="openJukeboxPopup()">
+        <span id="juke-icon">🎵</span> JUKEBOX 
+    </div>
+
+    <!-- =========================================
+         CHAT HTML (DESTRA)
+         ========================================= -->
+    <div id="chat-toggle-btn" onclick="toggleChat()">
+        💬 COMMUNITY CHAT
+    </div>
+
+    <div id="chat-box-container">
+        <div class="chat-header">
+            LST PUBLIC CHAT
+            <span class="close-chat" onclick="toggleChat()">❌</span>
+        </div>
+        <iframe src="https://organizations.minnit.chat/198262683410474/LSTHokuto?chat=LSTHokuto?embed&nickname=" style="border:none;width:100%;height:100%;" allowTransparency="true"></iframe>
+    </div>
+
+    <!-- MARQUEE IN BASSO -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            +++ ATTENZIONE: LA SACRA SCUOLA DI HOKUTO È TORNATA +++ PROGETTO HOKUTO NO KEN LST +++ ORA SEI GIÀ MORTO +++ SVILUPPATO DAL LST TEAM +++ SEGUI LA STELLA DELLA MORTE +++
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // APERTURA JUKEBOX POPUP (ESTERNO)
+        // =========================================
+        function openJukeboxPopup() {
+            window.open(
+                'jukebox.html', 
+                'RadioHokuto', 
+                'width=350,height=520,status=no,toolbar=no,menubar=no,scrollbars=no,resizable=no'
+            );
+        }
+
+        // =========================================
+        // FUNZIONE CHAT
+        // =========================================
+        function toggleChat() {
+            const chatBox = document.getElementById("chat-box-container");
+            if (chatBox.style.display === "none" || chatBox.style.display === "") {
+                chatBox.style.display = "flex";
+            } else {
+                chatBox.style.display = "none";
+            }
+        }
+
+        // =========================================
+        // SLIDESHOW IMMAGINI
+        // =========================================
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".mySlides");
+        function showSlides() {
+            slides[slideIndex].classList.remove("active");
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].classList.add("active");
+            setTimeout(showSlides, 4000);
+        }
+        showSlides();
+
+        // =========================================
+        // SFONDO CON STELLE DI HOKUTO
+        // =========================================
+        function createStars() {
+            const box = document.getElementById("starsBox");
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+                star.style.width = star.style.height = Math.random() * 3 + "px";
+                box.appendChild(star);
+            }
+            for (let j = 0; j < 7; j++) {
+                let hStar = document.createElement("div");
+                hStar.className = "star hokuto-star";
+                hStar.style.left = (70 + (j * 2)) + "%"; 
+                hStar.style.top = (15 + (j * 3)) + "%";
+                hStar.style.width = hStar.style.height = "5px";
+                box.appendChild(hStar);
+            }
+        }
+        createStars();
+
+        // =========================================
+        // AGGIORNAMENTO CONTATORE VISITE
+        // =========================================
+        function updateCounter() {
+            const counterElement = document.getElementById('visite-count');
+            fetch('https://api.counterapi.dev/v1/hokutolst_mugen/visits/up')
+                .then(response => response.json())
+                .then(data => { counterElement.innerText = String(data.count).padStart(5, '0'); })
+                .catch(error => { counterElement.innerText = "ERROR"; });
+        }
+        updateCounter();
+    </script>
+
+</body>
+</html>

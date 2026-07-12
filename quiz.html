@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505;
+            --hokuto-green: #00ff00;
+        }
+
+        body {
+            background-color: var(--dark-bg); /* Ho aggiunto un fallback per sicurezza */
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+            padding-bottom: 40px; 
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin: 20px 0;
+            color: white;
+            text-shadow: 0 0 20px var(--hokuto-red);
+            letter-spacing: 5px;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: var(--hokuto-gold);
+            margin-top: 40px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        #level-selection {
+            background: rgba(20, 0, 0, 0.9);
+            border: 2px solid var(--hokuto-gold);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.7);
+            text-align: center;
+        }
+        #level-selection p {
+            font-size: 2rem;
+            color: var(--hokuto-gold);
+            margin-bottom: 25px;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+        }
+        .level-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .level-btn {
+            background: linear-gradient(45deg, #800000, #ff4500);
+            color: white;
+            border: 2px solid var(--hokuto-gold);
+            padding: 15px 30px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            flex: 1 1 200px;
+            max-width: 250px;
+        }
+        .level-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.8);
+            background: var(--hokuto-gold);
+            color: black;
+        }
+
+        .quiz-section {
+            background: rgba(20, 0, 0, 0.9);
+            border: 2px solid var(--hokuto-red);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+            text-align: left;
+            display: none; 
+        }
+
+        .question {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .answers label {
+            display: block;
+            background: rgba(50, 0, 0, 0.7);
+            border: 1px solid var(--hokuto-red);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            font-size: 1.3rem;
+        }
+
+        .answers label:hover {
+            background-color: rgba(80, 0, 0, 0.9);
+            border-color: var(--hokuto-gold);
+        }
+
+        .answers input[type="radio"] {
+            display: none; 
+        }
+
+        .answers label::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--hokuto-gold);
+            border-radius: 50%;
+            margin-right: 15px;
+            vertical-align: middle;
+            transition: background-color 0.3s;
+        }
+
+        .answers input[type="radio"]:checked + label::before {
+            background-color: var(--hokuto-gold);
+            box-shadow: 0 0 10px var(--hokuto-gold);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--hokuto-green), #00cc00);
+            color: black;
+            border: 2px solid var(--hokuto-gold);
+            padding: 15px 30px;
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 30px;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+            background: var(--hokuto-gold);
+            color: black;
+        }
+
+        #quiz-results {
+            margin-top: 40px;
+            font-size: 2rem;
+            color: var(--hokuto-gold);
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid var(--hokuto-red);
+            display: none; 
+            text-align: center;
+        }
+        
+        #quiz-results.show {
+            display: block;
+        }
+        
+        .home-btn, .retry-btn, .next-level-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: linear-gradient(45deg, #0077ff, #00ccff);
+            color: white;
+            border: 2px solid var(--hokuto-gold);
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 119, 255, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            cursor: pointer;
+            margin: 10px;
+        }
+        .home-btn:hover, .retry-btn:hover, .next-level-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 119, 255, 0.8);
+            background: var(--hokuto-gold);
+            color: black;
+        }
+
+/* --- STILI PER LE RISPOSTE CORRETTE E SBAGLIATE --- */
+        .answers label.correct-answer {
+            background-color: rgba(0, 255, 0, 0.2) !important;
+            border-color: var(--hokuto-green) !important;
+            color: var(--hokuto-green);
+        }
+
+        .answers label.correct-answer::before {
+            background-color: var(--hokuto-green);
+            border-color: var(--hokuto-green);
+            box-shadow: 0 0 15px var(--hokuto-green);
+        }
+
+        .answers label.wrong-answer {
+            background-color: rgba(255, 0, 0, 0.3) !important;
+            border-color: var(--hokuto-red) !important;
+            color: #ff6666;
+        }
+
+        .answers label.wrong-answer::before {
+            background-color: var(--hokuto-red);
+            border-color: var(--hokuto-red);
+            box-shadow: 0 0 15px var(--hokuto-red);
+        }
+        
+        /* Cursore disabilitato a fine quiz */
+        .answers label.disabled {
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+
+        @keyframes shake { 0% { transform: skewX(-1deg); } 100% { transform: skewX(1deg); } }
+
+        @media (max-width: 700px) {
+            .level-buttons { flex-direction: column; }
+            .level-btn { max-width: 100%; }
+            .quiz-section { padding: 20px; }
+            .question { font-size: 1.5rem; }
+            .answers label { font-size: 1.1rem; padding: 12px 15px; }
+            .submit-btn { font-size: 1.8rem; padding: 12px 25px; }
+            #quiz-results { font-size: 1.6rem; }
+            .home-btn, .retry-btn, .next-level-btn { font-size: 1.2rem; padding: 8px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HOKUTO NO KEN LST - QUIZ</h1>
+        <h2>Quanto conosci il mondo di Kenshiro?</h2>
+
+        <div id="level-selection">
+            <p>Seleziona il tuo livello di conoscenza dell'Hokuto:</p>
+            <div class="level-buttons">
+                <button class="level-btn" onclick="startQuiz(1)">LIVELLO 1 (10 Domande)</button>
+                <button class="level-btn" onclick="startQuiz(2)">LIVELLO 2 (30 Domande)</button>
+                <button class="level-btn" onclick="startQuiz(3)">LIVELLO 3 (50 Domande)</button>
+            </div>
+        </div>
+
+        <div class="quiz-section" id="quiz-section">
+            <form id="hokuto-quiz-form">
+                <!-- Le domande verranno generate qui dal JavaScript -->
+            </form>
+
+            <div id="quiz-results">
+                <!-- Aggiunto un container dedicato al testo per evitare di sovrascrivere i bottoni -->
+                <div id="result-message"></div>
+                <div class="result-buttons">
+                    <button class="retry-btn" onclick="retryLevel()" style="display: none;">RIPROVA LIVELLO</button>
+                    <button class="next-level-btn" onclick="nextLevel()" style="display: none;">LIVELLO SUCCESSIVO</button>
+                    <a href="home.html" class="home-btn">TORNA ALLA HOME</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const quizForm = document.getElementById('hokuto-quiz-form');
+        const quizResultsDiv = document.getElementById('quiz-results');
+        const resultMessageDiv = document.getElementById('result-message');
+        const levelSelectionDiv = document.getElementById('level-selection');
+        const quizSectionDiv = document.getElementById('quiz-section');
+        const retryBtn = document.querySelector('.retry-btn');
+        const nextLevelBtn = document.querySelector('.next-level-btn');
+        
+        let currentLevel = 0;
+        let currentQuestions = [];
+
+        // Tutte le 50 domande (Consiglio: correggi Kenshiro Kasumi e la domanda su Shuh!)
+        const allQuestions = [
+            { question: "1. Qual è il nome completo di Kenshiro?", answers: ["Kenshiro Kasumi", "Kenshiro Hokuto", "Kenshiro Kiba", "Kenshiro Han"], correct: "Kenshiro Kasumi" }, // Fixato
+            { question: "2. Qual è il nome della sorella di Kenshiro (la sua fidanzata iniziale)?", answers: ["Mamiya", "Julia", "Lynn", "Bat"], correct: "Julia" },
+            { question: "3. Quale personaggio pronuncia la frase iconica 'Tu sei già morto!' (Omae wa mou shindeiru)?", answers: ["Raoh", "Toki", "Kenshiro", "Jagi"], correct: "Kenshiro" },
+            { question: "4. Qual è la scuola di arti marziali praticata da Kenshiro?", answers: ["Nanto Seiken", "Hokuto Shinken", "Gento Kōken", "Taizan Tenrō Ken"], correct: "Hokuto Shinken" },
+            { question: "5. Chi è il primogenito dei quattro fratelli di Hokuto?", answers: ["Toki", "Jagi", "Raoh", "Kenshiro"], correct: "Raoh" },
+            { question: "6. Qual è l'abilità speciale di Rei, maestro di Nanto Suicho Ken?", answers: ["Manipolazione del fuoco", "Velocità e tagli a mezz'aria", "Forza bruta", "Tecniche di pressione"], correct: "Velocità e tagli a mezz'aria" },
+            { question: "7. Qual è il nome del cavallo gigante di Raoh?", answers: ["Hien", "Kokuoh-go", "Raiden", "Byakko"], correct: "Kokuoh-go" },
+            { question: "8. Chi è il maestro dei quattro fratelli di Hokuto?", answers: ["Ryuken", "Shinken", "Kasumi Kenshiro", "Jūkei"], correct: "Ryuken" },
+            { question: "9. Quale stile di Nanto Seiken è associato al pugno di Shin?", answers: ["Nanto Koshū Ken", "Nanto Suicho Ken", "Nanto Hakuro Ken", "Nanto Gōshō Ken"], correct: "Nanto Koshū Ken" },
+            { question: "10. In che città Kenshiro e Julia avrebbero dovuto sposarsi?", answers: ["Southern Cross", "Eden", "Casablanca", "Desert Rose"], correct: "Southern Cross" },
+            { question: "11. Qual è il destino di coloro che subiscono il pugno finale di Kenshiro?", answers: ["Diventano immortali", "Esplodono dall'interno", "Perdono la memoria", "Diventano suoi seguaci"], correct: "Esplodono dall'interno" },
+            { question: "12. Chi è il fratello di Nanto che si sacrifica per salvare Lynn e Kenshiro sotto una piramide?", answers: ["Shuh", "Souther", "Rei", "Yuda"], correct: "Shuh" }, // Fixato
+            { question: "13. Qual è l'arte marziale usata da Toki?", answers: ["Hokuto Shinken (curativo)", "Nanto Seiken", "Gento Kōken", "Hokuto Ryūken"], correct: "Hokuto Shinken (curativo)" },
+            { question: "14. Come si chiama il personaggio che brandisce un artiglio meccanico?", answers: ["Jackal", "Devil Rebirth", "Heart", "Jagi"], correct: "Jagi" },
+            { question: "15. Qual è il nome del generale che guida l'Armata di Hokuto alla fine della serie?", answers: ["Falco", "Shachi", "Hyo", "Bat"], correct: "Bat" },
+            { question: "16. Chi è il nemico di Kenshiro con sette cicatrici sul petto, come Kenshiro?", answers: ["Jagi", "Shin", "Raoh", "Souther"], correct: "Jagi" },
+            { question: "17. Qual è il soprannome di Raoh?", answers: ["Il Re Demone", "Il Conquistatore", "Il Pugno del Nord", "Il Diavolo"], correct: "Il Conquistatore" },
+            { question: "18. Che tipo di arma utilizza Mamiya?", answers: ["Spada", "Arco e frecce", "Frusta", "Boomerang e balestra"], correct: "Boomerang e balestra" },
+            { question: "19. Qual è il nome del figlio adottivo di Kenshiro?", answers: ["Bat", "Lynn", "Shiba", "Leopold"], correct: "Bat" },
+            { question: "20. Chi è il successore del Nanto Hōō Ken?", answers: ["Shin", "Rei", "Souther", "Shuh"], correct: "Souther" },
+            { question: "21. Qual è il sigillo della scuola Hokuto Shinken?", answers: ["Il Dragone", "La Fenice", "L'Orsa Maggiore (Hokuto Shichisei)", "La Tigre Bianca"], correct: "L'Orsa Maggiore (Hokuto Shichisei)" },
+            { question: "22. Come si chiama il villaggio natale di Mamiya?", answers: ["Villaggio della Luce", "Villaggio dei Miracoli", "Villaggio degli Uomini", "Villaggio di Mamiya"], correct: "Villaggio di Mamiya" },
+            { question: "23. Chi è l'artista marziale cieco che aiuta Kenshiro?", answers: ["Ryuga", "Fudo", "Shuh", "Hyoh"], correct: "Shuh" },
+            { question: "24. Quale dei seguenti non è un fratello di Kenshiro (di Hokuto)?", answers: ["Toki", "Jagi", "Rei", "Raoh"], correct: "Rei" },
+            { question: "25. Qual è la tecnica del Muso Tensei?", answers: ["Creazione di illusioni", "Stile combattivo perfetto che incarna la tristezza", "Controllo mentale", "Rigenerazione cellulare"], correct: "Stile combattivo perfetto che incarna la tristezza" },
+            { question: "26. Chi è il 'Demone' del Gento Kōken?", answers: ["Hyo", "Kaioh", "Falco", "Shachi"], correct: "Falco" },
+            { question: "27. Qual è il nome della terra in cui Kenshiro deve combattere Kaioh?", answers: ["Terra delle Ceneri", "Terra dei Demoni", "Terra dei Shura", "Terra dei Dragoni"], correct: "Terra dei Shura" },
+            { question: "28. Chi è il fratello maggiore di Raoh e Toki?", answers: ["Kenshiro", "Jagi", "Kaioh", "Hyo"], correct: "Kaioh" },
+            { question: "29. Qual è l'abilità principale del Hokuto Ryūken?", answers: ["Punti di pressione del corpo", "Controllo dello spirito demoniaco (Maioh)", "Tecniche di spada", "Illusione e velocità"], correct: "Controllo dello spirito demoniaco (Maioh)" },
+            { question: "30. Qual è il colore preferito di Souther, il sacro imperatore?", answers: ["Rosso", "Blu", "Giallo", "Nero"], correct: "Rosso" },
+            { question: "31. Come si chiama la bambina che segue Kenshiro all'inizio della storia?", answers: ["Mamiya", "Julia", "Lynn", "Bat"], correct: "Lynn" },
+            { question: "32. Chi è il 'demone' di Nanto che si traveste da donna?", answers: ["Yuda", "Shuh", "Rei", "Souther"], correct: "Yuda" },
+            { question: "33. Qual è l'unico punto di pressione nel corpo di Souther che è invertito?", answers: ["Il suo cuore", "I suoi occhi", "Le sue gambe", "Il suo punto di morte"], correct: "Il suo cuore" },
+            { question: "34. Qual è il nome del maestro di Gento Kōken che affronta Kenshiro?", answers: ["Hyo", "Shachi", "Falco", "Han"], correct: "Falco" },
+            { question: "35. Che tipo di guerriero è Fudo della Montagna?", answers: ["Maestro di Nanto", "Guerriero di Hokuto", "Uno dei Cinque Astri in Cerchio", "Un demone"], correct: "Uno dei Cinque Astri in Cerchio" },
+            { question: "36. Qual è il nome del 'Re Demone' della Terra dei Shura?", answers: ["Han", "Hyo", "Kaioh", "Shachi"], correct: "Kaioh" },
+            { question: "37. Chi è il fratello di Kaioh?", answers: ["Raoh", "Toki", "Kenshiro", "Hyo"], correct: "Raoh" },
+            { question: "38. Qual è il simbolo che Kenshiro porta sulla schiena?", answers: ["Una stella", "L'Orsa Maggiore", "Sette cicatrici", "Un drago"], correct: "Sette cicatrici" },
+            { question: "39. Qual è la tecnica del Nanto Hakuro Ken (Pugno del Cigno Bianco)?", answers: ["Tagli di vento", "Pugni distruttivi", "Velocità e agilità", "Tecniche di illusione"], correct: "Velocità e agilità" },
+            { question: "40. Chi è il 'Re Demone dell'Oceano'?", answers: ["Shachi", "Hyo", "Han", "Kaioh"], correct: "Shachi" },
+            { question: "41. Qual è il nome del generale che guida l'esercito di Raoh?", answers: ["Uighur", "Ryuga", "Jackal", "Zeed"], correct: "Uighur" },
+            { question: "42. Qual è il nome della madre di Kenshiro, Toki e Raoh?", answers: ["Lynn", "Mamiya", "Sayaka", "Kenshiro, Toki e Raoh non avevano la stessa madre biologica ma sono stati adottati"], correct: "Kenshiro, Toki e Raoh non avevano la stessa madre biologica ma sono stati adottati" },
+            { question: "43. Qual è il significato letterale di 'Hokuto Shinken'?", answers: ["Pugno Divino dell'Orsa Maggiore", "Pugno Sacro del Sud", "Pugno della Stella Cadente", "Pugno del Demone"], correct: "Pugno Divino dell'Orsa Maggiore" },
+            { question: "44. Chi è l'antagonista che ruba Julia a Kenshiro all'inizio della storia?", answers: ["Jagi", "Raoh", "Shin", "Souther"], correct: "Shin" },
+            { question: "45. Qual è il nome del maestro del Nanto Gosha Sei (Cinque Astri in Cerchio)?", answers: ["Rihaku", "Hyui", "Shuren", "Koryu"], correct: "Rihaku" },
+            { question: "46. Qual è la caratteristica distintiva del combattimento di Toki?", answers: ["Forza bruta", "Eleganza e fluidità", "Aggressività incontrollata", "Manipolazione del fuoco"], correct: "Eleganza e fluidità" },
+            { question: "47. Qual è il nome del fratello di Kenshiro che porta una maschera?", answers: ["Toki", "Raoh", "Jagi", "Hyo"], correct: "Jagi" },
+            { question: "48. Quale stile di Nanto si basa sui pugni che generano venti taglienti?", answers: ["Nanto Koshū Ken", "Nanto Hakuro Ken", "Nanto Suichō Ken", "Nanto Gōshō Ken"], correct: "Nanto Suichō Ken" }, // Fixato
+            { question: "49. Chi è il 'Lupo Solitario di Nanto'?", answers: ["Rei", "Shin", "Shuh", "Ryuga"], correct: "Rei" },
+            { question: "50. Qual è l'animale simbolo di Kaioh?", answers: ["Cavallo", "Demone/Maioh", "Drago", "Tigre"], correct: "Demone/Maioh" }
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; 
+            }
+            return array;
+        }
+
+        function startQuiz(level) {
+            currentLevel = level;
+            
+            // Definiamo il numero di domande e ne preleviamo in maniera random dal pool completo
+            const numQuestions = level === 1 ? 10 : (level === 2 ? 30 : 50);
+            
+            // FIX: Ora le domande e le risposte sono allineate perfettamente
+            currentQuestions = shuffleArray([...allQuestions]).slice(0, numQuestions);
+            
+            levelSelectionDiv.style.display = 'none';
+            quizSectionDiv.style.display = 'block';
+            quizResultsDiv.classList.remove('show');
+            generateQuiz();
+        }
+
+        function generateQuiz() {
+            quizForm.innerHTML = ''; 
+
+            // Ora cicliamo direttamente su currentQuestions che è GIÀ stato mescolato all'avvio del livello
+            currentQuestions.forEach((q, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.classList.add('question-block');
+
+                const questionP = document.createElement('p');
+                questionP.classList.add('question');
+                // Toglie il numero cablato originale e mette l'indice corrente
+                const questionText = q.question.substring(q.question.indexOf('.') + 1).trim();
+                questionP.textContent = `${index + 1}. ${questionText}`; 
+                questionBlock.appendChild(questionP);
+
+                const answersDiv = document.createElement('div');
+                answersDiv.classList.add('answers');
+
+                const shuffledAnswers = shuffleArray([...q.answers]);
+
+                shuffledAnswers.forEach((answer, ansIndex) => {
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.id = `q${index + 1}a${ansIndex + 1}`;
+                    input.name = `q${index + 1}`;
+                    input.value = answer;
+
+                    const label = document.createElement('label');
+                    label.htmlFor = `q${index + 1}a${ansIndex + 1}`;
+                    label.textContent = answer;
+
+                    answersDiv.appendChild(input);
+                    answersDiv.appendChild(label);
+                });
+
+                questionBlock.appendChild(answersDiv);
+                quizForm.appendChild(questionBlock);
+            });
+
+            const submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.classList.add('submit-btn');
+            submitBtn.textContent = 'INVIA RISPOSTE';
+            quizForm.appendChild(submitBtn);
+            quizSectionDiv.scrollIntoView({ behavior: 'smooth' }); 
+        }
+
+        function evaluateQuiz() {
+            let score = 0;
+            const totalQuestions = currentQuestions.length;
+
+            currentQuestions.forEach((q, index) => {
+                // Prendi tutti gli input (i radio button) per questa specifica domanda
+                const inputs = document.querySelectorAll(`input[name="q${index + 1}"]`);
+                
+                inputs.forEach(input => {
+                    const label = document.querySelector(`label[for="${input.id}"]`);
+                    
+                    // 1. Disabilita il click (così non si bara a quiz finito)
+                    input.disabled = true;
+                    label.classList.add('disabled');
+
+                    // 2. Se questo input è la risposta corretta assoluta, evidenzialo di VERDE
+                    if (input.value === q.correct) {
+                        label.classList.add('correct-answer');
+                    }
+
+                    // 3. Se l'utente ha selezionato questo input...
+                    if (input.checked) {
+                        if (input.value === q.correct) {
+                            // ...ed è corretto, aumenta il punteggio
+                            score++;
+                        } else {
+                            // ...ed è sbagliato, evidenzia la sua scelta di ROSSO
+                            label.classList.add('wrong-answer');
+                        }
+                    }
+                });
+            });
+
+            // Calcolo finale e messaggi (invariato)
+            let resultText = '';
+            const percentage = (score / totalQuestions) * 100;
+            const passThreshold = 70; 
+
+            if (percentage === 100) {
+                resultText = `CONGRATULAZIONI! Hai risposto correttamente a tutte le ${totalQuestions} domande! SEI UN VERO MAESTRO DI HOKUTO!`;
+            } else if (percentage >= passThreshold) {
+                resultText = `FANTASTICO! Hai risposto correttamente a ${score} domande su ${totalQuestions}! La tua conoscenza dell'Hokuto è incredibile!`;
+            } else if (percentage >= 50) {
+                resultText = `Ottimo lavoro! Hai risposto correttamente a ${score} domande su ${totalQuestions}! La tua conoscenza dell'Hokuto è notevole, ma non sufficiente per il prossimo livello.`;
+            } else {
+                resultText = `Hai risposto correttamente a ${score} domande su ${totalQuestions}. C'è ancora molta strada da fare per dominare l'Hokuto!`;
+            }
+
+            resultMessageDiv.innerHTML = `<p>${resultText}</p>`;
+            quizResultsDiv.classList.add('show');
+            
+            // Rimuovi il bottone invia
+            const submitBtn = document.querySelector('.submit-btn');
+            if (submitBtn) submitBtn.style.display = 'none';
+
+            if (percentage >= passThreshold && currentLevel < 3) {
+                nextLevelBtn.style.display = 'inline-block';
+                retryBtn.style.display = 'none'; 
+            } else if (currentLevel === 3 && percentage >= passThreshold) {
+                nextLevelBtn.style.display = 'none'; 
+                retryBtn.style.display = 'inline-block'; 
+            } else {
+                nextLevelBtn.style.display = 'none';
+                retryBtn.style.display = 'inline-block';
+            }
+            
+            quizResultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function retryLevel() {
+            quizResultsDiv.classList.remove('show');
+            startQuiz(currentLevel); // Genera nuove domande casuali dello stesso livello
+        }
+
+        function nextLevel() {
+            if (currentLevel < 3) {
+                startQuiz(currentLevel + 1);
+            } else {
+                alert("Hai completato tutti i livelli!"); 
+                window.location.href = "home.html"; 
+            }
+        }
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            evaluateQuiz();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Gli Stage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- PULSANTE IN ALTO A SINISTRA --- */
+        .top-back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: black;
+            background: var(--hokuto-gold);
+            padding: 10px 25px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            z-index: 100;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .top-back-btn:hover {
+            background: white;
+            transform: scale(1.1) skewX(-5deg);
+            box-shadow: 0 0 20px white;
+        }
+
+        .page-title {
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            color: var(--hokuto-gold);
+            margin: 40px 0 40px 0;
+            text-shadow: 0 0 20px var(--hokuto-red), 3px 3px 0px #800000;
+            animation: title-glow 2s infinite alternate;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        @keyframes title-glow {
+            from { text-shadow: 0 0 15px var(--hokuto-red); transform: scale(1); }
+            to { text-shadow: 0 0 35px var(--hokuto-red), 0 0 10px white; transform: scale(1.02); }
+        }
+
+        /* GRIGLIA STAGE */
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 30px;
+            width: 95%;
+            max-width: 1300px;
+            padding: 30px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 4px solid #222;
+            box-shadow: inset 0 0 50px #000, 0 0 20px rgba(255,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        .stage-card {
+            aspect-ratio: 16 / 9;
+            background: #111;
+            border: 3px solid #333;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .stage-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(60%) brightness(0.6);
+            transition: 0.5s;
+        }
+
+        .stage-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(200, 0, 0, 0.8), transparent);
+            padding: 30px 15px 10px 15px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: 0.4s ease-in-out;
+            z-index: 3;
+            box-sizing: border-box;
+        }
+
+        .stage-name {
+            color: white;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px black, 0 0 10px var(--hokuto-gold);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .stage-desc {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ccc;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        /* EFFETTI HOVER */
+        .stage-card:hover {
+            border-color: var(--hokuto-gold);
+            transform: scale(1.03);
+            box-shadow: 0 0 25px var(--hokuto-gold);
+            z-index: 10;
+        }
+
+        .stage-card:hover img {
+            filter: grayscale(0%) brightness(1.2);
+        }
+
+        .stage-card:hover .stage-info {
+            transform: translateY(0);
+        }
+
+        /* BOTTONE INDIETRO IN BASSO */
+        .back-btn-bottom {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(90deg, #0044aa, #0088ff);
+            padding: 15px 50px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            border: none;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .back-btn-bottom:hover {
+            background: white;
+            color: black;
+            text-shadow: none;
+            transform: scale(1.1) skewX(-5deg);
+            box-shadow: 0 0 20px white;
+        }
+
+        /* Responsive cellulari */
+        @media (max-width: 800px) {
+            .top-back-btn {
+                position: static;
+                margin-top: 10px;
+                display: inline-block;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .stage-grid {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            .stage-card {
+                aspect-ratio: 4 / 3;
+            }
+            .stage-name { font-size: 1.5rem; }
+            .stage-desc { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="page-title">ARENE DI COMBATTIMENTO</h1>
+
+    <div class="stage-grid">
+        
+        <!-- STAGE 1 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageZeta.png" alt="Zeta">
+            <div class="stage-info">
+                <div class="stage-name">Villaggio di Lyn</div>
+                <div class="stage-desc">Il villaggio di Lyn e la minaccia di Zeta</div>
+            </div>
+        </div>
+
+        <!-- STAGE 2 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRaulRediHokuto.png" alt="Re di Hokuto">
+            <div class="stage-info">
+                <div class="stage-name">RE DI HOKUTO</div>
+                <div class="stage-desc">Il luogo sacro dell'addestramento di Raoh</div>
+            </div>
+        </div>
+
+        <!-- STAGE 3 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKenShiro1.png" alt="KenShiro">
+            <div class="stage-info">
+                <div class="stage-name">KenShiro</div>
+                <div class="stage-desc">Ritorno Dall'Inferno</div>
+            </div>
+        </div>
+
+        <!-- STAGE 4 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKenShiroNew.png" alt="KenShiroNew">
+            <div class="stage-info">
+                <div class="stage-name">KenShiroNew</div>
+                <div class="stage-desc">Il Risveglio di Ken</div>
+            </div>
+        </div>
+
+        <!-- STAGE 5 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKenShiroGiacca.png" alt="KenShiroGiacca">
+            <div class="stage-info">
+                <div class="stage-name">KenShiroGiacca</div>
+                <div class="stage-desc">La Salvezza Viene dal Nord</div>
+            </div>
+        </div>
+
+        <!-- STAGE 6 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StagePadreCobra.png" alt="Padre Cobra">
+            <div class="stage-info">
+                <div class="stage-name">Stage Padre Cobra</div>
+                <div class="stage-desc">La tana sotterranea del Clan della Zanna</div>
+            </div>
+        </div>
+
+        <!-- STAGE 7 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageToki.png" alt="Toki">
+            <div class="stage-info">
+                <div class="stage-name">Toki CROSS</div>
+                <div class="stage-desc">Le Ultime Lacrime</div>
+            </div>
+        </div>
+
+        <!-- STAGE 8 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRaulDominatore.png" alt="Raul">
+            <div class="stage-info">
+                <div class="stage-name">Raul Dominatore dei Cieli</div>
+                <div class="stage-desc">Nessuno Li Fermerà</div>
+            </div>
+        </div>
+
+        <!-- STAGE 9 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRaulConquistatore.png" alt="Raul">
+            <div class="stage-info">
+                <div class="stage-name">Raul Conquistatore</div>
+                <div class="stage-desc">Sacrificio D'amore</div>
+            </div>
+        </div>
+
+        <!-- STAGE 10 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageJagger.png" alt="Jagger">
+            <div class="stage-info">
+                <div class="stage-name">Jagger</div>
+                <div class="stage-desc">ombattimento Fatale</div>
+            </div>
+        </div>
+
+        <!-- STAGE 11 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageBalkom.png" alt="Balkom">
+            <div class="stage-info">
+                <div class="stage-name">Balkom</div>
+                <div class="stage-desc">Il Complotto</div>
+            </div>
+        </div>
+
+        <!-- STAGE 12 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageJolly.png" alt="Jolly">
+            <div class="stage-info">
+                <div class="stage-name">Jolly</div>
+                <div class="stage-desc">L'Inseguimento</div>
+            </div>
+        </div>
+
+        <!-- STAGE 13 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageShin.png" alt="Croce del Sud">
+            <div class="stage-info">
+                <div class="stage-name">Shin</div>
+                <div class="stage-desc">Croce del Sud</div>
+            </div>
+        </div>
+
+        <!-- STAGE 14 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRey.png" alt="Rey">
+            <div class="stage-info">
+                <div class="stage-name">Rey</div>
+                <div class="stage-desc">Guerra</div>
+            </div>
+        </div>
+
+        <!-- STAGE 15 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageYuda.png" alt="Yuda">
+            <div class="stage-info">
+                <div class="stage-name">Yuda</div>
+                <div class="stage-desc">Volo Dell' Uccello Bianco</div>
+            </div>
+        </div>
+
+        <!-- STAGE 16 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageShu.png" alt="SHU">
+            <div class="stage-info">
+                <div class="stage-name">Shu</div>
+                <div class="stage-desc">Sperare Nel Domani</div>
+            </div>
+        </div>
+
+        <!-- STAGE 17 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageSauzer.png" alt="Sauzer">
+            <div class="stage-info">
+                <div class="stage-name">Sauzer</div>
+                <div class="stage-desc">L'Esercito di Sauzer</div>
+            </div>
+        </div>
+
+        <!-- STAGE 18 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRyuken.png" alt="Ryuken">
+            <div class="stage-info">
+                <div class="stage-name">Ryuken</div>
+                <div class="stage-desc">La Mossa Segreta</div>
+            </div>
+        </div>
+
+        <!-- STAGE 19 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKoryu.png" alt="Koryu">
+            <div class="stage-info">
+                <div class="stage-name">Koryu</div>
+                <div class="stage-desc">Sete Di Dominio</div>
+            </div>
+        </div>
+
+        <!-- STAGE 20 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageOgai.png" alt="Ogai">
+            <div class="stage-info">
+                <div class="stage-name">Ogai</div>
+                <div class="stage-desc">Vittima Dell'Amore</div>
+            </div>
+        </div>
+
+        <!-- STAGE 21 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageJukei.png" alt="Jukei">
+            <div class="stage-info">
+                <div class="stage-name">Jukei</div>
+                <div class="stage-desc">Maestro E Discepolo</div>
+            </div>
+        </div>
+
+        <!-- STAGE 22 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageGarenki.png" alt="Garenki">
+            <div class="stage-info">
+                <div class="stage-name">Garenki</div>
+                <div class="stage-desc">Il Sacrificio</div>
+            </div>
+        </div>
+
+        <!-- STAGE 23 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageMadara.png" alt="Madara">
+            <div class="stage-info">
+                <div class="stage-name">Madara</div>
+                <div class="stage-desc">All'Inseguimento dei Cobra</div>
+            </div>
+        </div>
+
+        <!-- STAGE 24 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageCassandra.png" alt="Cassandra">
+            <div class="stage-info">
+                <div class="stage-name">Wiggle</div>
+                <div class="stage-desc">La Vita Trionfa Sulla Morte</div>
+            </div>
+        </div>
+
+        <!-- STAGE 25 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageLaigaeFuga.png" alt="LaigaEFuga">
+            <div class="stage-info">
+                <div class="stage-name">LaigaEFuga</div>
+                <div class="stage-desc">La Porta di Cassandra</div>
+            </div>
+        </div>
+
+        <!-- STAGE 26 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageFalco.png" alt="Falco">
+            <div class="stage-info">
+                <div class="stage-name">Falco</div>
+                <div class="stage-desc">L'Imperatore</div>
+            </div>
+        </div>
+
+        <!-- STAGE 27 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageSorya.png" alt="Sorya">
+            <div class="stage-info">
+                <div class="stage-name">Sorya</div>
+                <div class="stage-desc">La Scuola Imperiale Di Cento</div>
+            </div>
+        </div>
+
+        <!-- STAGE 28 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageAin.png" alt="Ain">
+            <div class="stage-info">
+                <div class="stage-name">Ain</div>
+                <div class="stage-desc">Cacciatori di Taglie</div>
+            </div>
+        </div>
+
+        <!-- STAGE 29 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageGleen.png" alt="Gleen">
+            <div class="stage-info">
+                <div class="stage-name">Gleen</div>
+                <div class="stage-desc">La Brigata Del Vento</div>
+            </div>
+        </div>
+
+        <!-- STAGE 30 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageDiavolo.png" alt="Diavolo">
+            <div class="stage-info">
+                <div class="stage-name">Diavolo</div>
+                <div class="stage-desc">Un Colpo Micidiale</div>
+            </div>
+        </div>
+
+        <!-- STAGE 31 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageMamyia.png" alt="Mamyia">
+            <div class="stage-info">
+                <div class="stage-name">Mamyia</div>
+                <div class="stage-desc">I Lamponi</div>
+            </div>
+        </div>
+
+        <!-- STAGE 32 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageAmiba.png" alt="Amiba">
+            <div class="stage-info">
+                <div class="stage-name">Amiba</div>
+                <div class="stage-desc">Scambio Di Persona</div>
+            </div>
+        </div>
+
+        <!-- STAGE 33 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageColonnello.png" alt="Colonnello">
+            <div class="stage-info">
+                <div class="stage-name">Colonnello</div>
+                <div class="stage-desc">Il Colonnello</div>
+            </div>
+        </div>
+
+        <!-- STAGE 34 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageCapitanoSabato.png" alt="Capitano Sabato">
+            <div class="stage-info">
+                <div class="stage-name">Capitano Sabato</div>
+                <div class="stage-desc">Occhi Di Ghiaccio</div>
+            </div>
+        </div>
+
+        <!-- STAGE 35 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageShura.png" alt="Shura">
+            <div class="stage-info">
+                <div class="stage-name">Shura</div>
+                <div class="stage-desc">La Terra Dei Demoni</div>
+            </div>
+        </div>
+
+        <!-- STAGE 36 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageYasha.png" alt="Yasha Nero">
+            <div class="stage-info">
+                <div class="stage-name">Yasha Nero</div>
+                <div class="stage-desc">Prove di Amicizia</div>
+            </div>
+        </div>
+
+        <!-- STAGE 37 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRyuga.png" alt="Ryuga">
+            <div class="stage-info">
+                <div class="stage-name">Ryuga</div>
+                <div class="stage-desc">Notte di Ghiaccio</div>
+            </div>
+        </div>
+
+        <!-- STAGE 38 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageWein.png" alt="Wein">
+            <div class="stage-info">
+                <div class="stage-name">Wein</div>
+                <div class="stage-desc">La Notte Degli Echi</div>
+            </div>
+        </div>
+
+        <!-- STAGE 39 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StagePirataRosso.png" alt="PirataRosso">
+            <div class="stage-info">
+                <div class="stage-name">PirataRosso</div>
+                <div class="stage-desc">Pirati</div>
+            </div>
+        </div>
+
+        <!-- STAGE 40 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageShuren.png" alt="Shuren">
+            <div class="stage-info">
+                <div class="stage-name">Shuren</div>
+                <div class="stage-desc">L'Armata Delle Fiamme Rosse</div>
+            </div>
+        </div>
+
+        <!-- STAGE 41 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageMonaci.png" alt="Monaci">
+            <div class="stage-info">
+                <div class="stage-name">Monaci</div>
+                <div class="stage-desc">Bambini Del Futuro</div>
+            </div>
+        </div>
+
+        <!-- STAGE 42 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRyaku.png" alt="Ryaku">
+            <div class="stage-info">
+                <div class="stage-name">Ryaku</div>
+                <div class="stage-desc">L'Ultimo Segreto</div>
+            </div>
+        </div>
+
+        <!-- STAGE 43 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageFudo.png" alt="Fudo">
+            <div class="stage-info">
+                <div class="stage-name">Fudo</div>
+                <div class="stage-desc">Nessuno Fermerà Juza</div>
+            </div>
+        </div>
+
+        <!-- STAGE 44 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageFudoDiavolo.png" alt="Fudo Diavolo">
+            <div class="stage-info">
+                <div class="stage-name">Fudo Diavolo</div>
+                <div class="stage-desc">I Dolci Occhi Del Diavolo</div>
+            </div>
+        </div>
+
+        <!-- STAGE 45 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKogure.png" alt="Kogure">
+            <div class="stage-info">
+                <div class="stage-name">Kogure</div>
+                <div class="stage-desc">La Giusta Condanna</div>
+            </div>
+        </div>
+
+        <!-- STAGE 46 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageBella.png" alt="Bella">
+            <div class="stage-info">
+                <div class="stage-name">Bella</div>
+                <div class="stage-desc">La Tragedia Di Bella</div>
+            </div>
+        </div>
+
+        <!-- STAGE 47 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageSeiji.png" alt="Seiji">
+            <div class="stage-info">
+                <div class="stage-name">Seiji</div>
+                <div class="stage-desc">Un Uomo Si Fa Carico Della Tristezza</div>
+            </div>
+        </div>
+
+        <!-- STAGE 48 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageBarran.png" alt="Barran">
+            <div class="stage-info">
+                <div class="stage-name">Barran</div>
+                <div class="stage-desc">L'Imperatore Della Luce</div>
+            </div>
+        </div>
+
+        <!-- STAGE 49 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageBorge.png" alt="Borge">
+            <div class="stage-info">
+                <div class="stage-name">Borge</div>
+                <div class="stage-desc">Il Bandito Cieco</div>
+            </div>
+        </div>
+
+        <!-- STAGE 50 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageRon.png" alt="Ronn">
+            <div class="stage-info">
+                <div class="stage-name">Ronn</div>
+                <div class="stage-desc">Casa Dolce Casa</div>
+            </div>
+        </div>
+
+        <!-- STAGE 51 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageHyo.png" alt="Hyo">
+            <div class="stage-info">
+                <div class="stage-name">Hyo</div>
+                <div class="stage-desc">Maestro e Discepolo</div>
+            </div>
+        </div>
+
+        <!-- STAGE 52 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKayohConElmo.png" alt="Kaio">
+            <div class="stage-info">
+                <div class="stage-name">Kaioh</div>
+                <div class="stage-desc">Il Colpo Segreto</div>
+            </div>
+        </div>
+
+        <!-- STAGE 53 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKaioFB.png" alt="KaioFB">
+            <div class="stage-info">
+                <div class="stage-name">KaioFB</div>
+                <div class="stage-desc">Addio Ken</div>
+            </div>
+        </div>
+
+        <!-- STAGE 54 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageKaioSenzaElmo.png" alt="Kaio">
+            <div class="stage-info">
+                <div class="stage-name">Kaio Senza Elmo</div>
+                <div class="stage-desc">Amore Contro Odio</div>
+            </div>
+        </div>
+
+        <!-- STAGE 55 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageArtiglio.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+        <!-- STAGE 56 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageZarya.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+        <!-- STAGE 57 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageScuolaNanto.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+        <!-- STAGE 58 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageG.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+        <!-- STAGE 59 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageBigal.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+        <!-- STAGE 60 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageZebra.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+     <!-- STAGE 61 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageA.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+     <!-- STAGE 62 -->
+        <div class="stage-card">
+            <div class="scanlines"></div>
+            <img src="IMG/StageA2.png" alt="">
+            <div class="stage-info">
+                <div class="stage-name"></div>
+                <div class="stage-desc"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Pulsante in Basso -->
+    <a href="gioco.html" class="back-btn-bottom">TORNA ALLA INFO</a>
+
+</body>
+</html>

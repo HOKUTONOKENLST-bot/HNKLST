@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Manuale di Gioco</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --dark-bg: #050505;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* --- BACKGROUND & STARS --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            z-index: -1;
+        }
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 8px white; opacity: 0.5; }
+        .hokuto-star { background: var(--hokuto-red); box-shadow: 0 0 15px var(--hokuto-red); animation: twinkle 2s infinite alternate; }
+
+        /* --- CONTENITORE GENERALE --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px 80px 20px;
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin: 20px 0 10px 0;
+            color: white;
+            text-shadow: 0 0 20px var(--hokuto-red);
+            letter-spacing: 5px;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--hokuto-gold);
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        /* --- PULSANTE DI RITORNO --- */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            background: #111;
+            border: 2px solid var(--hokuto-red);
+            padding: 10px 25px;
+            font-size: 1.3rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            margin-bottom: 40px;
+        }
+        .btn-back:hover {
+            transform: scale(1.05);
+            background: var(--hokuto-red);
+            box-shadow: 0 0 15px var(--hokuto-red);
+        }
+
+        /* --- SCHEDE SEZIONI MANUALE --- */
+        .manual-section {
+            background: rgba(10, 0, 0, 0.85);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-header {
+            font-size: 2rem;
+            color: var(--hokuto-gold);
+            border-bottom: 2px solid var(--hokuto-red);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+        }
+
+        .desc-text {
+            font-family: sans-serif;
+            text-transform: none;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* --- GRIGLIA TASTI / AZIONI --- */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .control-box {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .key-badge {
+            background: #222;
+            border: 2px solid var(--hokuto-gold);
+            color: var(--hokuto-gold);
+            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .action-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .action-title {
+            font-size: 1.15rem;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .action-desc {
+            font-family: sans-serif;
+            text-transform: none;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* --- MECCANICHE SPECIALI --- */
+        .mechanic-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--hokuto-red);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .mechanic-title {
+            font-size: 1.4rem;
+            color: var(--hokuto-gold);
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+        }
+
+        /* --- NOTA DI CONFIGURAZIONE --- */
+        .note-box {
+            border: 1px dashed var(--hokuto-blue);
+            background: rgba(0, 119, 255, 0.05);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: sans-serif;
+            text-transform: none;
+            color: #8cc3ff;
+            font-size: 0.95rem;
+            margin-top: 15px;
+        }
+
+        /* Animazioni */
+        @keyframes shake { 0% { transform: skewX(-1deg); } 100% { transform: skewX(1deg); } }
+        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .control-box {
+                padding: 10px;
+            }
+            .key-badge {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container" id="starsBox"></div>
+
+    <div class="container">
+        
+        <a href="index.html" class="btn-back">⬅ TORNA AL MENU</a>
+
+        <h1>MANUALE DI GUERRA</h1>
+        <div class="subtitle">Impara le tecniche segrete e domina il campo di battaglia</div>
+
+        <!-- SEZIONE 1: COMANDI DI MOVIMENTO -->
+        <div class="manual-section">
+            <h2 class="section-header">Movimento & Difesa</h2>
+            <p class="desc-text">
+                Il controllo dello spazio è fondamentale. Usa le direzioni per gestire la distanza dall'avversario e difenderti dai suoi assalti.
+            </p>
+            
+            <div class="controls-grid">
+                <div class="control-box">
+                    <div class="key-badge">⬅</div>
+                    <div class="action-info">
+                        <span class="action-title">Indietro / Parata</span>
+                        <span class="action-desc">Allontanati o parati dai colpi alti e medi.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">➡</div>
+                    <div class="action-info">
+                        <span class="action-title">Avanti</span>
+                        <span class="action-desc">Avanza verso l'avversario.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">⬆</div>
+                    <div class="action-info">
+                        <span class="action-title">Salto</span>
+                        <span class="action-desc">Esegui un salto verticale o direzionale.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">⬇</div>
+                    <div class="action-info">
+                        <span class="action-title">Abbassati</span>
+                        <span class="action-desc">Rimpicciolisci la hitbox e parati dai colpi bassi.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: ATTACCHI BASE -->
+        <div class="manual-section">
+            <h2 class="section-header">Tasti di Attacco</h2>
+            <p class="desc-text">
+                Hokuto No Ken LST utilizza una configurazione arcade classica a 6 tasti d'attacco. Combina pugni e calci per creare combo devastanti.
+            </p>
+            
+            <div class="controls-grid">
+                <div class="control-box">
+                    <div class="key-badge">A</div>
+                    <div class="action-info">
+                        <span class="action-title">Pugno Leggero (LP)</span>
+                        <span class="action-desc">Rapido, utile per iniziare le combo o interrompere l'avversario.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">S</div>
+                    <div class="action-info">
+                        <span class="action-title">Pugno Medio (MP)</span>
+                        <span class="action-desc">Buon raggio d'azione, ideale come anello di collegamento.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">D</div>
+                    <div class="action-info">
+                        <span class="action-title">Pugno Forte (HP)</span>
+                        <span class="action-desc">Lento ma infligge gravi danni e causa ingenti colpi di recupero.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">Z</div>
+                    <div class="action-info">
+                        <span class="action-title">Calcio Leggero (LK)</span>
+                        <span class="action-desc">Veloce, ottimo per colpire i punti deboli dal basso.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">X</div>
+                    <div class="action-info">
+                        <span class="action-title">Calcio Medio (MK)</span>
+                        <span class="action-desc">Ottimo compromesso tra raggio e velocità d'esecuzione.</span>
+                    </div>
+                </div>
+                <div class="control-box">
+                    <div class="key-badge">C</div>
+                    <div class="action-info">
+                        <span class="action-title">Calcio Forte (HK)</span>
+                        <span class="action-desc">Spazza via l'avversario o lo lancia in aria a seconda del personaggio.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 3: MECCANICHE AVANZATE -->
+        <div class="manual-section">
+            <h2 class="section-header">Meccaniche Speciali</h2>
+            <p class="desc-text">
+                Riconosci le regole della sopravvivenza post-apocalittica e sfrutta l'energia spirituale per rovesciare l'esito dei duelli.
+            </p>
+
+            <div class="mechanic-item">
+                <h3 class="mechanic-title">Barra dello Spirito (Aura)</h3>
+                <p class="desc-text">
+                    Attaccando o subendo danni accumulerai energia nella barra dell'Aura in basso. Sfruttala per lanciare le mosse speciali (Super) eseguendo le classiche mezzelune con i tasti d'attacco forte.
+                </p>
+            </div>
+
+            <div class="mechanic-item">
+                <h3 class="mechanic-title">La Stella della Morte (Fatal KO)</h3>
+                <p class="desc-text">
+                    Quando la salute del tuo avversario scende sotto una soglia critica, la sua "Stella della Morte" inizierà a brillare. Questo è il momento di eseguire la tua mossa finale di distruzione premendo la combinazione specifica del tuo personaggio per ottenere la vittoria istantanea.
+                </p>
+            </div>
+
+            <div class="mechanic-item">
+                <h3 class="mechanic-title">Prese & Proiezioni</h3>
+                <p class="desc-text">
+                    Se l'avversario mantiene una difesa impenetrabile, avvicinati e premi contemporaneamente i tasti d'attacco leggero (A + Z) per eseguire una presa ravvicinata che ignora completamente la parata.
+                </p>
+            </div>
+
+            <div class="note-box">
+                <strong>NOTA SULLA CONFIGURAZIONE:</strong> I tasti indicati in questo manuale (A, S, D, Z, X, C) fanno riferimento alla configurazione predefinita per tastiera di MUGEN/Ikemen. Puoi riassegnare liberamente i tasti o configurare il tuo Joypad/Arcade Stick accedendo alla voce <strong>Options -> Controller Config</strong> dal menu di gioco principale.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // GENERAZIONE SFONDO STELLATO (Identico alle altre pagine del sito)
+        function createStars() {
+            const box = document.getElementById("starsBox");
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+                star.style.width = star.style.height = Math.random() * 3 + "px";
+                box.appendChild(star);
+            }
+            // Sette stelle della morte di Hokuto (Orsa Maggiore)
+            for (let j = 0; j < 7; j++) {
+                let hStar = document.createElement("div");
+                hStar.className = "star hokuto-star";
+                hStar.style.left = (70 + (j * 2)) + "%"; 
+                hStar.style.top = (15 + (j * 3)) + "%";
+                hStar.style.width = hStar.style.height = "5px";
+                box.appendChild(hStar);
+            }
+        }
+        createStars();
+    </script>
+
+</body>
+</html>

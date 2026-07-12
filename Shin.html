@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIN - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --shin-purple: #4b0082; /* Viola profondo per Shin */
+            --shin-silver: #e0e0e0; /* Argento per l'eleganza di Nanto */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #1a0033 0%, #050505 100%);
+            border: 4px solid var(--shin-purple); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(75, 0, 130, 0.4);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--shin-purple);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: contrast(1.1) saturate(1.2);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--shin-purple), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: var(--shin-silver);
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--shin-purple);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #222; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--shin-purple), var(--shin-silver));
+            height: 100%;
+            box-shadow: 0 0 15px var(--shin-purple);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: var(--shin-silver);
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--shin-purple); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Shin.png" alt="Shin">
+        </div>
+
+        <div class="profile-info">
+            <h1>SHIN</h1>
+            <div class="rank">L'Uomo della Stella del Sacrificio</div>
+            
+            <p class="bio">
+                Successore della Scuola di Nanto Koshu Ken, Shin è colui che ha impresso le sette cicatrici sul petto di Kenshiro. Spinto da un amore ossessivo per Julia e manipolato da Jagi, ha costruito la città di Croce del Sud regnando come il terribile "King". La sua tecnica si basa su colpi perforanti portati con le dita e i palmi.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>PERFORAZIONE (NANTO)</span> <span>92%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>VELOCITÀ</span> <span>88%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 88%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>AMBIZIONE</span> <span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

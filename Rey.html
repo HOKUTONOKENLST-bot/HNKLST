@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REI - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+            box-sizing: border-box;
+        }
+
+        .profile-container {
+            max-width: 1200px; 
+            width: 100%;
+            background: linear-gradient(135deg, #111 0%, #050505 100%);
+            border: 4px solid var(--hokuto-red);
+            display: flex;
+            flex-wrap: wrap; 
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-img {
+            flex: 2; 
+            min-width: 400px;
+            height: 750px; 
+            border-right: 4px solid var(--hokuto-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top; 
+            animation: slowZoom 10s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,1));
+        }
+
+        .profile-info {
+            flex: 1; 
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px #ff0000, 7px 7px 0px #000;
+            line-height: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .rank {
+            color: white;
+            font-size: 1.8rem;
+            margin: 15px 0 25px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--hokuto-red);
+            padding-left: 15px;
+            text-shadow: 1px 1px 3px black;
+        }
+
+        .bio {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-transform: none; 
+            text-align: justify;
+        }
+
+        .stats {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+
+        .stat-bar { margin-bottom: 15px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.3rem; margin-bottom: 5px; letter-spacing: 1px; }
+
+        .bar-bg { background: #222; height: 14px; width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #000; }
+        
+        .bar-fill { 
+            background: linear-gradient(90deg, #aa0000, var(--hokuto-gold));
+            height: 100%;
+            box-shadow: 0 0 10px var(--hokuto-gold);
+            transform-origin: left;
+            animation: fillBar 1.5s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+        }
+
+        @keyframes fillBar {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        .moves-title {
+            color: var(--hokuto-red);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #555;
+            padding-bottom: 5px;
+        }
+
+        .move-list {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-size: 1.1rem;
+            color: #ccc;
+            text-transform: none;
+            margin-bottom: 30px;
+        }
+        
+        .move-list span { color: var(--hokuto-gold); font-weight: bold; }
+
+        .back-btn {
+            display: inline-block;
+            background: white;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            transform: scale(1.05) skewX(-5deg);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 450px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--hokuto-red); }
+            h1 { font-size: 4rem; }
+            .profile-info { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <!-- IMMAGINE DI REI -->
+            <img src="IMG/Rey1.png" alt="Rei">
+        </div>
+
+        <div class="profile-info">
+            <h1>REI</h1>
+            <div class="rank">Maestro dell'Uccello d'Acqua di Nanto</div>
+            
+            <p class="bio">
+                Rappresenta la Stella della Giustizia (Yosei). Lo stile Nanto Suicho Ken è elegante quanto letale, capace di fare a fette i nemici sfruttando i vuoti d'aria creati dai movimenti rapidissimi delle braccia. Sacrifica tutto per amore dell'amicizia.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <!-- Rei ha attacco alto, ma non come Kenshiro/Raul -->
+                    <div class="stat-label"><span>ATTACCO</span> <span>85%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <!-- Nanto predilige l'evasione alla difesa fisica -->
+                    <div class="stat-label"><span>DIFESA</span> <span>70%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 70%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <!-- Essendo di Nanto, la sua Velocità è MASSIMA -->
+                    <div class="stat-label"><span>VELOCITÀ</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+            </div>
+
+            <div class="moves-title">TECNICHE SEGRETE</div>
+            <div class="move-list">
+                • <span>Danza del Rapace Supremo</span> (Encho Retsuga)<br>
+                • <span>Taglio del Vuoto Assoluto</span> (Seiku Retsuden)<br>
+                • <span>Volo Splendente dell'Uccello d'Acqua</span> (Hisho Hakurei)
+            </div>
+
+            <!-- Questo link deve portare alla pagina HTML del Roster che hai creato prima -->
+            <a href="characters.html" class="back-btn">◄ TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

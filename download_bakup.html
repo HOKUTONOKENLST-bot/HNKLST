@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - HNK LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505; /* Aggiunto il colore di base oscuro */
+        }
+
+        body {
+            /* Sfondo identico alla pagina principale */
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            background-attachment: fixed;
+            
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* --- TITOLO PAGINA --- */
+        .page-title {
+            font-size: 3.5rem;
+            color: var(--hokuto-red);
+            text-shadow: 0 0 10px var(--hokuto-red), 2px 2px 0px #000;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid var(--hokuto-gold);
+            padding-bottom: 10px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        /* --- SEZIONI --- */
+        .category-section {
+            width: 90%;
+            max-width: 1200px;
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 2.2rem;
+            color: var(--hokuto-blue);
+            text-shadow: 0 0 10px var(--hokuto-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .category-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--hokuto-blue), transparent);
+        }
+
+        /* --- GRIGLIA CARDS --- */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- STILE CARD SINGOLA --- */
+        .card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--hokuto-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Immagine segnaposto per le card */
+        .card-img-placeholder {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(45deg, #1a0000, #330000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #555;
+            border-bottom: 2px solid #333;
+        }
+
+        .card:hover .card-img-placeholder {
+            border-bottom-color: var(--hokuto-gold);
+        }
+
+        .card-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .item-title {
+            font-size: 1.8rem;
+            color: var(--hokuto-gold);
+            margin: 0 0 10px 0;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .item-info {
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            color: #aaa;
+            text-transform: none;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .item-info strong {
+            color: #fff;
+        }
+
+        /* --- PULSANTE DOWNLOAD --- */
+        .download-btn {
+            background: linear-gradient(180deg, #aa0000, #550000);
+            color: white;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            padding: 10px;
+            border: 2px solid var(--hokuto-red);
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            display: block;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(180deg, var(--hokuto-gold), #b38f00);
+            color: black;
+            border-color: white;
+            box-shadow: 0 0 15px var(--hokuto-gold);
+        }
+
+        /* Colori per le diverse sezioni */
+        .section-chars .category-title { color: var(--hokuto-gold); text-shadow: 0 0 10px var(--hokuto-gold); }
+        .section-chars .category-title::after { background: linear-gradient(90deg, var(--hokuto-gold), transparent); }
+        .section-chars .card:hover { border-color: var(--hokuto-gold); box-shadow: 0 0 20px rgba(255, 204, 0, 0.4); }
+
+        .section-stages .category-title { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+        .section-stages .category-title::after { background: linear-gradient(90deg, #00ff00, transparent); }
+        .section-stages .card:hover { border-color: #00ff00; box-shadow: 0 0 20px rgba(0, 255, 0, 0.4); }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="page-title">AREA DOWNLOADS</h1>
+
+    <!-- ====================================
+         SEZIONE FULL GAME / SCREENPACK
+         ==================================== -->
+    <section class="category-section">
+        <h2 class="category-title">FULL GAME & SCREENPACK</h2>
+        <div class="download-grid">
+            
+            <div class="card">
+                <div class="card-img-placeholder">IMG LST MUGEN</div>
+                <div class="card-content">
+                    <h3 class="item-title">HNK LST - BASE GAME</h3>
+                    <div class="item-info">
+                        Il gioco completo pre-configurato con Screenpack LST, Kenshiro e Shin inclusi. Pronto per giocare!<br><br>
+                        <strong>Autore:</strong> LST Team<br>
+                        <strong>Versione:</strong> 1.0 (2024)<br>
+                        <strong>Peso:</strong> 850 MB
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD (MEGA)</a>
+                </div>
+            </div>
+
+        }
+
+
+        </div>
+    
+
+
+</section>
+
+    <!-- ====================================
+         SEZIONE CHARACTERS
+         ==================================== -->
+    <section class="category-section section-chars">
+        <h2 class="category-title">CHARACTERS (COMBATTENTI)</h2>
+        <div class="download-grid">
+            
+            <div class="card">
+                <div class="card-img-placeholder">IMG KENSHIRO</div>
+                <div class="card-content">
+                    <h3 class="item-title">KENSHIRO</h3>
+                    <div class="item-info">
+                        Il 64° successore della Divina Scuola di Hokuto. Sprite HD e AI potenziata.<br><br>
+                        <strong>Autore:</strong> LST Team<br>
+                        <strong>Update:</strong> Gennaio 2024
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-placeholder" style="background: linear-gradient(45deg, #330000, #550000);">IMG RAOH</div>
+                <div class="card-content">
+                    <h3 class="item-title">RAOH (V 2.0)</h3>
+                    <div class="item-info">
+                        Il Re di Hokuto, il Dominatore dei Cieli. Aggiornato alla versione 2.0 con nuove Hitbox.<br><br>
+                        <strong>Autore:</strong> LST Team<br>
+                        <strong>Update:</strong> Marzo 2026
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-placeholder">IMG TOKI</div>
+                <div class="card-content">
+                    <h3 class="item-title">TOKI</h3>
+                    <div class="item-info">
+                        Il maestro del pugno dolce di Hokuto. Include mosse curative e parry frame-perfect.<br><br>
+                        <strong>Autore:</strong> LST Team<br>
+                        <strong>Update:</strong> Nov 2023
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-placeholder">IMG SHIN</div>
+                <div class="card-content">
+                    <h3 class="item-title">SHIN</h3>
+                    <div class="item-info">
+                        Maestro del Sacro Pugno dell'Uccello Solitario di Nanto. Combo velocissime.<br><br>
+                        <strong>Autore:</strong> LST Team<br>
+                        <strong>Update:</strong> Ott 2023
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ====================================
+         SEZIONE STAGES
+         ==================================== -->
+    <section class="category-section section-stages">
+        <h2 class="category-title">STAGES (ARENE)</h2>
+        <div class="download-grid">
+            
+            <div class="card">
+                <div class="card-img-placeholder">IMG CROCE DEL SUD</div>
+                <div class="card-content">
+                    <h3 class="item-title">CROCE DEL SUD</h3>
+                    <div class="item-info">
+                        Il palazzo dell'Imperatore Shin. Include animazioni in background e parallax. Track BGM Inclusa.<br><br>
+                        <strong>Autore:</strong> LST Stage Editor<br>
+                        <strong>Risoluzione:</strong> High-Res
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-placeholder">IMG VILLAGGIO</div>
+                <div class="card-content">
+                    <h3 class="item-title">VILLAGGIO DI MAMIYA</h3>
+                    <div class="item-info">
+                        Il classico villaggio desolato assediato dalla famiglia Cobra. Superjump supportato.<br><br>
+                        <strong>Autore:</strong> LST Stage Editor<br>
+                        <strong>Risoluzione:</strong> High-Res
+                    </div>
+                    <a href="#" class="download-btn">DOWNLOAD</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Script per forzare il ricalcolo dell'altezza dell'iframe nella pagina padre -->
+    <script>
+        window.addEventListener('load', function() {
+            if (window.parent && window.parent.resizeIframe) {
+                setTimeout(() => {
+                    window.parent.resizeIframe(window.frameElement);
+                }, 100);
+            }
+        });
+    </script>
+
+<body>
+
+    <!-- PULSANTE TORNA ALLA HOME -->
+    <a href="home.html" class="back-btn">⬅ TORNA ALLA HOME</a>
+
+    <h1 class="page-title">AREA DOWNLOADS</h1>
+
+    <!-- ====================================
+         SEZIONE FULL GAME / SCREENPACK
+         ==================================== -->
+</html>

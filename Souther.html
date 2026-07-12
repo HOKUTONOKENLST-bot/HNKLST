@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOUTHER - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --souther-gold: #ffd700; /* Oro intenso per il Sacro Imperatore */
+            --souther-crimson: #8b0000; /* Rosso cremisi profondo */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #2a0000 0%, #050505 100%); /* Sfondo a tema rosso oscuro */
+            border: 4px solid var(--souther-crimson); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(139, 0, 0, 0.5);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--souther-crimson);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: contrast(1.1) saturate(1.2);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--souther-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--souther-crimson), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--souther-crimson);
+            padding-left: 15px;
+            text-shadow: 0 0 10px var(--souther-gold);
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #222; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--souther-crimson), var(--souther-gold));
+            height: 100%;
+            box-shadow: 0 0 15px var(--souther-crimson);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: var(--souther-gold);
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--souther-crimson);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--souther-crimson); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Souther1.png" alt="Souther">
+        </div>
+
+        <div class="profile-info">
+            <h1>SOUTHER</h1>
+            <div class="rank">Il Sacro Imperatore - Stella del Comando</div>
+            
+            <p class="bio">
+                Successore del Nanto Hoo Ken (Pugno della Fenice di Nanto), la tecnica suprema che non ammette posizioni di guardia in quanto incarna l'attacco assoluto. In seguito a un trauma giovanile, Souther ha rinnegato l'amore e la compassione, autoproclamandosi Sacro Imperatore. Il suo corpo nasconde un segreto genetico (i punti di pressione invertiti) che lo rende immune alle letali tecniche dell'Hokuto Shinken.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>ATTACCO (NANTO HOO KEN)</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>IMMUNITÀ AI PUNTI SEGRETI</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>SPIETATEZZA</span> <span>99%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 99%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

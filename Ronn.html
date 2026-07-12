@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RONN - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ronn-blue: #2980b9;    /* Blu Cobalto per la sua freddezza */
+            --ronn-silver: #bdc3c7;  /* Argento per la precisione */
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #0a141e 0%, #050505 100%);
+            border: 4px solid var(--ronn-blue); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(41, 128, 185, 0.3);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--ronn-blue);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: contrast(1.1) saturate(0.8);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(10, 20, 30, 0.9));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--ronn-blue), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: var(--ronn-silver);
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--ronn-blue);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(10, 20, 30, 0.6);
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #111; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--ronn-blue), #fff);
+            height: 100%;
+            box-shadow: 0 0 15px var(--ronn-blue);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: var(--ronn-silver);
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--ronn-blue);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--ronn-blue); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Ronn1.png" alt="Ronn">
+        </div>
+
+        <div class="profile-info">
+            <h1>RONN</h1>
+            <div class="rank">Il Maestro della Precisione</div>
+            
+            <p class="bio">
+                Ronn non combatte per semplice rabbia o desiderio di distruzione. Per lui, il combattimento è una scienza esatta. Con movimenti calcolati e una tecnica che mira a colpire i punti vitali con matematica perfezione, Ronn analizza le debolezze dei suoi avversari prima di sferrare il colpo decisivo. La sua freddezza è la sua arma più pericolosa.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>PRECISIONE</span> <span>98%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>TECNICA</span> <span>92%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>FORZA FISICA</span> <span>70%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 70%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

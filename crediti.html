@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Crediti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- PULSANTE IN ALTO A SINISTRA --- */
+        .top-back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: black;
+            background: var(--hokuto-gold);
+            padding: 10px 25px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            z-index: 100;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .top-back-btn:hover {
+            background: white;
+            transform: scale(1.1) skewX(-5deg);
+            box-shadow: 0 0 20px white;
+        }
+
+        .page-title {
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            color: var(--hokuto-gold);
+            margin: 40px 0 20px 0;
+            text-shadow: 0 0 20px var(--hokuto-red), 3px 3px 0px #800000;
+            animation: title-glow 2s infinite alternate;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        .page-subtitle {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: #bbb;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        @keyframes title-glow {
+            from { text-shadow: 0 0 15px var(--hokuto-red); transform: scale(1); }
+            to { text-shadow: 0 0 35px var(--hokuto-red), 0 0 10px white; transform: scale(1.02); }
+        }
+
+        /* GRIGLIA CREDITI CON FLEXBOX (OTTIMIZZATA) */
+        .credits-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 95%;
+            max-width: 1200px;
+            padding: 25px;
+            background: rgba(10, 10, 10, 0.82);
+            border: 4px solid #222;
+            box-shadow: inset 0 0 50px #000, 0 0 20px rgba(255,0,0,0.2);
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+
+        /* Schede dei Crediti */
+        .credits-card {
+            flex: 1 1 220px;
+            max-width: 280px;
+            background: rgba(15, 15, 15, 0.9);
+            border: 3px solid #333;
+            border-radius: 5px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Effetto Scanlines sulle schede per retro-feeling */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .card-header {
+            font-size: 1.8rem;
+            color: var(--hokuto-gold);
+            text-shadow: 2px 2px 4px black;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--hokuto-red);
+            padding-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Lista dei collaboratori */
+        .credits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            z-index: 2;
+        }
+
+        .credits-list li {
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .role {
+            display: block;
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .name {
+            display: block;
+            font-size: 1.15rem;
+            color: #fff;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* EFFETTI HOVER SCHEDE */
+        .credits-card:hover {
+            border-color: var(--hokuto-gold);
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.25);
+        }
+
+        /* --- MINI ICONA YOUTUBE AFFIANCATA AL TESTO --- */
+        .yt-icon-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--hokuto-red);
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: 0.2s;
+        }
+
+        .yt-icon-link:hover {
+            color: white;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 5px var(--hokuto-red));
+        }
+
+        .yt-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* SEZIONE DISCLAIMER LEGALE */
+        .disclaimer-box {
+            width: 95%;
+            max-width: 1200px;
+            background: rgba(20, 5, 5, 0.7);
+            border: 2px dashed #551111;
+            border-radius: 5px;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .disclaimer-box strong {
+            color: var(--hokuto-red);
+        }
+
+        /* BOTTONE INDIETRO IN BASSO */
+        .back-btn-bottom {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(90deg, #0044aa, #0088ff);
+            padding: 15px 50px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            border: none;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .back-btn-bottom:hover {
+            background: white;
+            color: black;
+            text-shadow: none;
+            transform: scale(1.1) skewX(-5deg);
+            box-shadow: 0 0 20px white;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .top-back-btn {
+                position: static;
+                margin-top: 10px;
+                display: inline-block;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .credits-grid {
+                padding: 15px;
+            }
+            .credits-card {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+            .card-header { font-size: 1.6rem; }
+            .name { font-size: 1.1rem; }
+            .role { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pulsante indietro in alto -->
+    <a href="gioco.html" class="top-back-btn">INDIETRO</a>
+
+    <h1 class="page-title">I SACRI CREDITI</h1>
+    <p class="page-subtitle">Coloro che hanno forgiato il destino di questo progetto</p>
+
+    <!-- GRIGLIA PRINCIPALE DEI CREDITI -->
+    <div class="credits-grid">
+        
+        <!-- SCHEDA 1: SVILUPPO & CODICE -->
+        <div class="credits-card">
+            <div class="scanlines"></div>
+            <h2 class="card-header">SVILUPPO & CODICE</h2>
+            <ul class="credits-list">
+                <li>
+                    <span class="role">Game Director & Lead Developer</span>
+                    <span class="name">[Luca Scattone / LST Team]</span>
+                </li>
+                <li>
+                    <span class="role">Programmazione Gameplay</span>
+                    <span class="name">DevilMan79 & Mikehaggar</span>
+                </li>
+                <li>
+                    <span class="role">Sviluppo Web & UI Design</span>
+                    <span class="name">Vittorio Ruscio (DEVILMAN79)</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SCHEDA 2: GRAFICA & ARTE -->
+        <div class="credits-card">
+            <div class="scanlines"></div>
+            <h2 class="card-header">GRAFICA & ARTE</h2>
+            <ul class="credits-list">
+                <li>
+                    <span class="role">Design degli Stage</span>
+                    <span class="name">DevilMan79(Vittorio Ruscio) - Marco Ribezzi</span>
+                </li>
+                <li>
+                    <span class="role">Sprite & Animazioni</span>
+                    <span class="name">Marcello Nanni - Luca Scattone</span>
+                </li>
+                <li>
+                    <span class="role">Illustrazioni dei Menù</span>
+                    <span class="name">DevilMan79 - ExMembri</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SCHEDA 3: COMPARTO SONORO -->
+        <div class="credits-card">
+            <div class="scanlines"></div>
+            <h2 class="card-header">COMPARTO SONORO</h2>
+            <ul class="credits-list">
+                <li>
+                    <span class="role">Composizione Musiche</span>
+                    <span class="name">Mikehaggar</span>
+                </li>
+                <li>
+                    <span class="role">Sound Design & SFX</span>
+                    <span class="name">Mikehaggar - Luca Scattone</span>
+                </li>
+                <li>
+                    <span class="role">Doppiaggio & Voci</span>
+                    <span class="name">Alex </span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SCHEDA 4: QA & SPECIAL THANKS -->
+        <div class="credits-card">
+            <div class="scanlines"></div>
+            <h2 class="card-header">QA & SPECIAL THANKS</h2>
+            <ul class="credits-list">
+                <li>
+                    <span class="role">Lead Playtester</span>
+                    <span class="name">Mikehaggar</span>
+                </li>
+                <li>
+                    <span class="role">Beta Testing</span>
+                    <span class="name">Andrea - Giuseppe - Sandro</span>
+                </li>
+                <li>
+                    <span class="role">Ringraziamenti Speciali</span>
+                    <span class="name">Tutta la community di Hokuto no Ken LST</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SCHEDA 5: TRADUZIONE E ARRANGIAMENTI ITALIANI -->
+        <div class="credits-card">
+            <div class="scanlines"></div>
+            <h2 class="card-header">ARRANGIAMENTO ITALIANO</h2>
+            <ul class="credits-list">
+                <li>
+                    <span class="role">COVER ITALIANA</span>
+                    <span class="name">
+                        GREEN NOIZE 
+                        <a href="https://www.youtube.com/@GreenNoize" target="_blank" class="yt-icon-link" title="Canale YouTube">
+                            <svg class="yt-icon" viewBox="0 0 24 24">
+                                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.507 9.387.507 9.387.507s7.517 0 9.387-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span class="role">COVER ITALIANA</span>
+                    <span class="name">
+                        JOE MANETTA
+                        <a href="https://www.youtube.com/@JoeManetta" target="_blank" class="yt-icon-link" title="Canale YouTube">
+                            <svg class="yt-icon" viewBox="0 0 24 24">
+                                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.507 9.387.507 9.387.507s7.517 0 9.387-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span class="role">Adattamento Testi</span>
+                    <span class="name">Green Noize/Joe Manetta</span>
+                </li>
+            </ul>
+        </div>
+
+<!-- SCHEDA 6: YOUTUBER -->
+        <div class="credits-card">
+            <div class="scanlines"></div>
+            <h2 class="card-header">YOUTUBE</h2>
+            <ul class="credits-list">
+                <li>
+                    <span class="role">YOUTUBER</span>
+                    <span class="name">MY WORLD (LUCA CUSIN) 
+                        <a href="https://www.youtube.com/@MyWorld777" target="_blank" class="yt-icon-link" title="Canale YouTube">
+                            <svg class="yt-icon" viewBox="0 0 24 24">
+                                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.507 9.387.507 9.387.507s7.517 0 9.387-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span class="role">GEEKY2UO</span>
+                    <span class="name">GEEKY2UO
+                        <a href="https://www.youtube.com/@GEEKY2UO" target="_blank" class="yt-icon-link" title="Canale YouTube">
+                            <svg class="yt-icon" viewBox="0 0 24 24">
+                                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.507 9.387.507 9.387.507s7.517 0 9.387-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span class="role"></span>
+                    <span class="name"></span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- SEZIONE DISCLAIMER DI COPYRIGHT -->
+    <div class="disclaimer-box">
+        <strong>AVVISO LEGALE / DISCLAIMER:</strong><br>
+        Questo è un progetto no-profit realizzato interamente da fan per scopi puramente ricreativi. 
+        Tutti i diritti relativi ai personaggi, ai nomi, alle musiche ufficiali e all'universo di <em>Hokuto no Ken</em> (Fist of the North Star) appartengono ai rispettivi autori: <strong>Buronson</strong> e <strong>Tetsuo Hara</strong>, e alle aziende detentrici dei diritti di proprietà intellettuale (<strong>Coamix Co., Ltd.</strong>, <strong>Toei Animation</strong> e partner licenziatari). Non si intende violare alcun copyright o diritto d'autore legato al franchise originale.
+    </div>
+
+    <!-- Pulsante in Basso -->
+    <a href="index.html" class="back-btn-bottom">TORNA ALLA INFO</a>
+
+</body>
+</html>

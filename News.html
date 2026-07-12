@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Novità & News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* --- BACKGROUND & STARS --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            z-index: -1;
+        }
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 8px white; opacity: 0.5; }
+        .hokuto-star { background: var(--hokuto-red); box-shadow: 0 0 15px var(--hokuto-red); animation: twinkle 2s infinite alternate; }
+
+        /* --- CONTENITORE GENERALE --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px 80px 20px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin: 20px 0 10px 0;
+            color: white;
+            text-shadow: 0 0 20px var(--hokuto-red);
+            letter-spacing: 5px;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--hokuto-gold);
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        /* --- PULSANTE DI RITORNO --- */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            background: #111;
+            border: 2px solid var(--hokuto-red);
+            padding: 10px 25px;
+            font-size: 1.3rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            margin-bottom: 40px;
+        }
+        .btn-back:hover {
+            transform: scale(1.05);
+            background: var(--hokuto-red);
+            box-shadow: 0 0 15px var(--hokuto-red);
+        }
+
+        /* --- SEZIONE SCHEDE NEWS --- */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            text-align: left;
+        }
+
+        .news-card {
+            background: rgba(10, 0, 0, 0.85);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* Colori dinamici dei bordi in base alla categoria */
+        .news-card[data-category="aggiornamenti"] { border-color: var(--hokuto-blue); }
+        .news-card[data-category="personaggi"] { border-color: var(--hokuto-gold); }
+        .news-card[data-category="community"] { border-color: var(--hokuto-purple); }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+        }
+        .news-card[data-category="aggiornamenti"]:hover { box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
+        .news-card[data-category="personaggi"]:hover { box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
+        .news-card[data-category="community"]:hover { box-shadow: 0 0 15px rgba(160, 32, 240, 0.4); }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .news-date {
+            font-size: 1rem;
+            color: #888;
+            font-family: monospace;
+        }
+
+        .news-badge {
+            font-size: 0.9rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: black;
+            font-weight: bold;
+        }
+        .news-card[data-category="aggiornamenti"] .news-badge { background-color: var(--hokuto-blue); color: white; }
+        .news-card[data-category="personaggi"] .news-badge { background-color: var(--hokuto-gold); }
+        .news-card[data-category="community"] .news-badge { background-color: var(--hokuto-purple); color: white; }
+
+        .news-title {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            color: white;
+        }
+        .news-card[data-category="aggiornamenti"] .news-title { text-shadow: 0 0 5px rgba(0, 119, 255, 0.5); }
+        .news-card[data-category="personaggi"] .news-title { text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+        .news-card[data-category="community"] .news-title { text-shadow: 0 0 5px rgba(160, 32, 240, 0.5); }
+
+        .news-content {
+            font-family: sans-serif;
+            text-transform: none; /* Rende il testo leggibile evitando il tutto maiuscolo */
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin: 0;
+        }
+
+        /* --- MARQUEE --- */
+        .marquee-container { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(139, 0, 0, 0.4); border-top: 2px solid var(--hokuto-red); padding: 10px 0; overflow: hidden; z-index: 100; }
+        .marquee-text { display: inline-block; white-space: nowrap; font-size: 1.5rem; color: var(--hokuto-gold); animation: scroll-text 25s linear infinite; }
+
+        /* Animazioni */
+        @keyframes scroll-text { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        @keyframes shake { 0% { transform: skewX(-1deg); } 100% { transform: skewX(1deg); } }
+        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .news-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container" id="starsBox"></div>
+
+    <div class="container">
+        
+        <a href="index.html" class="btn-back">⬅ TORNA AL MENU</a>
+
+        <h1>BOLLETTINO DI GUERRA</h1>
+        <div class="subtitle">Tutte le ultime novità su Hokuto No Ken LST</div>
+
+        <!-- ELENCO DELLE NEWS (Senza filtri) -->
+        <div class="news-list">
+
+            <!-- NEWS 1 - SITO INTERNET -->
+            <article class="news-card" data-category="aggiornamenti">
+                <div class="news-header">
+                    <span class="news-date">11 Luglio 2026</span>
+                    <span class="news-badge">AGGIORNAMENTI</span>
+                </div>
+                <h3 class="news-title">SITO ONLINE!!!</h3>
+                <p class="news-content">
+                    DA OGGI ONLINE IL NOSTRO SITO INTERNET...
+                </p>
+            </article>
+
+            <!-- NEWS 2 - PERSONAGGI -->
+            <article class="news-card" data-category="personaggi">
+                <div class="news-header">
+                    <span class="news-date">11 Luglio 2026</span>
+                    <span class="news-badge">USCITA DEL PIRATA ROSSO</span>
+                </div>
+                <h3 class="news-title">IL PIRATA ROSSO</h3>
+                <p class="news-content">
+                    IN USCITA CON L'ULTIMA VERSIONE DEL GIOCO, NUOVI PERSONAGGI, TRA CUI SPICCA IL PIRATA ROSSO.
+                </p>
+            </article>
+
+            <!-- NEWS 3 - COMMUNITY -->
+            <article class="news-card" data-category="community">
+                <div class="news-header">
+                    <span class="news-date">11 Luglio 2026</span>
+                    <span class="news-badge">Community</span>
+                </div>
+                <h3 class="news-title">ISCRIVETEVI SUI NOSTRI SOCIAL!!!</h3>
+                <p class="news-content">
+                    Iscrivetevi su Discord, Tiktok, Youtube per restare aggiornati e ritrovarci per giocare ONLINE!
+                </p>
+            </article>
+
+            <!-- NEWS 4 - AGGIORNAMENTI -->
+            <article class="news-card" data-category="aggiornamenti">
+                <div class="news-header">
+                    <span class="news-date">11 Luglio 2026</span>
+                    <span class="news-badge">Setup</span>
+                </div>
+                <h3 class="news-title">Nuovo installer semplificato</h3>
+                <p class="news-content">
+                  AGGIORNAMENTI IN CORSO!!!
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+
+    <!-- MARQUEE IN BASSO -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            +++ ATTENZIONE: LA SACRA SCUOLA DI HOKUTO È TORNATA +++ PROGETTO HOKUTO NO KEN LST +++ ORA SEI GIÀ MORTO +++ SVILUPPATO DAL LST TEAM +++ SEGUI LA STELLA DELLA MORTE +++
+        </div>
+    </div>
+
+    <script>
+        // GENERAZIONE SFONDO STELLATO
+        function createStars() {
+            const box = document.getElementById("starsBox");
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+                star.style.width = star.style.height = Math.random() * 3 + "px";
+                box.appendChild(star);
+            }
+            // Sette stelle della morte di Hokuto (Orsa Maggiore)
+            for (let j = 0; j < 7; j++) {
+                let hStar = document.createElement("div");
+                hStar.className = "star hokuto-star";
+                hStar.style.left = (70 + (j * 2)) + "%"; 
+                hStar.style.top = (15 + (j * 3)) + "%";
+                hStar.style.width = hStar.style.height = "5px";
+                box.appendChild(hStar);
+            }
+        }
+        createStars();
+    </script>
+
+</body>
+</html>

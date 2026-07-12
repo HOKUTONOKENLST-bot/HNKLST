@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Manga Reader (Chrome Version)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Blocca lo scorrimento della pagina web, scorrerà solo il PDF */
+        }
+
+        /* BARRA SUPERIORE */
+        .top-bar {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 3px solid var(--hokuto-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            box-sizing: border-box;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            z-index: 100;
+        }
+
+        .top-back-btn {
+            text-decoration: none;
+            color: black;
+            background: var(--hokuto-gold);
+            padding: 8px 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+
+        .top-back-btn:hover {
+            background: white;
+            transform: scale(1.1) skewX(-5deg);
+            box-shadow: 0 0 15px white;
+        }
+
+        .reader-title {
+            color: var(--hokuto-gold);
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 0px #800000;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* CONTENITORE DEL FUMETTO (Adattato per Chrome) */
+        .pdf-container {
+            flex-grow: 1;
+            width: 95%;
+            max-width: 1400px;
+            margin: 20px 0;
+            border: 4px solid #333;
+            box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(255,0,0,0.4);
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #222; /* Sfondo scuro mentre carica */
+        }
+
+        /* Il visualizzatore nativo del browser */
+        embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .reader-title {
+                font-size: 1.8rem;
+            }
+            .pdf-container {
+                width: 100%;
+                margin: 10px 0;
+                border: none;
+                border-top: 2px solid var(--hokuto-red);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIORE -->
+    <div class="top-bar">
+        <a href="javascript:history.back()" class="top-back-btn">◄ INDIETRO</a>
+        <h1 class="reader-title">LEGGI IL MANGA</h1>
+        <div style="width: 100px;"></div> <!-- Spaziatore invisibile per centrare il titolo -->
+    </div>
+
+    <!-- AREA DI LETTURA DEL FUMETTO -->
+    <div class="pdf-container">
+        <!-- INSERISCI QUI IL NOME DEL FILE. #view=FitH dice a Chrome di adattare la pagina alla larghezza -->
+        <embed src="Media/Volume1.pdf#view=FitH" type="application/pdf">
+    </div>
+
+</body>
+</html>

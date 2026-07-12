@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELLA - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --bella-red: #cc0000; /* Colore tema per il rosso della montagna */
+            --bella-orange: #ff4500; /* Accenti fuoco e calore */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #1a0808 0%, #050505 100%);
+            border: 4px solid var(--bella-red); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(204, 0, 0, 0.3);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--bella-red);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--bella-orange), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: white;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--bella-red);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ccc;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border: 1px solid #444;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #222; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--bella-red), var(--bella-orange));
+            height: 100%;
+            box-shadow: 0 0 15px var(--bella-red);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: #eee;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--bella-red); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Bella1.png" alt="Bella della Montagna Rossa">
+        </div>
+
+        <div class="profile-info">
+            <h1>BELLA</h1>
+            <div class="rank">La Guerriera Feroce della Montagna Rossa</div>
+            
+            <p class="bio">
+                Nata e cresciuta tra le aspre vette vulcaniche, Bella è una guerriera dal cuore indomito e dalla volontà di ferro. Conosciuta per la sua forza brutale e la sua abilità nell'usare le armi da mischia, difende la sua gente e i territori della Montagna Rossa con una ferocia pari solo alla sua lealtà. Il suo passato è legato a un misterioso segreto che la rende un'avversaria imprevedibile e temibile per chiunque osi sfidarla.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>FORZA FISICA</span> <span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>RESISTENZA</span> <span>88%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 88%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>CARISMA E LEADERSHIP</span> <span>85%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

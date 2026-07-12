@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - HNK LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505; /* Colore di base oscuro */
+        }
+
+        body {
+            /* Sfondo identico alla pagina principale */
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            background-attachment: fixed;
+            
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            text-transform: uppercase;
+            min-height: 100vh; /* Assicura che il corpo occupi l'intera altezza della viewport */
+            justify-content: center; /* Centra verticalmente il contenuto */
+        }
+
+        /* --- TITOLO PAGINA --- */
+        .page-title {
+            font-size: 3.5rem;
+            color: var(--hokuto-red);
+            text-shadow: 0 0 10px var(--hokuto-red), 2px 2px 0px #000;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid var(--hokuto-gold);
+            padding-bottom: 10px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        /* --- MESSAGGIO IN COSTRUZIONE --- */
+        .under-construction {
+            font-size: 4rem; /* Dimensione grande per il messaggio */
+            color: var(--hokuto-gold);
+            text-shadow: 0 0 15px var(--hokuto-gold), 3px 3px 0px #000;
+            text-align: center;
+            margin: 50px 0; /* Spazio sopra e sotto */
+            animation: flicker 1.5s infinite alternate; /* Effetto sfarfallio */
+            line-height: 1.2;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; text-shadow: 0 0 15px var(--hokuto-gold), 3px 3px 0px #000; }
+            50% { opacity: 0.8; text-shadow: 0 0 10px var(--hokuto-gold), 2px 2px 0px #000; }
+            100% { opacity: 1; text-shadow: 0 0 15px var(--hokuto-gold), 3px 3px 0px #000; }
+        }
+
+        /* --- PULSANTE TORNA ALLA HOME --- */
+        .back-btn {
+            background: linear-gradient(180deg, var(--hokuto-blue), #004488);
+            color: white;
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            padding: 12px 25px;
+            border: 2px solid var(--hokuto-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            margin-top: 40px; /* Spazio dal messaggio */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(180deg, #00aaff, #0077ff);
+            border-color: white;
+            box-shadow: 0 0 20px rgba(0, 119, 255, 0.7);
+            color: white; /* Mantieni il colore del testo bianco per leggibilità */
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="page-title">AREA AGGIORNAMENTO</h1>
+
+    <div class="under-construction">
+        IN COSTRUZIONE<br>
+        COMING SOON!
+    </div>
+
+    <!-- PULSANTE TORNA ALLA HOME -->
+    <a href="index.html" class="back-btn">⬅ TORNA ALLA HOME</a>
+
+    <!-- Script per forzare il ricalcolo dell'altezza dell'iframe nella pagina padre -->
+    <script>
+        window.addEventListener('load', function() {
+            if (window.parent && window.parent.resizeIframe) {
+                setTimeout(() => {
+                    window.parent.resizeIframe(window.frameElement);
+                }, 100);
+            }
+        });
+    </script>
+
+</body>
+</html>

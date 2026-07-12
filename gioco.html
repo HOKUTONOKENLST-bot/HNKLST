@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Info Gioco</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            /* Sfondo con gradiente radiale per dare profondità */
+            background: radial-gradient(circle at top center, #2a0000 0%, #050505 80%);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: flex-start; 
+            padding: 60px 20px; 
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .content-card {
+            background: rgba(10, 10, 10, 0.95);
+            border: 3px solid var(--hokuto-red);
+            padding: 50px 40px;
+            max-width: 900px; 
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+            border-radius: 15px;
+            animation: pulse-red 4s infinite ease-in-out;
+            position: relative;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.7); border-color: #ff3333; }
+            100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+        }
+
+        h2 {
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            color: var(--hokuto-gold);
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 0px #800000, 0 0 20px var(--hokuto-gold);
+            letter-spacing: 4px;
+        }
+
+        /* --- STILE PER LA DESCRIZIONE LUNGA --- */
+        .lore-description {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: justify;
+            color: #e0e0e0;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            text-transform: none; 
+            border-bottom: 2px dashed var(--hokuto-red);
+            padding-bottom: 40px;
+        }
+
+        .lore-description strong {
+            color: var(--hokuto-red);
+            font-size: 1.4rem;
+        }
+
+        /* --- STILE PER LE CARATTERISTICHE (LISTA) --- */
+        .game-features {
+            text-align: left;
+            margin: 0 auto 40px auto;
+            display: inline-block;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .feature-item {
+            color: var(--hokuto-gold);
+            margin: 20px 0;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 5px black;
+        }
+
+        .feature-item span {
+            display: block;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 0;
+            text-transform: none;
+            margin-top: 5px;
+            padding-left: 35px; 
+        }
+
+        /* --- BOTTONI --- */
+        .button-container {
+            display: flex;
+            gap: 20px; 
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: black;
+            padding: 15px 30px;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            background: var(--hokuto-gold);
+            box-shadow: inset 0 0 10px #cc9900;
+        }
+
+        .char-btn {
+            background: linear-gradient(90deg, #aa0000, #ff0000);
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .stage-btn {
+            background: linear-gradient(90deg, #0044aa, #0088ff);
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        /* NUOVO STILE PER IL PULSANTE MOSSE */
+        .moves-btn {
+            background: linear-gradient(90deg, #6a0dad, #a020f0);
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: white;
+            color: black;
+            text-shadow: none;
+            box-shadow: 0 0 20px white;
+        }
+
+        /* Responsive per cellulari */
+        @media (max-width: 600px) {
+            .lore-description { text-align: left; padding: 0; font-size: 1.1rem; }
+            .feature-item { font-size: 1.5rem; }
+            .feature-item span { padding-left: 25px; font-size: 1rem; }
+            .content-card { padding: 30px 20px; }
+            .btn { font-size: 1.5rem; padding: 12px 30px; width: 100%; text-align: center; margin-bottom: 10px; }
+            .button-container { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-card">
+        <h2>IL GIOCO DEFINITIVO</h2>
+        
+        <div class="lore-description">
+            Siamo alla fine del XX Secolo. Il mondo è stato devastato dalle esplosioni atomiche e gli oceani sono prosciugati, ma la razza umana è sopravvissuta. In quest'epoca di caos e violenza, le antiche arti marziali tornano a dominare per stabilire chi sarà il salvatore o il tiranno di fine secolo.<br><br>
+            <strong>Hokuto No Ken LST</strong> è il picchiaduro 2D creato dai fan per i fan, sviluppato sul potente motore M.U.G.E.N. Il nostro team ha riversato anni di passione per ricreare fedelmente le epiche battaglie dell'opera maestra di Tetsuo Hara e Buronson. Scegli il tuo destino: abbraccia la spietata letalità della <em>Sacra Scuola di Hokuto</em>, l'eleganza distruttiva dei maestri di <em>Nanto</em>, o la schiacciante potenza imperiale di <em>Gento</em>. 
+        </div>
+        
+        <div class="game-features">
+            <div class="feature-item">
+                ➤ Roster Leggendario
+                <span>Oltre 60 personaggi accuratamente bilanciati, con sprites rimasterizzati e set di mosse unici tratti dall'anime e dal manga.</span>
+            </div>
+            <div class="feature-item">
+                ➤ Sistema "Fatal K.O."
+                <span>Esegui tecniche segrete mortali , innescando animazioni spettacolari e distruttive.</span>
+            </div>
+            <div class="feature-item">
+                ➤ Arene in Alta Definizione
+                <span>Combatti negli iconici scenari della serie: dalla Croce del Sud, al palazzo di Shin, fino alle terre desolate di Shura, tutto con elementi interattivi.</span>
+            </div>
+            <div class="feature-item">
+                ➤ Audio ed Effetti Originali
+                <span>Immergiti totalmente nell'azione grazie alle voci originali italiane dei doppiatori storici e alle indimenticabili colonne sonore dell'anime.</span>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <a href="characters.html" class="btn char-btn">PERSONAGGI</a>
+            <a href="stage.html" class="btn stage-btn">GLI STAGE</a>
+            <a href="mosse.html" class="btn moves-btn">MOSSE DEI PERSONAGGI</a>
+            <a href="index.html" class="btn back-btn">MENU PRINCIPALE</a>
+        </div>
+    </div>
+
+</body>
+</html>

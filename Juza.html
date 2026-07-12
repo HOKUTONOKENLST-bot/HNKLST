@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUZA DELLE NUVOLE - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --juza-theme: #1e90ff; /* Azzurro Cielo per l'Astro delle Nuvole */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #111 0%, #050505 100%);
+            border: 4px solid var(--juza-theme);
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(30, 144, 255, 0.3);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--juza-theme);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--juza-theme), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: white;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--juza-theme);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #eee;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #333; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--juza-theme), #ffffff);
+            height: 100%;
+            box-shadow: 0 0 15px var(--juza-theme);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: white;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--juza-theme); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <!-- Assicurati di avere l'immagine nella cartella IMG -->
+            <img src="IMG/Juza1.png" alt="Juza delle Nuvole">
+        </div>
+
+        <div class="profile-info">
+            <h1>JUZA</h1>
+            <div class="rank">L'Astro delle Nuvole (Nanto Goshasei)</div>
+            
+            <p class="bio">
+                Membro dei Cinque Astri in Cerchio di Nanto, Juza è il guerriero protetto dalla Stella delle Nuvole. Libero, ribelle e apparentemente disinteressato alle sorti del mondo, nasconde nel cuore un amore profondo e tragico per la sorellastra Yuria. Il suo stile di combattimento è un'arte marziale autodidatta priva di posizioni fisse (<i>Gashū-ken</i>), che lo rende letale, sfuggente e del tutto illeggibile persino per i maestri più esperti. Pur di proteggere l'Ultimo Condottiero di Nanto, sfiderà il temibile Raoh in uno scontro epico, riuscendo a rubargli il possente destriero Kokuoh, e sacrificherà la propria vita con il sorriso sulle labbra senza mai piegarsi al Re di Hokuto.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>ATTACCO (STILE AUTODIDATTA)</span> <span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>IMPREVEDIBILITÀ</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>RESISTENZA (AMORE PER YURIA)</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

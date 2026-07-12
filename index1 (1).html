@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* --- BACKGROUND & STARS --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            z-index: -1;
+        }
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 8px white; opacity: 0.5; }
+        .hokuto-star { background: var(--hokuto-red); box-shadow: 0 0 15px var(--hokuto-red); animation: twinkle 2s infinite alternate; }
+
+        /* --- LOGO --- */
+        .team-logo {
+            position: absolute;
+            top: 20px; left: 20px;
+            width: clamp(80px, 10vw, 120px);
+            z-index: 100;
+            filter: drop-shadow(0 0 10px var(--hokuto-red));
+            animation: pulse-logo 3s infinite ease-in-out;
+        }
+        
+        /* --- CONTATORE VISITE --- */
+        .counter-container {
+            position: absolute; 
+            top: 40px; right: 20px; 
+            margin-top: 0; margin-bottom: 0; 
+            font-size: 1.5rem; color: var(--hokuto-gold);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); background: rgba(20, 0, 0, 0.8);
+            padding: 10px 20px; border: 2px solid var(--hokuto-red); border-radius: 5px;
+            display: inline-block; box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.5);
+            z-index: 100; 
+        }
+        #visite-count { color: white; font-family: monospace; font-size: 1.8rem; text-shadow: 0 0 15px var(--hokuto-red), 0 0 30px var(--hokuto-red); letter-spacing: 3px; }
+
+        /* --- IFRAME PRINCIPALE --- */
+        #content-frame {
+            border: none;
+            width: 100%;
+            flex-grow: 1; 
+            margin-top: 150px; 
+            margin-bottom: 60px; 
+            background: transparent; 
+        }
+
+        /* --- MARQUEE --- */
+        .marquee-container { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(139, 0, 0, 0.4); border-top: 2px solid var(--hokuto-red); padding: 10px 0; overflow: hidden; z-index: 100; }
+        .marquee-text { display: inline-block; white-space: nowrap; font-size: 1.5rem; color: var(--hokuto-gold); animation: scroll-text 25s linear infinite; }
+
+        /* =========================================
+           STILE NEWS FLUTTUANTI (SOTTO IL CONTATORE)
+           ========================================= */
+        #news-toggle-btn { position: absolute; top: 120px; right: 20px; background: rgba(0, 30, 80, 0.9); color: white; padding: 10px 20px; border: 2px solid var(--hokuto-blue); border-radius: 5px; font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 0 15px var(--hokuto-blue); transition: 0.3s; text-shadow: 0 0 5px white; }
+        #news-toggle-btn:hover { transform: scale(1.05); background: var(--hokuto-blue); color: white; }
+        
+        #news-panel { position: absolute; top: 170px; right: 20px; width: 350px; max-height: 400px; background: rgba(5, 5, 5, 0.95); border: 2px solid var(--hokuto-blue); border-radius: 10px; z-index: 999; display: none; flex-direction: column; box-shadow: 0 0 20px rgba(0, 119, 255, 0.6); overflow: hidden; }
+        .news-header { background: linear-gradient(90deg, #002255, #0077ff); padding: 10px; font-size: 1.2rem; text-align: center; border-bottom: 2px solid white; display: flex; justify-content: space-between; align-items: center; }
+        .news-content { overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .news-item { border-bottom: 1px dashed #444; padding-bottom: 15px; }
+        .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .news-date { color: var(--hokuto-gold); font-size: 0.9rem; font-family: sans-serif; letter-spacing: 1px; font-weight: bold; }
+        .news-title { color: var(--hokuto-blue); font-size: 1.3rem; margin: 5px 0; text-shadow: 1px 1px 2px black; }
+        .news-text { color: #ddd; font-size: 0.95rem; font-family: sans-serif; text-transform: none; line-height: 1.4; }
+
+        /* =========================================
+           STILE CHAT FLUTTUANTE (DESTRA IN BASSO)
+           ========================================= */
+        #chat-toggle-btn { position: fixed; bottom: 65px; right: 20px; background: var(--hokuto-red); color: white; padding: 15px 20px; border: 2px solid var(--hokuto-gold); border-radius: 30px; font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 0 15px var(--hokuto-red); transition: 0.3s; }
+        #chat-toggle-btn:hover { transform: scale(1.1); background: var(--hokuto-gold); color: black; }
+        #chat-box-container { position: fixed; bottom: 125px; right: 20px; width: 350px; height: 500px; background: rgba(0, 0, 0, 0.95); border: 2px solid var(--hokuto-red); border-radius: 10px; z-index: 999; display: none; flex-direction: column; box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); overflow: hidden; }
+        .chat-header { background: linear-gradient(90deg, #800000, #ff0000); padding: 10px; font-size: 1.2rem; text-align: center; border-bottom: 2px solid var(--hokuto-gold); display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .close-btn:hover { transform: scale(1.2); }
+
+        /* =========================================
+           STILE JUKEBOX FLUTTUANTE (SINISTRA IN BASSO)
+           ========================================= */
+        #jukebox-toggle-btn { position: fixed; bottom: 65px; left: 20px; background: #111; color: var(--hokuto-gold); padding: 15px 20px; border: 2px solid var(--hokuto-gold); border-radius: 30px; font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 0 15px rgba(255, 204, 0, 0.5); transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        #jukebox-toggle-btn:hover { transform: scale(1.1); background: var(--hokuto-gold); color: black; }
+        
+        #jukebox-panel { position: fixed; bottom: 125px; left: 20px; width: 300px; background: rgba(10, 10, 10, 0.95); border: 2px solid var(--hokuto-gold); border-radius: 10px; z-index: 999; display: none; flex-direction: column; box-shadow: 0 0 20px rgba(255, 204, 0, 0.5); overflow: hidden; padding-bottom: 10px; }
+        .jukebox-header { background: linear-gradient(90deg, #b38f00, #ffcc00); color: black; padding: 10px; font-size: 1.2rem; text-align: center; border-bottom: 2px solid #fff; display: flex; justify-content: space-between; align-items: center; }
+        
+        .now-playing { padding: 15px; text-align: center; border-bottom: 1px dashed var(--hokuto-gold); }
+        .now-playing p { margin: 0; font-family: sans-serif; font-size: 0.9rem; color: #ccc; text-transform: none; }
+        .now-playing h3 { margin: 5px 0 0 0; color: var(--hokuto-gold); font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .juke-controls { display: flex; justify-content: center; gap: 20px; padding: 15px; }
+        .juke-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; transition: 0.2s; }
+        .juke-btn:hover { color: var(--hokuto-red); transform: scale(1.2); }
+        
+        .playlist { list-style: none; padding: 0; margin: 0; max-height: 150px; overflow-y: auto; font-family: sans-serif; font-size: 0.9rem; text-transform: none; }
+        .playlist li { padding: 8px 15px; cursor: pointer; border-bottom: 1px solid #222; transition: 0.2s; }
+        .playlist li:hover { background: rgba(255, 0, 0, 0.3); }
+        .playlist li.active-track { color: var(--hokuto-gold); font-weight: bold; background: rgba(255, 204, 0, 0.1); border-left: 3px solid var(--hokuto-gold); }
+
+        /* Animazioni */
+        @keyframes scroll-text { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        @keyframes pulse-logo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .team-logo { position: relative; left: 0; margin-bottom: 10px; }
+            .counter-container { position: relative; top: auto; right: auto; margin-top: 10px; }
+            #news-toggle-btn { position: relative; top: auto; right: auto; margin-top: 10px; display: block; margin-left: auto; margin-right: auto; width: fit-content; }
+            #news-panel { width: 90%; right: 5%; top: 250px; }
+            #chat-box-container { width: 90%; right: 5%; bottom: 130px; height: 350px; }
+            #jukebox-panel { width: 90%; left: 5%; bottom: 130px; }
+            #chat-toggle-btn { bottom: 65px; right: 10px; padding: 10px; font-size: 1rem; }
+            #jukebox-toggle-btn { bottom: 65px; left: 10px; padding: 10px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="media/logo_team.png" alt="LST Team Logo" class="team-logo">
+    <div class="counter-container">
+        VISITATORI SOPRAVVISSUTI: <span id="visite-count">...</span>
+    </div>
+
+    <!-- =========================================
+         SEZIONE NEWS HTML
+         ========================================= -->
+    <div id="news-toggle-btn" onclick="toggleNews()">
+        📰 LST NEWS
+    </div>
+
+    <div id="news-panel">
+        <div class="news-header">
+            ULTIME NOTIZIE
+            <span class="close-btn" onclick="toggleNews()">❌</span>
+        </div>
+        <div class="news-content">
+            <!-- NOTIZIA 1 -->
+            <div class="news-item">
+                <div class="news-date">01 MARZO 2026</div>
+                <div class="news-title">AGGIORNAMENTO CHAR</div>
+                <div class="news-text">Raoh Dominatore dei cieli è stato aggiornato alla versione 2.0. Aggiunta nuova IA e Hitbox!</div>
+            </div>
+            <!-- NOTIZIA 2 -->
+            <div class="news-item">
+                <div class="news-date">08 MARZO 2026</div>
+                <div class="news-title">AGGIORNAMENTO SITO</div>
+                <div class="news-text">Aggiunti i Vari Char nella sezione Personaggi.</div>
+            </div>
+            <!-- NOTIZIA 3 -->
+            <div class="news-item">
+                <div class="news-date">01 AGO 2023</div>
+                <div class="news-title">APERTURA PORTALE LST</div>
+                <div class="news-text">Benvenuti nel nuovo hub ufficiale del progetto Hokuto No Ken M.U.G.E.N by LST Team. Siete già morti!</div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic"></audio>
+
+    <div class="stars-container" id="starsBox"></div>
+
+    <iframe id="content-frame" src="home.html"></iframe>
+
+    <!-- =========================================
+         JUKEBOX HTML
+         ========================================= -->
+    <div id="jukebox-toggle-btn" onclick="toggleJukebox()">
+        <span id="juke-icon">🎵</span> JUKEBOX
+    </div>
+
+    <div id="jukebox-panel">
+        <div class="jukebox-header">
+            RADIO HOKUTO
+            <span class="close-btn" onclick="toggleJukebox()">❌</span>
+        </div>
+        
+        <div class="now-playing">
+            <p>In riproduzione:</p>
+            <h3 id="track-title">Seleziona una traccia</h3>
+        </div>
+
+        <div class="juke-controls">
+            <button class="juke-btn" onclick="prevTrack()">⏮</button>
+            <button class="juke-btn" id="play-pause-btn" onclick="togglePlayPause()">▶</button>
+            <button class="juke-btn" onclick="nextTrack()">⏭</button>
+        </div>
+
+        <ul class="playlist" id="playlist-container"></ul>
+    </div>
+
+    <!-- =========================================
+         CHAT HTML
+         ========================================= -->
+    <div id="chat-toggle-btn" onclick="toggleChat()">
+        💬 COMMUNITY CHAT
+    </div>
+
+    <div id="chat-box-container">
+        <div class="chat-header">
+            LST PUBLIC CHAT
+            <span class="close-btn" onclick="toggleChat()">❌</span>
+        </div>
+        <iframe src="https://organizations.minnit.chat/198262683410474/LSTHokuto?chat=LSTHokuto?embed&nickname=" style="border:none;width:100%;height:100%;" allowTransparency="true"></iframe>
+    </div>
+
+    <!-- MARQUEE IN BASSO -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            +++ ATTENZIONE: LA SACRA SCUOLA DI HOKUTO È TORNATA +++ PROGETTO HOKUTO NO KEN LST +++ ORA SEI GIÀ MORTO +++ SVILUPPATO DAL LST TEAM +++ SEGUI LA STELLA DELLA MORTE +++
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // GESTIONE PANNELLI (NEWS, CHAT, JUKEBOX)
+        // =========================================
+        function toggleNews() {
+            const newsBox = document.getElementById("news-panel");
+            if (newsBox.style.display === "none" || newsBox.style.display === "") {
+                newsBox.style.display = "flex";
+                document.getElementById("chat-box-container").style.display = "none"; // Chiude gli altri
+                document.getElementById("jukebox-panel").style.display = "none";
+            } else {
+                newsBox.style.display = "none";
+            }
+        }
+
+        function toggleChat() {
+            const chatBox = document.getElementById("chat-box-container");
+            if (chatBox.style.display === "none" || chatBox.style.display === "") {
+                chatBox.style.display = "flex";
+                document.getElementById("news-panel").style.display = "none"; // Chiude gli altri
+                document.getElementById("jukebox-panel").style.display = "none";
+            } else {
+                chatBox.style.display = "none";
+            }
+        }
+
+        function toggleJukebox() {
+            const jukeBox = document.getElementById("jukebox-panel");
+            if (jukeBox.style.display === "none" || jukeBox.style.display === "") {
+                jukeBox.style.display = "flex";
+                document.getElementById("news-panel").style.display = "none"; // Chiude gli altri
+                document.getElementById("chat-box-container").style.display = "none";
+            } else {
+                jukeBox.style.display = "none";
+            }
+        }
+
+        // =========================================
+        // SISTEMA JUKEBOX (LOGICA)
+        // =========================================
+        const audioPlayer = document.getElementById("bgMusic");
+        const trackTitleDisplay = document.getElementById("track-title");
+        const playPauseBtn = document.getElementById("play-pause-btn");
+        const playlistContainer = document.getElementById("playlist-container");
+        const jukeIcon = document.getElementById("juke-icon");
+
+        const tracks = [
+            { title: "Hokuto LST - Main Theme", src: "media/soundtrack.mp3" },
+            { title: "Tough Boy", src: "media/Tough Boy.mp3" },
+            { title: "Love Song ", src: "media/Love Song.mp3" },
+            { title: "Kill The Fight ", src: "media/Kill The Fight.mp3" },
+            { title: "Wind & Rain ", src: "media/Wind & Rain.mp3" },
+            { title: "Silent Survivor ", src: "media/Silent Survivor.mp3" },
+            { title: "Dry your Tears ", src: "media/Dry your Tears.mp3" },
+            { title: "Heart of Madness ", src: "media/Heart of Madness.mp3" },
+            { title: "Purple Eyes ", src: "media/Purple Eyes.mp3" },
+            { title: "Ken hokutosei ", src: "media/Ken hokutosei.mp3" }
+            
+        ];
+
+        let currentTrackIndex = 0;
+
+        function loadPlaylist() {
+            playlistContainer.innerHTML = "";
+            tracks.forEach((track, index) => {
+                let li = document.createElement("li");
+                li.innerText = track.title;
+                li.onclick = () => playTrack(index);
+                if (index === currentTrackIndex) li.classList.add("active-track");
+                playlistContainer.appendChild(li);
+            });
+        }
+
+        function playTrack(index) {
+            currentTrackIndex = index;
+            audioPlayer.src = tracks[currentTrackIndex].src;
+            audioPlayer.play();
+            trackTitleDisplay.innerText = tracks[currentTrackIndex].title;
+            playPauseBtn.innerText = "⏸";
+            jukeIcon.innerText = "🎶";
+            document.querySelectorAll(".playlist li").forEach((li, i) => {
+                if (i === index) li.classList.add("active-track");
+                else li.classList.remove("active-track");
+            });
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                if(!audioPlayer.src) playTrack(currentTrackIndex); 
+                else audioPlayer.play();
+                playPauseBtn.innerText = "⏸";
+                jukeIcon.innerText = "🎶";
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.innerText = "▶";
+                jukeIcon.innerText = "🎵";
+            }
+        }
+
+        function nextTrack() {
+            let nextIndex = (currentTrackIndex + 1) % tracks.length;
+            playTrack(nextIndex);
+        }
+
+        function prevTrack() {
+            let prevIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            playTrack(prevIndex);
+        }
+
+        audioPlayer.addEventListener("ended", nextTrack);
+        loadPlaylist();
+        trackTitleDisplay.innerText = tracks[0].title;
+        audioPlayer.src = tracks[0].src;
+
+        window.addEventListener('click', () => {
+            if (audioPlayer.paused && audioPlayer.currentTime === 0) {
+                audioPlayer.volume = 0.5;
+                togglePlayPause();
+            }
+        }, { once: true });
+
+
+        // =========================================
+        // ALTRE FUNZIONI (STELLE, CONTATORE, IFRAME)
+        // =========================================
+        function createStars() {
+            const box = document.getElementById("starsBox");
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+                star.style.width = star.style.height = Math.random() * 3 + "px";
+                box.appendChild(star);
+            }
+            for (let j = 0; j < 7; j++) {
+                let hStar = document.createElement("div");
+                hStar.className = "star hokuto-star";
+                hStar.style.left = (70 + (j * 2)) + "%"; 
+                hStar.style.top = (15 + (j * 3)) + "%";
+                hStar.style.width = hStar.style.height = "5px";
+                box.appendChild(hStar);
+            }
+        }
+        createStars();
+
+        function updateCounter() {
+            const counterElement = document.getElementById('visite-count');
+            fetch('https://api.counterapi.dev/v1/hokutolst_mugen/visits/up')
+                .then(response => response.json())
+                .then(data => { counterElement.innerText = String(data.count).padStart(5, '0'); })
+                .catch(error => { counterElement.innerText = "ERROR"; });
+        }
+        updateCounter();
+
+        function loadPageIntoFrame(pageUrl) {
+            document.getElementById('content-frame').src = pageUrl;
+        }
+
+        window.addEventListener('load', function() {
+            const iframe = document.getElementById('content-frame');
+            iframe.onload = function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    iframeDoc.querySelectorAll('a').forEach(link => {
+                        if (!link.href.startsWith('http') && !link.href.endsWith('.exe') && !link.href.endsWith('.pdf') && !link.target) {
+                            if (link.closest('#chat-box-container') || link.closest('.footer-links')) return;
+                            link.addEventListener('click', function(e) {
+                                e.preventDefault(); 
+                                const href = this.getAttribute('href');
+                                if (href) loadPageIntoFrame(href);
+                            });
+                        }
+                    });
+                    resizeIframe(iframe);
+                } catch (e) {
+                    console.warn("Cross-origin iframe restriction:", e);
+                }
+            };
+        });
+
+        function resizeIframe(iframe) {
+            if (iframe.contentDocument && iframe.contentDocument.body) {
+                iframe.style.height = (iframe.contentDocument.body.scrollHeight + 30) + 'px'; 
+            }
+        }
+    </script>
+
+</body>
+</html>

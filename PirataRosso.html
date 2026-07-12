@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIRATA ROSSO - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-gold: #ffcc00;
+            --pirata-red: #c62828;     /* Rosso sangue/cremisi per il Pirata */
+            --pirata-rust: #8d6e63;    /* Colore ruggine per i metalli e i dettagli legnosi */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #240a0a 0%, #050505 100%);
+            border: 4px solid var(--pirata-red); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(198, 40, 40, 0.4);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--pirata-red);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: sepia(0.2) contrast(1.15) hue-rotate(-10deg);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(139, 0, 0, 0.7));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--pirata-red), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: var(--pirata-red);
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--pirata-rust);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(40, 5, 5, 0.35);
+            padding: 25px;
+            border: 1px solid #3d1414;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #222; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--pirata-red), var(--pirata-rust));
+            height: 100%;
+            box-shadow: 0 0 15px var(--pirata-red);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: var(--pirata-red);
+            color: white;
+            font-weight: bold;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--pirata-rust);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--pirata-red); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/PirataRosso1.png" alt="Pirata Rosso">
+        </div>
+
+        <div class="profile-info">
+            <h1>PIRATA ROSSO</h1>
+            <div class="rank">Il Capitano del Mar Morto</div>
+            
+            <p class="bio">
+                Comandante di una temibile flotta di pirati e padre di Orca (Shachi), il Pirata Rosso è un uomo temprato da mille battaglie. Dopo aver tentato l'invasione della Terra dei Demoni, perdendo quasi l'intero equipaggio e subendo gravissime mutilazioni (tra cui la perdita di un occhio, un braccio sostituito da un uncino e una gamba di legno), ha giurato di non rimettervi mai più piede. Tuttavia, colpito dal coraggio di Kenshiro e spinto dall'amore paterno, decide di sfidare ancora una volta quel mare maledetto per traghettare l'erede di Hokuto verso il suo destino.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>ARSENALE & TRUCCHI</span> <span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>DETERMINAZIONE</span> <span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>MOBILITÀ</span> <span>45%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 45%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

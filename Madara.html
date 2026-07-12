@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADARA - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --madara-theme: #8b0000; /* Rosso Sangue / Feroce per la sua natura bestiale */
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #111 0%, #050505 100%);
+            border: 4px solid var(--madara-theme);
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(139, 0, 0, 0.4);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--madara-theme);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--madara-theme), 7px 7px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: white;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--madara-theme);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #eee;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #333; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--madara-theme), #ffffff);
+            height: 100%;
+            box-shadow: 0 0 15px var(--madara-theme);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: white;
+            color: black;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--madara-theme); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Madara1.png" alt="Madara">
+        </div>
+
+        <div class="profile-info">
+            <h1>MADARA</h1>
+            <div class="rank">La Bestia della Famiglia Cobra</div>
+            
+            <p class="bio">
+                Il guerriero più mostruoso e brutale della Famiglia Cobra. Un vero e proprio uomo-bestia gigantesco, dotato di zanne affilate e artigli letali, che comunica unicamente tramite ringhi e ruggiti. Combatte balzando a quattro zampe con una ferocia inaudita. Padre Cobra lo scaglia contro Kenshiro considerandolo la sua arma finale, ma la belva incontra il suo predatore naturale: Ken blocca i suoi artigli, gli spezza le zanne e lo annienta senza pietà, ricordandogli chi domina davvero la catena alimentare.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>ATTACCO (FEROCIA ANIMALE)</span> <span>80%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>AGILITÀ (MOVIMENTO QUADRUPEDE)</span> <span>85%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>QUOZIENTE INTELLETTIVO</span> <span>5%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 5%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

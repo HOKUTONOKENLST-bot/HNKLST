@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHUREN - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #050505;
+            /* Colori specifici per SHUREN */
+            --shuren-color-main: #cc3300; /* Un rosso-arancio scuro */
+            --shuren-color-accent: #ff6600; /* Un arancio brillante */
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #111 0%, #050505 100%);
+            border: 4px solid var(--shuren-color-main); /* Bordo con colore tema SHUREN */
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(255, 102, 0, 0.4); /* Ombra luminosa in tema SHUREN */
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--shuren-color-main); /* Bordo con colore tema SHUREN */
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center; 
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 4px 4px 0px var(--shuren-color-accent), 7px 7px 0px #000; /* Ombra con colore tema SHUREN */
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: white;
+            font-size: 1.8rem;
+            margin: 15px 0 30px 0;
+            letter-spacing: 2px;
+            border-left: 5px solid var(--shuren-color-main); /* Linea con colore tema SHUREN */
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #eee;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #333; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--shuren-color-accent), #ffffff); /* Barra con colore tema SHUREN */
+            height: 100%;
+            box-shadow: 0 0 15px var(--shuren-color-accent); /* Ombra barra con colore tema SHUREN */
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: linear-gradient(180deg, var(--shuren-color-accent), var(--shuren-color-main)); /* Gradiente con colori tema SHUREN */
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            text-align: center;
+            border: 2px solid var(--shuren-color-accent);
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(180deg, #ffffff, var(--shuren-color-accent)); /* Colore hover adattato */
+            color: black;
+            transform: scale(1.1);
+            border-color: white;
+            box-shadow: 0 0 25px rgba(255, 102, 0, 0.7);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--shuren-color-main); }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Shuren.png" alt="Shuren">
+            <!-- Sostituisci "IMG/Shuren1.png" con il percorso reale dell'immagine di Shuren -->
+            <!-- Assicurati che l'immagine sia ad alta risoluzione e si adatti bene a un orientamento verticale -->
+        </div>
+
+        <div class="profile-info">
+            <h1>SHUREN</h1>
+            <div class="rank">Il Figlio delle Fiamme / Maestro del Pugno di Nanto Goshasei</div>
+            
+            <p class="bio">
+                Shuren è uno dei Goshasei di Nanto, il cui corpo è stato addestrato per generare e manipolare fiamme distruttive. La sua tecnica brucia i nemici dall'interno, trasformandoli in cenere. È un guerriero determinato e spietato in battaglia, mosso da una profonda lealtà.
+                I suoi attacchi sono avvolti da un'aura di calore insopportabile, rendendo ogni colpo un inferno per l'avversario.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>FORZA IGNES</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>DISTRUZIONE</span> <span>90%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>RESISTENZA</span> <span>80%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOKUTO NO KEN LST - Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --hokuto-purple: #a020f0;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* --- BACKGROUND & STARS --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #1a0000 0%, #050505 100%);
+            z-index: -1;
+        }
+        .star { 
+            position: absolute; 
+            background: white; 
+            border-radius: 50%; 
+            box-shadow: 0 0 8px white; 
+            opacity: 0.5; 
+        }
+        .hokuto-star {
+            background: var(--hokuto-red);
+            box-shadow: 0 0 15px var(--hokuto-red);
+            animation: twinkle 2s infinite alternate;
+        }
+
+        /* --- LOGO & AUDIO UI --- */
+        .team-logo {
+            position: absolute;
+            top: 20px; left: 20px;
+            width: clamp(80px, 10vw, 120px);
+            z-index: 100;
+            filter: drop-shadow(0 0 10px var(--hokuto-red));
+            animation: pulse-logo 3s infinite ease-in-out;
+        }
+
+        #mute-btn {
+            position: fixed;
+            top: 20px; right: 20px;
+            width: 50px; height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--hokuto-gold);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; z-index: 100;
+            transition: 0.3s;
+        }
+        #mute-btn:hover { transform: scale(1.1); background: var(--hokuto-gold); color: black; }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin: 20px 0;
+            color: white;
+            text-shadow: 0 0 20px var(--hokuto-red);
+            letter-spacing: 5px;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        /* --- SLIDESHOW CON CORNICE --- */
+        .glow-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 16 / 9;
+            margin: 0 auto 30px auto;
+            padding: 6px;
+            display: flex; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            overflow: hidden; border-radius: 8px;
+        }
+        .glow-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--hokuto-red), var(--hokuto-gold), transparent, transparent, var(--hokuto-red), transparent);
+            animation: rotateGlow 4s linear infinite;
+        }
+        .slideshow-container {
+            position: relative;
+            width: 100%; height: 100%;
+            background: #000; z-index: 2; overflow: hidden;
+            border-radius: 4px;
+        }
+        .mySlides {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .mySlides.active { opacity: 1; }
+
+        /* --- GRID BOTTONI --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .btn {
+            text-decoration: none; color: white; transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            display: flex; align-items: center; justify-content: center;
+            padding: 12px; font-size: 1.4rem;
+        }
+        .btn-play { 
+            grid-column: span 2; 
+            font-size: 2.2rem; 
+            background: linear-gradient(45deg, #800000, #ff4500); 
+            border: 2px solid var(--hokuto-gold);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.5); 
+        }
+        .btn-install { background: #111; border: 2px solid var(--hokuto-red); }
+        .btn-update { background: #111; border: 2px solid var(--hokuto-blue); }
+        .btn-announcer { grid-column: span 2; background: #111; border: 2px solid var(--hokuto-purple); }
+
+        .btn:hover { transform: scale(1.05); filter: brightness(1.3); }
+        .btn-play:hover { background: var(--hokuto-gold); color: black; }
+
+        .footer-links { margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .btn-sub { color: #888; text-decoration: none; transition: 0.3s; font-size: 1.1rem; }
+        .btn-sub:hover { color: white; text-shadow: 0 0 10px white; }
+
+        /* --- MARQUEE --- */
+        .marquee-container {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(139, 0, 0, 0.4); border-top: 2px solid var(--hokuto-red);
+            padding: 10px 0; overflow: hidden; z-index: 100;
+        }
+        .marquee-text {
+            display: inline-block; white-space: nowrap; font-size: 1.5rem;
+            color: var(--hokuto-gold); animation: scroll-text 25s linear infinite;
+        }
+
+        /* --- ANIMAZIONI --- */
+        @keyframes scroll-text { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse-logo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes shake { 0% { transform: skewX(-1deg); } 100% { transform: skewX(1deg); } }
+        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+        /* Responsive per Mobile */
+        @media (max-width: 600px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .btn-play, .btn-announcer { grid-column: span 1; }
+            .team-logo { position: relative; left: 0; margin-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="media/logo_team.png" alt="LST Team Logo" class="team-logo">
+
+    <audio id="bgMusic" loop>
+        <source src="media/soundtrack.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="mute-btn" onclick="toggleAudio()">
+        <span id="audio-icon">🔇</span>
+    </div>
+
+    <div class="stars-container" id="starsBox"></div>
+
+    <div class="container">
+        <h1>HOKUTO NO KEN LST</h1>
+        
+        <div class="glow-wrapper">
+            <div class="slideshow-container">
+                <img src="media/screen1.jpg" class="mySlides active">
+                <img src="media/screen2.jpg" class="mySlides">
+                <img src="media/screen3.jpg" class="mySlides">
+                <img src="media/screen4.jpg" class="mySlides">
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <a href="gioco.html" class="btn btn-play">IL NOSTRO GIOCO</a>
+            <a href="setup/install.exe" class="btn btn-install">DOWNLOAD GIOCO</a>
+            <a href="updates/patch.exe" class="btn btn-update">AGGIORNA</a>
+            <a href="tools/announcer.exe" class="btn btn-announcer">CAMBIA ANNUNCIATORE</a>
+        </div>
+
+        <div class="footer-links">
+            <a href="manuale.pdf" class="btn-sub">MANUALE</a>
+            <a href="https://www.facebook.com/MugenHokutoLST/" target="_blank" class="btn-sub">COMMUNITY</a>
+            <a href="credits.txt" class="btn-sub">CREDITI</a>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-text">
+            +++ ATTENZIONE: LA SACRA SCUOLA DI HOKUTO È TORNATA +++ PROGETTO HOKUTO NO KEN LST +++ ORA SEI GIÀ MORTO +++ SVILUPPATO DAL LST TEAM +++ SEGUI LA STELLA DELLA MORTE +++
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById("bgMusic");
+        const icon = document.getElementById("audio-icon");
+
+        // Gestione Audio
+        function toggleAudio() {
+            if (music.paused) {
+                music.play();
+                icon.innerText = "🔊";
+            } else {
+                music.pause();
+                icon.innerText = "🔇";
+            }
+        }
+
+        // Slideshow Fluido
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".mySlides");
+        
+        function showSlides() {
+            slides[slideIndex].classList.remove("active");
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].classList.add("active");
+            setTimeout(showSlides, 4000);
+        }
+        showSlides();
+
+        // Generatore di Stelle (Sfondo Dinamico)
+        function createStars() {
+            const box = document.getElementById("starsBox");
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+                star.style.width = star.style.height = Math.random() * 3 + "px";
+                box.appendChild(star);
+            }
+            
+            // Le Sette Stelle di Hokuto (Punto fisso o randomico in alto)
+            for (let j = 0; j < 7; j++) {
+                let hStar = document.createElement("div");
+                hStar.className = "star hokuto-star";
+                hStar.style.left = (70 + (j * 2)) + "%"; // Posizionate a destra
+                hStar.style.top = (15 + (j * 3)) + "%";
+                hStar.style.width = hStar.style.height = "5px";
+                box.appendChild(hStar);
+            }
+        }
+        createStars();
+
+        // Attivazione audio al primo click (Auto-play workaround)
+        window.addEventListener('click', () => {
+            if (music.paused) {
+                music.volume = 0.5;
+                music.play();
+                icon.innerText = "🔊";
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>

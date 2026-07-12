@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIO - Hokuto No Ken LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kaio-red: #8b0000;    /* Rosso infernale */
+            --kaio-dark: #000000;   /* Oscurità totale */
+            --hokuto-gold: #ffcc00;
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Bangers', cursive, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 95%;
+            background: linear-gradient(135deg, #1a0000 0%, #050505 100%);
+            border: 4px solid var(--kaio-red); 
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0 0 60px rgba(139, 0, 0, 0.5);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .profile-img {
+            flex: 2;
+            min-width: 400px;
+            height: 700px;
+            border-right: 4px solid var(--kaio-red);
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: contrast(1.2) brightness(0.8);
+        }
+
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,1));
+        }
+
+        .profile-info {
+            flex: 1;
+            padding: 40px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 6rem;
+            color: var(--hokuto-gold);
+            margin: 0;
+            text-shadow: 5px 5px 0px var(--kaio-red), 10px 10px 0px #000;
+            line-height: 0.9;
+        }
+
+        .rank {
+            color: #ff4d4d;
+            font-size: 2rem;
+            margin: 20px 0 30px 0;
+            letter-spacing: 3px;
+            border-left: 5px solid var(--hokuto-gold);
+            padding-left: 15px;
+        }
+
+        .bio {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+            text-transform: none;
+        }
+
+        .stats {
+            background: rgba(20, 0, 0, 0.7);
+            padding: 25px;
+            border: 1px solid #555;
+        }
+
+        .stat-bar { margin-bottom: 20px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 1.4rem; margin-bottom: 8px; }
+
+        .bar-bg { background: #111; height: 12px; width: 100%; border-radius: 20px; overflow: hidden; }
+        .bar-fill { 
+            background: linear-gradient(90deg, var(--kaio-red), var(--hokuto-gold));
+            height: 100%;
+            box-shadow: 0 0 20px var(--kaio-red);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: var(--kaio-red);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: var(--hokuto-gold);
+            color: black;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .profile-img { height: 400px; min-width: 100%; border-right: none; border-bottom: 4px solid var(--kaio-red); }
+            h1 { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-img">
+            <img src="IMG/Kaio1.png" alt="Kaio">
+        </div>
+
+        <div class="profile-info">
+            <h1>KAIO</h1>
+            <div class="rank">Il Dominatore dei Demoni</div>
+            
+            <p class="bio">
+                Kaio è l'incarnazione dell'oscurità che governa la Terra dei Demoni. Con un odio profondo forgiato attraverso sofferenze inenarrabili, Kaio ha ripudiato il bene, convinto che solo la malvagità possa garantire il potere assoluto. La sua aura è capace di spegnere ogni speranza, e le sue tecniche Hokuto sono intrise di una violenza che mira non solo al corpo, ma alla distruzione dello spirito stesso.
+            </p>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-label"><span>POTERE DISTRUTTIVO</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>MALVAGITÀ</span> <span>100%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-label"><span>PADRONANZA HOKUTO</span> <span>95%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+                </div>
+            </div>
+
+            <a href="characters.html" class="back-btn">TORNA AL ROSTER</a>
+        </div>
+    </div>
+
+</body>
+</html>

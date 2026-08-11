@@ -243,7 +243,7 @@
         <div class="menu-grid">
             <a href="gioco.html" class="btn btn-play">IL NOSTRO GIOCO</a>
             <a href="https://www.mediafire.com/file/4e7k1f6qrx5dcxh/IKEMEN+HNK+LST+rilascio+luglio+2026.rar/file?fbclid=IwY2xjawToFbZwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWZHTFplZ2d6VXpyVmdkT0xzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeqXDgP-m0IoiuqvWeBxR4WWWWybv4DA9Wz1Vm0XRxFr5arvO0tGrZYoBlyYc_aem_ndkdJcf8CRmdkMtRyhh3mg" class="btn btn-install">DOWNLOAD GIOCO</a>
-            <a href="aggiornamento.html" class="btn btn-update">AGGIORNA</a>
+            <a href="https://www.mediafire.com/file/yywndn3fttx6pvd/Aggiornamenti_rilascio_2026.rar/file?fbclid=IwY2xjawToJCtwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWZHTFplZ2d6VXpyVmdkT0xzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEex2rJxy_eqAYb3cmpkfHvTJ6JLtVTgZIi-4PouAKbgkFcjnnkg8m_m5Ovf6E_aem_ZjaPzUvYNWKDiYdG_WnSpw" class="btn btn-update">AGGIORNA</a>
             <a href="quiz.html" class="btn btn-quiz">QUIZ DI HOKUTO</a>
             <a href="news.html" class="btn btn-announcer">NOVITÀ</a>
         </div>
@@ -255,7 +255,7 @@
             <!-- VIDEO PRINCIPALE -->
             <div class="video-wrapper" style="margin-bottom: 30px;">
                 <video controls autoplay muted playsinline poster="media/Schermata_Iniziale.mp4">
-                    <source src="media/Schermata_Iniziale.mp4" type="video/mp4">
+                    <source src="media/primov.webm" type="video/mp4">
                     Il tuo browser non supporta il tag video.
                 </video>
             </div>
@@ -418,9 +418,9 @@
         // =========================================
         function updateCounter() {
             const counterElement = document.getElementById('visite-count');
-            fetch('https://api.counterapi.dev/v1/hokutolst_mugen/visits/up')
+            fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/visite-home')
                 .then(response => response.json())
-                .then(data => { counterElement.innerText = String(data.count).padStart(5, '0'); })
+                .then(data => { counterElement.innerText = String(data.value).padStart(5, '0'); })
                 .catch(error => { counterElement.innerText = "ERROR"; });
         }
         updateCounter();

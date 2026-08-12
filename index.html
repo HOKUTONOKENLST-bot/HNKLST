@@ -242,10 +242,13 @@
 
         <div class="menu-grid">
             <a href="gioco.html" class="btn btn-play">IL NOSTRO GIOCO</a>
-            <a href="https://www.mediafire.com/file/4e7k1f6qrx5dcxh/IKEMEN+HNK+LST+rilascio+luglio+2026.rar/file?fbclid=IwY2xjawToFbZwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWZHTFplZ2d6VXpyVmdkT0xzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeqXDgP-m0IoiuqvWeBxR4WWWWybv4DA9Wz1Vm0XRxFr5arvO0tGrZYoBlyYc_aem_ndkdJcf8CRmdkMtRyhh3mg" class="btn btn-install">DOWNLOAD GIOCO</a>
-            <a href="https://www.mediafire.com/file/yywndn3fttx6pvd/Aggiornamenti_rilascio_2026.rar/file?fbclid=IwY2xjawToJCtwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWZHTFplZ2d6VXpyVmdkT0xzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEex2rJxy_eqAYb3cmpkfHvTJ6JLtVTgZIi-4PouAKbgkFcjnnkg8m_m5Ovf6E_aem_ZjaPzUvYNWKDiYdG_WnSpw" class="btn btn-update">AGGIORNA</a>
+            <a href="https://www.mediafire.com/file/4e7k1f6qrx5dcxh/IKEMEN+HNK+LST+rilascio+luglio+2026.rar/file" target="_blank" rel="noopener noreferrer" class="btn btn-install" onclick="fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/download-gioco')">DOWNLOAD GIOCO</a>
+            <a href="https://www.mediafire.com/file/yywndn3fttx6pvd/Aggiornamenti_rilascio_2026.rar/file" target="_blank" rel="noopener noreferrer" class="btn btn-update" onclick="fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/download-aggiornamento')">AGGIORNA</a>
             <a href="quiz.html" class="btn btn-quiz">QUIZ DI HOKUTO</a>
             <a href="news.html" class="btn btn-announcer">NOVITÀ</a>
+        </div>
+        <div style="text-align:center; margin-top:8px; font-family:monospace; color:#ccc; font-size:0.9rem;">
+            Download gioco: <span id="download-count">...</span> &nbsp;|&nbsp; Download aggiornamento: <span id="update-count">...</span>
         </div>
 
         <!-- SEZIONE VIDEO CON PLAYER LOCALE DIRETTO -->
@@ -424,6 +427,27 @@
                 .catch(error => { counterElement.innerText = "ERROR"; });
         }
         updateCounter();
+
+        // =========================================
+        // CONTATORI DOWNLOAD (mostrano il totale senza incrementarlo)
+        // =========================================
+        function updateDownloadCounters() {
+            const dlElement = document.getElementById('download-count');
+            const upElement = document.getElementById('update-count');
+            if (dlElement) {
+                fetch('https://abacus.jasoncameron.dev/get/hnklst.github.io/download-gioco')
+                    .then(response => response.json())
+                    .then(data => { dlElement.innerText = data.value; })
+                    .catch(error => { dlElement.innerText = "0"; });
+            }
+            if (upElement) {
+                fetch('https://abacus.jasoncameron.dev/get/hnklst.github.io/download-aggiornamento')
+                    .then(response => response.json())
+                    .then(data => { upElement.innerText = data.value; })
+                    .catch(error => { upElement.innerText = "0"; });
+            }
+        }
+        updateDownloadCounters();
     </script>
 
 </body>

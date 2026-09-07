@@ -40,7 +40,7 @@
             color: var(--hokuto-red);
             text-shadow: 0 0 10px var(--hokuto-red), 2px 2px 0px #000;
             margin-top: 0;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
             border-bottom: 3px solid var(--hokuto-gold);
             padding-bottom: 10px;
@@ -50,13 +50,33 @@
 
         /* --- MESSAGGIO IN COSTRUZIONE --- */
         .under-construction {
-            font-size: 4rem; /* Dimensione grande per il messaggio */
+            font-size: 3.8rem;
             color: var(--hokuto-gold);
             text-shadow: 0 0 15px var(--hokuto-gold), 3px 3px 0px #000;
             text-align: center;
-            margin: 50px 0; /* Spazio sopra e sotto */
-            animation: flicker 1.5s infinite alternate; /* Effetto sfarfallio */
+            margin: 25px 0 15px 0;
+            animation: flicker 1.5s infinite alternate;
             line-height: 1.2;
+        }
+
+        /* --- PIATTAFORME COMPATIBILI --- */
+        .platforms-badge {
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px dashed var(--hokuto-gold);
+            padding: 8px 25px;
+            border-radius: 6px;
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+            text-shadow: 1px 1px 2px #000;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .platforms-badge span {
+            color: var(--hokuto-gold);
+            margin: 0 5px;
         }
 
         @keyframes flicker {
@@ -79,7 +99,7 @@
             text-decoration: none;
             transition: 0.3s;
             letter-spacing: 2px;
-            margin-top: 40px; /* Spazio dal messaggio */
+            margin-top: 35px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
@@ -87,7 +107,7 @@
             background: linear-gradient(180deg, #00aaff, #0077ff);
             border-color: white;
             box-shadow: 0 0 20px rgba(0, 119, 255, 0.7);
-            color: white; /* Mantieni il colore del testo bianco per leggibilità */
+            color: white;
         }
     </style>
 </head>
@@ -98,6 +118,11 @@
     <div class="under-construction">
         IN COSTRUZIONE<br>
         COMING SOON!
+    </div>
+
+    <!-- PIATTAFORME SUPPORTATE -->
+    <div class="platforms-badge">
+        PC <span>/</span> WINDOWS <span>/</span> MAC <span>/</span> LINUX
     </div>
 
     <!-- PULSANTE TORNA ALLA HOME -->

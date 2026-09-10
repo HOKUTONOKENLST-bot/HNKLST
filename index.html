@@ -12,6 +12,7 @@
             --hokuto-gold: #ffcc00;
             --hokuto-blue: #0077ff;
             --hokuto-purple: #a020f0;
+            --hokuto-green: #00ff66;
             --dark-bg: #050505;
         }
 
@@ -54,14 +55,72 @@
             animation: pulse-logo 3s infinite ease-in-out;
         }
 
-        /* --- CONTATORE VISITE --- */
-        .counter-container {
-            margin-top: 40px; margin-bottom: 20px; font-size: 1.5rem; color: var(--hokuto-gold);
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); background: rgba(20, 0, 0, 0.8);
-            padding: 10px 20px; border: 2px solid var(--hokuto-red); border-radius: 5px;
-            display: inline-block; box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.5);
+        /* --- PANNELLO STATISTICHE & CONTATORI --- */
+        .stats-panel {
+            margin-top: 40px;
+            margin-bottom: 25px;
+            background: rgba(18, 2, 2, 0.9);
+            border: 2px solid var(--hokuto-red);
+            border-radius: 8px;
+            padding: 20px 15px;
+            box-shadow: inset 0 0 25px rgba(255, 0, 0, 0.4), 0 0 20px rgba(0, 0, 0, 0.8);
+            width: 95%;
+            max-width: 780px;
+            box-sizing: border-box;
         }
-        #visite-count { color: white; font-family: monospace; font-size: 1.8rem; text-shadow: 0 0 15px var(--hokuto-red), 0 0 30px var(--hokuto-red); letter-spacing: 3px; }
+
+        .stats-header {
+            color: var(--hokuto-gold);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid #441111;
+            border-radius: 6px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--hokuto-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #ccc;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: monospace;
+            font-size: 1.5rem;
+            color: white;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-shadow: 0 0 12px var(--hokuto-red), 0 0 25px var(--hokuto-red);
+        }
 
         /* --- MAIN CONTAINER --- */
         .container { position: relative; z-index: 10; text-align: center; padding: 40px 20px 80px 20px; width: 100%; max-width: 900px; }
@@ -207,7 +266,8 @@
         @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
 
         /* Responsive */
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .menu-grid { grid-template-columns: 1fr; }
             .btn-play { grid-column: span 1; }
             .team-logo { position: relative; left: 0; margin-bottom: 20px; }
@@ -243,7 +303,7 @@
         <div class="menu-grid">
             <a href="gioco.html" class="btn btn-play">IL NOSTRO GIOCO</a>
             <a href="download.html" class="btn btn-install">DOWNLOAD GIOCO</a>
-            <a href="https://www.mediafire.com/file/yywndn3fttx6pvd/Aggiornamenti_rilascio_2026.rar/file?fbclid=IwY2xjawToJCtwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWZHTFplZ2d6VXpyVmdkT0xzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEex2rJxy_eqAYb3cmpkfHvTJ6JLtVTgZIi-4PouAKbgkFcjnnkg8m_m5Ovf6E_aem_ZjaPzUvYNWKDiYdG_WnSpw" class="btn btn-update">AGGIORNA</a>
+            <a href="https://www.mediafire.com/file/yywndn3fttx6pvd/Aggiornamenti_rilascio_2026.rar/file" target="_blank" class="btn btn-update" onclick="trackDownload('update')">AGGIORNA</a>
             <a href="quiz.html" class="btn btn-quiz">QUIZ DI HOKUTO</a>
             <a href="news.html" class="btn btn-announcer">NOVITÀ</a>
         </div>
@@ -307,7 +367,7 @@
             <a href="mailto:hokutonokenlst@outlook.it?subject=Contatto%20dal%20sito%20Hokuto%20LST" class="btn-sub">CONTATTACI</a>
         </div>
 
-        <!-- SEZIONE DONAZIONE PAYPAL CON INDIRIZZO REALE -->
+        <!-- SEZIONE DONAZIONE PAYPAL -->
         <div>
             <a href="https://www.paypal.com" target="_blank" class="btn-paypal">
                 <svg class="paypal-icon" viewBox="0 0 24 24">
@@ -317,22 +377,41 @@
             </a>
         </div>
 
-        <div class="counter-container">
-            VISITATORI SOPRAVVISSUTI: <span id="visite-count">...</span>
+        <!-- =========================================
+             PANNELLO CONTATORI DOWNLOAD & VISITE
+             ========================================= -->
+        <div class="stats-panel">
+            <div class="stats-header">
+                📊 REGISTRO DELLA DIVINA SCUOLA
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">💻 DOWNLOAD PC</span>
+                    <span class="stat-num" id="count-pc">...</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">📱 ANDROID</span>
+                    <span class="stat-num" id="count-android">...</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">⚡ AGGIORNAMENTI</span>
+                    <span class="stat-num" id="count-update">...</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">👁️ VISITATORI</span>
+                    <span class="stat-num" id="visite-count">...</span>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- =========================================
-         JUKEBOX HTML (PULSANTE ESTERNO)
-         ========================================= -->
+    <!-- JUKEBOX HTML (PULSANTE ESTERNO) -->
     <div id="jukebox-toggle-btn" onclick="openJukeboxPopup()">
         <span id="juke-icon">🎵</span> JUKEBOX 
     </div>
 
-    <!-- =========================================
-         CHAT HTML (DESTRA)
-         ========================================= -->
+    <!-- CHAT HTML (DESTRA) -->
     <div id="chat-toggle-btn" onclick="toggleChat()">
         💬 COMMUNITY CHAT
     </div>
@@ -414,16 +493,49 @@
         createStars();
 
         // =========================================
-        // AGGIORNAMENTO CONTATORE VISITE
+        // SISTEMA CONTATORI (VISITE & DOWNLOADS)
         // =========================================
-        function updateCounter() {
-            const counterElement = document.getElementById('visite-count');
-            fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/visite-home')
-                .then(response => response.json())
-                .then(data => { counterElement.innerText = String(data.value).padStart(5, '0'); })
-                .catch(error => { counterElement.innerText = "ERROR"; });
+        const NAMESPACE = "hnklst.github.io";
+
+        function updateAllCounters() {
+            // 1. Visitatori (Incrementa al caricamento della home)
+            fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/visite-home`)
+                .then(r => r.json())
+                .then(d => { document.getElementById('visite-count').innerText = String(d.value).padStart(5, '0'); })
+                .catch(() => { document.getElementById('visite-count').innerText = "00000"; });
+
+            // 2. Download PC (Sola lettura qui)
+            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-pc`)
+                .then(r => r.json())
+                .then(d => { document.getElementById('count-pc').innerText = String(d.value || 0).padStart(5, '0'); })
+                .catch(() => { document.getElementById('count-pc').innerText = "00000"; });
+
+            // 3. Download Android (Sola lettura qui)
+            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-android`)
+                .then(r => r.json())
+                .then(d => { document.getElementById('count-android').innerText = String(d.value || 0).padStart(5, '0'); })
+                .catch(() => { document.getElementById('count-android').innerText = "00000"; });
+
+            // 4. Aggiornamenti (Sola lettura al caricamento)
+            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-update`)
+                .then(r => r.json())
+                .then(d => { document.getElementById('count-update').innerText = String(d.value || 0).padStart(5, '0'); })
+                .catch(() => { document.getElementById('count-update').innerText = "00000"; });
         }
-        updateCounter();
+
+        // Funzione chiamata quando si clicca sul tasto AGGIORNA
+        function trackDownload(type) {
+            if (type === 'update') {
+                fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/dl-update`)
+                    .then(r => r.json())
+                    .then(d => {
+                        document.getElementById('count-update').innerText = String(d.value).padStart(5, '0');
+                    })
+                    .catch(() => {});
+            }
+        }
+
+        updateAllCounters();
     </script>
 
 </body>

@@ -33,13 +33,12 @@
             box-sizing: border-box;
         }
 
-        /* --- TITOLO PAGINA --- */
         .page-title {
             font-size: clamp(2.5rem, 5vw, 4rem);
             color: var(--hokuto-gold);
             text-shadow: 0 0 15px var(--hokuto-red), 3px 3px 0px #800000;
             margin-top: 0;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
             border-bottom: 3px solid var(--hokuto-red);
             padding-bottom: 10px;
@@ -48,7 +47,6 @@
             letter-spacing: 2px;
         }
 
-        /* --- CONTENITORE PULSANTI DOWNLOAD --- */
         .download-container {
             display: flex;
             flex-direction: column;
@@ -58,7 +56,6 @@
             margin-bottom: 20px;
         }
 
-        /* --- STILE GENERALE PULSANTI DOWNLOAD --- */
         .dl-btn {
             display: flex;
             flex-direction: column;
@@ -66,7 +63,7 @@
             justify-content: center;
             text-decoration: none;
             color: white;
-            padding: 16px 25px;
+            padding: 16px 20px;
             border-radius: 8px;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
@@ -91,7 +88,28 @@
             opacity: 0.9;
         }
 
-        /* --- PULSANTE 1: PC --- */
+        /* BADGE CONTATORE ALL'INTERNO DEL PULSANTE */
+        .btn-counter-badge {
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            color: var(--hokuto-gold);
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .btn-counter-badge span {
+            font-family: monospace;
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--hokuto-red);
+        }
+
+        /* COLORI PULSANTI */
         .dl-pc {
             background: linear-gradient(135deg, #b30000 0%, #ff1a1a 50%, #800000 100%);
             border: 2px solid var(--hokuto-gold);
@@ -104,7 +122,6 @@
             border-color: white;
         }
 
-        /* --- PULSANTE 2: ANDROID --- */
         .dl-android {
             background: linear-gradient(135deg, #007722 0%, #00b333 50%, #004d1a 100%);
             border: 2px solid #55ff88;
@@ -117,7 +134,6 @@
             border-color: white;
         }
 
-        /* --- TASTO INFO INSTALLAZIONE --- */
         .info-btn {
             background: rgba(20, 20, 20, 0.8);
             border: 2px solid var(--hokuto-gold);
@@ -143,14 +159,11 @@
             transform: scale(1.05);
         }
 
-        /* --- FINESTRA MODALE (POPOVER GUIDA) --- */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(5px);
             z-index: 999;
@@ -160,9 +173,7 @@
             box-sizing: border-box;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal-box {
             background: #0e0e0e;
@@ -200,15 +211,13 @@
 
         .close-modal-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 15px; right: 15px;
             background: var(--hokuto-red);
             border: none;
             color: white;
             font-family: 'Bangers', cursive;
             font-size: 1.5rem;
-            width: 35px;
-            height: 35px;
+            width: 35px; height: 35px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -217,11 +226,7 @@
             transition: 0.2s;
         }
 
-        .close-modal-btn:hover {
-            background: white;
-            color: black;
-            transform: scale(1.1);
-        }
+        .close-modal-btn:hover { background: white; color: black; transform: scale(1.1); }
 
         .guide-section {
             margin-bottom: 20px;
@@ -231,9 +236,7 @@
             border-left: 4px solid var(--hokuto-red);
         }
 
-        .guide-section.android-sec {
-            border-left-color: var(--hokuto-green);
-        }
+        .guide-section.android-sec { border-left-color: var(--hokuto-green); }
 
         .guide-section h3 {
             font-family: 'Bangers', cursive;
@@ -254,15 +257,9 @@
             font-size: 0.95rem;
         }
 
-        .guide-section ol li {
-            margin-bottom: 8px;
-        }
+        .guide-section ol li { margin-bottom: 8px; }
+        .guide-section strong { color: #fff; }
 
-        .guide-section strong {
-            color: #fff;
-        }
-
-        /* --- PULSANTE TORNA ALLA HOME --- */
         .back-btn {
             background: linear-gradient(180deg, var(--hokuto-blue), #004488);
             color: white;
@@ -289,10 +286,7 @@
         }
 
         @media (max-width: 600px) {
-            .dl-btn, .back-btn {
-                clip-path: none;
-                border-radius: 6px;
-            }
+            .dl-btn, .back-btn { clip-path: none; border-radius: 6px; }
         }
     </style>
 </head>
@@ -304,17 +298,17 @@
     <div class="download-container">
         
         <!-- PULSANTE PC -->
-        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mediafire.com%2Ffile%2F4e7k1f6qrx5dcxh%2FIKEMEN%2BHNK%2BLST%2Brilascio%2Bluglio%2B2026.rar%2Ffile%3Ffbclid%3DIwcGRvZgFleHRuA2FlbQIxMABicmlkETFMdTdHWnVHdzA1c2JVclhNc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHsbK2RsaUlMFnDysxLL9BtmQbVT89lO9ZnnYL9O-Mjc1SmgwbBvZmSiX2wPu_aem_-uy0T1XYF26GBEIRWGVXig&h=AUCnO9797alFNi6HsT-WDsJGOhmURiv1wk0N4wAtBp2xguTbz9-huxFAKwFtkCzS5PwWnkDLPQaxMEbNTbjKOwY5p7gkjzUpK1s6hQW36vnd2MPKSO_qa1coznr04AYXUAf8rl4Kq5QeVQ&__tn__=KF&c[0]=AUAo_aNHFvapSZJZ6NWVT7PNWl_hxmYOmGgQmZSk-uPjHuQo3PWEyO_4xkgAUdKM1AIWqwVhCsnWuRkVB7VLHNfd83Ul3RIhQPdzBGdwDN3aUYXo7JFLDo0-JpNrZ4JBLv3EKac4xmQIaMMyj776yTt--mxRUxa9050Lk1oec9mWSrAxT8gH" class="dl-btn dl-pc" target="_blank">
-onclick="fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/dl-pc')">
+        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mediafire.com%2Ffile%2F4e7k1f6qrx5dcxh%2FIKEMEN%2BHNK%2BLST%2Brilascio%2Bluglio%2B2026.rar%2Ffile%3Ffbclid%3DIwcGRvZgFleHRuA2FlbQIxMABicmlkETFMdTdHWnVHdzA1c2JVclhNc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHjg176Vx56OtBZWkQvR9rsagpjYxdqviDypEr6Ea6D_gzH0MddZlv0cQ2SrE_aem_1XzBX36kJKSQ8aSiOQTFhQ&h=AUDqH-APw-2CIH19LYlmCLgguAOMW4qs56yBBXXijEbbbnviA0N2aiZsIV74KyXtNE7fqa4yAZdkIVImyJnoLiDhaAfYBvruFkor6k70suPRFmOoa9ettZ5WmeFg-pOSxCLEzXbScd4HHQ&__tn__=KF&c[0]=AUBdMvGFKTcvGQSPDdhvW6ExMBbPQCtHUKXqD4nmbk0kn8uMUyasHIPMU1NQVztzrDxiCkl5klgMLWYdiI-L59IGzvS_i9ZYJjJs_QOkybo5nwIhEZc44Ez4J-lhSqjzaD8RlVnsqavUcJiPTalrgjrWsE4Dx9rLgZEUR8ALMfI3uHaQzLP-" class="dl-btn dl-pc" target="_blank" onclick="incrementCount('pc')">
             <span class="btn-title">💻 PC / WINDOWS / LINUX / MAC</span>
             <span class="btn-subtitle">Pacchetto completo per computer (.ZIP / Eseguibile)</span>
+            <span class="btn-counter-badge">DOWNLOAD: <span id="count-pc">...</span></span>
         </a>
 
         <!-- PULSANTE ANDROID -->
-        <a href="https://www.mediafire.com/file/s477m0cyagygwpu/HNK_LST_F4.apk/file?fbclid=IwY2xjawUPgrZwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMUx1N0dadUd3MDVzYlVyWE1zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeX7KnhqaQKbZN3SLjqojWc1VEa3UatADp6X8mBiFOCnoeSWoHZ861iiU5ez4_aem_lQjwa0FVcLCvPTaQQcoPwg" class="dl-btn dl-android" target="_blank">
-onclick="fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/dl-android')">
+        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mediafire.com%2Ffile%2Fs477m0cyagygwpu%2FHNK_LST_F4.apk%2Ffile%3Ffbclid%3DIwcGRvZgFleHRuA2FlbQIxMABicmlkETFMdTdHWnVHdzA1c2JVclhNc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHtCnKoCTmGGjUr7My81BLpMJdfvS2yGKcZrYe42Ce8mSBU-EmPCGX1mrZ72j_aem_Uqx-I7ob3t3L7bQveyZvPQ&h=AUB-S9pFEVw1kfvzHtdM9mWuDBxl-eqz80Lz9BLhmVm5hPrGR9OyvhTOX1K6ZpPB6PtwuqFSgPYd5oTVLAvVAFnyVEjI1KnMVXPtJJBTCSWM234XsPIzV8Y-S9kfXS6KUPUbrkRD_oa4wg&__tn__=-UK-R&c[0]=AUBIpJiVC8mmywQj4m9pUoh3WS0pnk_fpL2SltkXpKjGrfEduJ7c402Xc_4VK3rDh7ErutyxvLC1SJ47vThXk8Sq-JOFZqHJcvU0PZo3Vh8WM-iJ2_HL1DMnlyU9C947a8ddWuGP-k0uYWovu6Vgs2bDzNeCHuJL0emqAhoSwoXOlLrhU8IqqAQIebBw8fo" class="dl-btn dl-android" target="_blank" onclick="incrementCount('android')">
             <span class="btn-title">📱 ANDROID</span>
             <span class="btn-subtitle">Versione portatile (.APK con supporto Touch & Gamepad)</span>
+            <span class="btn-counter-badge">DOWNLOAD: <span id="count-android">...</span></span>
         </a>
 
     </div>
@@ -325,62 +319,79 @@ onclick="fetch('https://abacus.jasoncameron.dev/hit/hnklst.github.io/dl-android'
     </button>
 
     <!-- PULSANTE TORNA ALLA HOME -->
-    <a href="index.html" class="back-btn">⬅ TORNA ALLA HOME</a>
+    <a href="home.html" class="back-btn">⬅ TORNA ALLA HOME</a>
 
-    <!-- FINESTRA MODALE DELLA GUIDA -->
+    <!-- GUIDA MODALE -->
     <div class="modal-overlay" id="infoModal">
         <div class="modal-box">
             <button class="close-modal-btn" id="closeModalBtn" title="Chiudi">✕</button>
             <h2 class="modal-title">COME INSTALLARE IL GIOCO</h2>
 
-            <!-- GUIDA PC -->
             <div class="guide-section">
                 <h3 style="color: #ff5555;">💻 PC (WINDOWS / LINUX / MAC)</h3>
                 <ol>
                     <li>Scarica l'archivio compresso (<strong>.zip</strong>).</li>
-                    <li>Estrai la cartella sul desktop o dove preferisci (es. tramite WinRAR, 7-Zip o Gestore Archivi).</li>
-                    <li><strong>Windows:</strong> apri la cartella estratta ed esegui il file con estensione <strong>.exe</strong> per avviare subito il gioco.</li>
-                    <li><strong>Linux / Mac:</strong> avvia il gioco tramite <strong>Wine</strong> / <strong>Proton</strong> o eseguendo lo script di compatibilità incluso.</li>
+                    <li>Estrai la cartella sul desktop o dove preferisci (es. con WinRAR o 7-Zip).</li>
+                    <li><strong>Windows:</strong> apri la cartella ed avvia l'eseguibile <strong>.exe</strong>.</li>
+                    <li><strong>Linux / Mac:</strong> avvia il gioco tramite <strong>Wine</strong> o Proton.</li>
                 </ol>
             </div>
 
-            <!-- GUIDA ANDROID -->
             <div class="guide-section android-sec">
                 <h3 style="color: #55ff88;">📱 DISPOSITIVI ANDROID</h3>
                 <ol>
-                    <li>Scarica il file <strong>.apk</strong> direttamente dal tuo smartphone o tablet.</li>
-                    <li>Se richiesto dal browser o dal sistema, consenti l'autorizzazione: <strong>"Installa app da origini sconosciute"</strong>.</li>
-                    <li>Tocca il file scaricato per completare l'installazione dell'applicazione.</li>
-                    <li>Avvia il gioco: puoi combattere usando sia i <strong>tasti touch a schermo</strong> sia collegando un <strong>controller Bluetooth</strong>.</li>
+                    <li>Scarica il file <strong>.apk</strong> sul dispositivo.</li>
+                    <li>Consenti l'autorizzazione <strong>"Installa app da origini sconosciute"</strong> se richiesta.</li>
+                    <li>Tocca il file scaricato per installare il gioco.</li>
+                    <li>Avvia il gioco con comandi touch o controller Bluetooth.</li>
                 </ol>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT GESTIONE MODALE & RESIZE IFRAME -->
     <script>
+        // --- GESTIONE CONTATORI DOWNLOAD ---
+        const NAMESPACE = "hnklst.github.io";
+
+        // Carica i conteggi attuali quando la pagina si apre
+        function loadCounters() {
+            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-pc`)
+                .then(r => r.json())
+                .then(d => { document.getElementById('count-pc').innerText = String(d.value || 0).padStart(5, '0'); })
+                .catch(() => { document.getElementById('count-pc').innerText = "00000"; });
+
+            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-android`)
+                .then(r => r.json())
+                .then(d => { document.getElementById('count-android').innerText = String(d.value || 0).padStart(5, '0'); })
+                .catch(() => { document.getElementById('count-android').innerText = "00000"; });
+        }
+
+        // Incrementa il contatore al clic
+        function incrementCount(type) {
+            const key = (type === 'pc') ? 'dl-pc' : 'dl-android';
+            const elementId = (type === 'pc') ? 'count-pc' : 'count-android';
+
+            fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${key}`)
+                .then(r => r.json())
+                .then(d => {
+                    document.getElementById(elementId).innerText = String(d.value).padStart(5, '0');
+                })
+                .catch(() => {});
+        }
+
+        loadCounters();
+
+        // --- GESTIONE MODAL ---
         const openBtn = document.getElementById('openModalBtn');
         const closeBtn = document.getElementById('closeModalBtn');
         const modal = document.getElementById('infoModal');
 
-        // Apertura modal
-        openBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-        });
-
-        // Chiusura tramite bottone "X"
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        // Chiusura cliccando all'esterno del riquadro
+        openBtn.addEventListener('click', () => { modal.classList.add('active'); });
+        closeBtn.addEventListener('click', () => { modal.classList.remove('active'); });
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
+            if (e.target === modal) modal.classList.remove('active');
         });
 
-        // Ricalcolo altezza iframe nella pagina padre (se presente)
         window.addEventListener('load', function() {
             if (window.parent && window.parent.resizeIframe) {
                 setTimeout(() => {

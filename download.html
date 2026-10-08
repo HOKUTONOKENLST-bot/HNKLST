@@ -12,6 +12,7 @@
             --hokuto-gold: #ffcc00;
             --hokuto-blue: #0077ff;
             --hokuto-green: #00cc44;
+            --xbox-green: #107c10;
             --dark-bg: #050505;
         }
 
@@ -134,6 +135,19 @@
             border-color: white;
         }
 
+        /* STILE XBOX */
+        .dl-xbox {
+            background: linear-gradient(135deg, #0b4f0b 0%, var(--xbox-green) 50%, #052605 100%);
+            border: 2px solid #52e35a;
+        }
+
+        .dl-xbox:hover {
+            background: linear-gradient(135deg, var(--xbox-green) 0%, #20ba28 50%, #0b4f0b 100%);
+            transform: scale(1.03) translateY(-3px);
+            box-shadow: 0 0 25px rgba(16, 124, 16, 0.8), 0 0 10px #52e35a;
+            border-color: white;
+        }
+
         .info-btn {
             background: rgba(20, 20, 20, 0.8);
             border: 2px solid var(--hokuto-gold);
@@ -237,6 +251,7 @@
         }
 
         .guide-section.android-sec { border-left-color: var(--hokuto-green); }
+        .guide-section.xbox-sec { border-left-color: var(--xbox-green); }
 
         .guide-section h3 {
             font-family: 'Bangers', cursive;
@@ -311,6 +326,13 @@
             <span class="btn-counter-badge">DOWNLOAD: <span id="count-android">...</span></span>
         </a>
 
+        <!-- PULSANTE XBOX -->
+        <a href="#" class="xbox.html" target="_blank" onclick="incrementCount('xbox')">
+            <span class="btn-title">🎮 XBOX SERIE X/S </span>
+            <span class="btn-subtitle">Istruzioni per l'installazione</span>
+            <span class="btn-counter-badge">DOWNLOAD: <span id="count-xbox">...</span></span>
+        </a>
+
     </div>
 
     <!-- TASTO INFO INSTALLAZIONE -->
@@ -346,6 +368,16 @@
                     <li>Avvia il gioco con comandi touch o controller Bluetooth.</li>
                 </ol>
             </div>
+
+            <div class="guide-section xbox-sec">
+                <h3 style="color: #52e35a;">🎮 CONSOLE XBOX (DEV MODE)</h3>
+                <ol>
+                    <li>Attiva la <strong>Developer Mode</strong> sulla tua Xbox.</li>
+                    <li>Accedi a <strong>Xbox Device Portal</strong> tramite browser dal PC collegato alla stessa rete.</li>
+                    <li>Carica il pacchetto <strong>.msix</strong> (o <strong>.appx</strong>) insieme alle dipendenze richieste.</li>
+                    <li>Avvia il gioco direttamente dal catalogo app della console.</li>
+                </ol>
+            </div>
         </div>
     </div>
 
@@ -355,21 +387,18 @@
 
         // Carica i conteggi attuali quando la pagina si apre
         function loadCounters() {
-            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-pc`)
-                .then(r => r.json())
-                .then(d => { document.getElementById('count-pc').innerText = String(d.value || 0).padStart(5, '0'); })
-                .catch(() => { document.getElementById('count-pc').innerText = "00000"; });
-
-            fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-android`)
-                .then(r => r.json())
-                .then(d => { document.getElementById('count-android').innerText = String(d.value || 0).padStart(5, '0'); })
-                .catch(() => { document.getElementById('count-android').innerText = "00000"; });
+            ['pc', 'android', 'xbox'].forEach(platform => {
+                fetch(`https://abacus.jasoncameron.dev/get/${NAMESPACE}/dl-${platform}`)
+                    .then(r => r.json())
+                    .then(d => { document.getElementById(`count-${platform}`).innerText = String(d.value || 0).padStart(5, '0'); })
+                    .catch(() => { document.getElementById(`count-${platform}`).innerText = "00000"; });
+            });
         }
 
         // Incrementa il contatore al clic
         function incrementCount(type) {
-            const key = (type === 'pc') ? 'dl-pc' : 'dl-android';
-            const elementId = (type === 'pc') ? 'count-pc' : 'count-android';
+            const key = `dl-${type}`;
+            const elementId = `count-${type}`;
 
             fetch(`https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${key}`)
                 .then(r => r.json())

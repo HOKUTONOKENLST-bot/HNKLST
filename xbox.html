@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Xbox - HNK LST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hokuto-red: #ff0000;
+            --hokuto-gold: #ffcc00;
+            --hokuto-blue: #0077ff;
+            --xbox-green: #107c10;
+            --xbox-bright: #52e35a;
+            --dark-bg: #050505;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at center, #071f0a 0%, #050505 100%);
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* TITOLO PAGINA */
+        .page-title {
+            font-family: 'Bangers', cursive, sans-serif;
+            font-size: clamp(2.3rem, 5vw, 3.8rem);
+            color: var(--hokuto-gold);
+            text-shadow: 0 0 15px var(--xbox-green), 3px 3px 0px #033605;
+            margin: 0 0 10px 0;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* CONTENITORE VIDEO RESPONSIVE 16:9 */
+        .video-card {
+            background: rgba(14, 14, 14, 0.95);
+            border: 2px solid var(--xbox-bright);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 25px rgba(16, 124, 16, 0.4);
+        }
+
+        .video-title {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            color: var(--xbox-bright);
+            margin: 0 0 12px 5px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* GUIDA E PASSI */
+        .steps-container {
+            background: rgba(14, 14, 14, 0.95);
+            border: 2px solid var(--hokuto-gold);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.25);
+        }
+
+        .section-header {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: var(--hokuto-gold);
+            margin: 0 0 20px 0;
+            border-bottom: 2px solid var(--xbox-bright);
+            padding-bottom: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(25, 25, 25, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--xbox-bright);
+        }
+
+        .step-number {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            background: var(--xbox-green);
+            color: white;
+            min-width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--xbox-bright);
+        }
+
+        .step-content h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.15rem;
+            color: var(--hokuto-gold);
+            letter-spacing: 0.5px;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: #ddd;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .step-content code {
+            background: #222;
+            color: var(--xbox-bright);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        /* BOX NOTE / REQUISITI */
+        .info-box {
+            background: rgba(20, 10, 0, 0.6);
+            border-left: 4px solid var(--hokuto-gold);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            color: #eee;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* PULSANTI D'AZIONE */
+        .actions-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            font-family: 'Bangers', cursive;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1.4rem;
+            letter-spacing: 1.5px;
+            text-align: center;
+            transition: all 0.3s;
+            clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-download-xbox {
+            background: linear-gradient(135deg, var(--xbox-green), #20ba28);
+            border: 2px solid #52e35a;
+            color: white;
+            box-shadow: 0 0 15px rgba(16, 124, 16, 0.5);
+        }
+
+        .btn-download-xbox:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(82, 227, 90, 0.8);
+            border-color: white;
+        }
+
+        .btn-back {
+            background: linear-gradient(180deg, var(--hokuto-blue), #004488);
+            border: 2px solid var(--hokuto-blue);
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(180deg, #00aaff, #0077ff);
+            transform: scale(1.05);
+            border-color: white;
+        }
+
+        @media (max-width: 600px) {
+            .step-item { flex-direction: column; gap: 10px; }
+            .action-btn { clip-path: none; width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TITOLO -->
+    <h1 class="page-title">INSTALLAZIONE XBOX</h1>
+    <div class="subtitle">Guida passo dopo passo per giocare su console Xbox One e Xbox Series X|S tramite Developer Mode.</div>
+
+    <div class="main-wrapper">
+
+        <!-- BOX VIDEO TUTORIAL -->
+        <div class="video-card">
+            <div class="video-title">🎬 VIDEO GUIDA COMPLETA</div>
+            <div class="video-container">
+                <!-- 
+                   INSERISCI QUI IL TUO VIDEO:
+                   Sostituisci l'URL di YouTube con quello del tuo video, 
+                   oppure usa il tag <video controls src="il-tuo-video.mp4"></video> 
+                -->
+                <iframe 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="Video Guida Xbox" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- SPIEGAZIONI / GUIDA A PASSI -->
+        <div class="steps-container">
+            <h2 class="section-header">COME PROCEDERE</h2>
+
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Attiva la Developer Mode</h3>
+                    <p>Sulla console scarica l'applicazione ufficiale <strong>Xbox Dev Mode</strong> da Microsoft Store e attiva la modalità sviluppatore associando il tuo account.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Accedi a Xbox Device Portal</h3>
+                    <p>Nella schermata iniziale della Dev Mode troverai l'indirizzo IP della console (es: <code>https://192.168.1.xxx:11443</code>). Digitalo nella barra degli indirizzi del browser su PC o telefono connesso alla <strong>stessa rete Wi-Fi</strong>.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Carica il Pacchetto di Gioco</h3>
+                    <p>Nel portale clicca su <strong>Add</strong> sotto la sezione <em>Apps</em>. Seleziona il pacchetto scaricato (file con estensione <strong>.msix</strong> o <strong>.appx</strong>) e, se presenti, le dipendenze nella cartella <em>Dependencies</em>.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Imposta i permessi e Gioca</h3>
+                    <p>Una volta terminato il caricamento, seleziona l'app sulla console, premi il tasto <strong>Visualizza (Select)</strong> e imposta il tipo di app su <strong>Game</strong> (per sbloccare la memoria e le prestazioni piene della GPU). Ora sei pronto a lottare!</p>
+                </div>
+            </div>
+
+            <!-- BOX AVVISI / REQUISITI -->
+            <div class="info-box">
+                ⚠️ <strong>Nota bene:</strong> Non è richiesta alcuna modifica hardware alla console. La modalità sviluppatore è una funzione ufficiale Microsoft e non inficia la garanzia né causa ban sull'account normale.
+            </div>
+        </div>
+
+        <!-- PULSANTI -->
+        <div class="actions-container">
+            <!-- Sostituisci '#' con il link reale al file del gioco per Xbox -->
+            <a href="#" class="action-btn btn-download-xbox" target="_blank">
+                ⬇️ SCARICA IL PACCHETTO XBOX
+            </a>
+            
+            <a href="download.html" class="action-btn btn-back">
+                ⬅ TORNA AI DOWNLOAD
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -204,19 +204,6 @@
             gap: 10px;
         }
 
-        .btn-download-xbox {
-            background: linear-gradient(135deg, var(--xbox-green), #20ba28);
-            border: 2px solid #52e35a;
-            color: white;
-            box-shadow: 0 0 15px rgba(16, 124, 16, 0.5);
-        }
-
-        .btn-download-xbox:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(82, 227, 90, 0.8);
-            border-color: white;
-        }
-
         .btn-back {
             background: linear-gradient(180deg, var(--hokuto-blue), #004488);
             border: 2px solid var(--hokuto-blue);
@@ -239,26 +226,18 @@
 
     <!-- TITOLO -->
     <h1 class="page-title">INSTALLAZIONE XBOX</h1>
-    <div class="subtitle">Guida passo dopo passo per giocare su console Xbox One e Xbox Series X|S tramite Developer Mode.</div>
+    <div class="subtitle">Guida passo dopo passo per giocare su console Xbox One e Xbox Series X|S tramite IKEMENGO X NEW.</div>
 
     <div class="main-wrapper">
 
         <!-- BOX VIDEO TUTORIAL -->
-        <div class="video-card">
-            <div class="video-title">🎬 VIDEO GUIDA COMPLETA</div>
-            <div class="video-container">
-                <!-- 
-                   INSERISCI QUI IL TUO VIDEO:
-                   Sostituisci l'URL di YouTube con quello del tuo video, 
-                   oppure usa il tag <video controls src="il-tuo-video.mp4"></video> 
-                -->
-                <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Video Guida Xbox" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
+        <div class="video-card" style="text-align: center; padding: 30px;">
+    <div class="video-title" style="justify-content: center;">🎬 VIDEO GUIDA COMPLETA</div>
+    <p style="color: #ccc; margin-bottom: 20px;">Guarda il video tutorial ufficiale per la configurazione su console:</p>
+    <a href="https://www.youtube.com/live/tJ9L9-nxGm4?is=lD6uWf9fGbzYp9Xm" target="_blank" class="action-btn btn-download-xbox" style="display: inline-flex;">
+        ▶️ GUARDA IL VIDEO SU YOUTUBE
+    </a>
+</div>
         </div>
 
         <!-- SPIEGAZIONI / GUIDA A PASSI -->
@@ -268,48 +247,53 @@
             <div class="step-item">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <h3>Attiva la Developer Mode</h3>
-                    <p>Sulla console scarica l'applicazione ufficiale <strong>Xbox Dev Mode</strong> da Microsoft Store e attiva la modalità sviluppatore associando il tuo account.</p>
+                    <h3>Installazione dell'applicazione</h3>
+                    <p>Dopo aver avviato la console ci dirigiamo nella sezione <strong>MICROSOFT STORE</strong>, cerchiamo <strong>"IKEMENGO X NEW"</strong> e lo installiamo.</p>
                 </div>
             </div>
 
             <div class="step-item">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h3>Accedi a Xbox Device Portal</h3>
-                    <p>Nella schermata iniziale della Dev Mode troverai l'indirizzo IP della console (es: <code>https://192.168.1.xxx:11443</code>). Digitalo nella barra degli indirizzi del browser su PC o telefono connesso alla <strong>stessa rete Wi-Fi</strong>.</p>
+                    <h3>Preparazione del supporto esterno</h3>
+                    <p>Procuriamoci un <strong>HDD esterno</strong> (Consigliato) o una pennetta USB e formattiamo il dispositivo in formato <code>NTFS</code>.</p>
                 </div>
             </div>
 
             <div class="step-item">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                    <h3>Carica il Pacchetto di Gioco</h3>
-                    <p>Nel portale clicca su <strong>Add</strong> sotto la sezione <em>Apps</em>. Seleziona il pacchetto scaricato (file con estensione <strong>.msix</strong> o <strong>.appx</strong>) e, se presenti, le dipendenze nella cartella <em>Dependencies</em>.</p>
+                    <h3>Creazione delle cartelle</h3>
+                    <p>All'interno del dispositivo creiamo una cartella principale chiamata <code>IKEMENGAMES</code>.<br>
+                    Dentro <code>IKEMENGAMES</code> creiamo una sottocartella chiamata <code>HNKLST</code> (il percorso risultante sarà: <code>IKEMENGAMES\HNKLST</code>).</p>
                 </div>
             </div>
 
             <div class="step-item">
                 <div class="step-number">4</div>
                 <div class="step-content">
-                    <h3>Imposta i permessi e Gioca</h3>
-                    <p>Una volta terminato il caricamento, seleziona l'app sulla console, premi il tasto <strong>Visualizza (Select)</strong> e imposta il tipo di app su <strong>Game</strong> (per sbloccare la memoria e le prestazioni piene della GPU). Ora sei pronto a lottare!</p>
+                    <h3>Copia dei file di gioco</h3>
+                    <p>Copiamo dentro la cartella <code>HNKLST</code> tutte le cartelle presenti sul rilascio del Gioco <strong>"HokutonoKen rilascio Luglio 2026"</strong>.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Collegamento e Avvio</h3>
+                    <p>Colleghiamo il dispositivo alla console e avviamo <strong>"IKEMENGO X NEW"</strong>.<br>
+                    Se tutto va bene il Gioco si avvia tranquillamente!</p>
                 </div>
             </div>
 
             <!-- BOX AVVISI / REQUISITI -->
             <div class="info-box">
-                ⚠️ <strong>Nota bene:</strong> Non è richiesta alcuna modifica hardware alla console. La modalità sviluppatore è una funzione ufficiale Microsoft e non inficia la garanzia né causa ban sull'account normale.
+                ⚠️ <strong>Nota bene:</strong> Assicurati che l'hard disk o la pennetta USB siano formattati rigorosamente in formato <strong>NTFS</strong> su PC prima di copiare i dati, altrimenti l'applicazione non riuscirà ad accedere correttamente alle cartelle di gioco.
             </div>
         </div>
 
         <!-- PULSANTI -->
         <div class="actions-container">
-            <!-- Sostituisci '#' con il link reale al file del gioco per Xbox -->
-            <a href="#" class="action-btn btn-download-xbox" target="_blank">
-                ⬇️ SCARICA IL PACCHETTO XBOX
-            </a>
-            
             <a href="download.html" class="action-btn btn-back">
                 ⬅ TORNA AI DOWNLOAD
             </a>
